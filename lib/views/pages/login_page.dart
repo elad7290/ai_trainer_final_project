@@ -1,6 +1,8 @@
 import 'package:ai_trainer/views/pages/home_page.dart';
+import 'package:ai_trainer/views/pages/register_page.dart';
 import 'package:ai_trainer/views/widgets/sign_up_button_widget.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/login_controller.dart';
 import '../../shared/globals.dart';
@@ -11,7 +13,12 @@ import '../widgets/wave_widget.dart';
 
 class LoginPage extends StatefulWidget {
 
-  const LoginPage({Key? key}) : super(key: key);
+  final VoidCallback onClickedSignUp;
+
+  const LoginPage({
+    Key? key,
+    required this.onClickedSignUp,
+  }) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -48,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future tryLogin() async {
+  Future _login() async {
     // form validation check - email & password
     final isValid = formKey.currentState!.validate();
     if(!isValid) return;
@@ -66,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
     final navigator = Navigator.of(context);
     // try login
     LoginError loginError = await login(emailController.text, passwordController.text);
-    //TODO: handle errors
     switch (loginError) {
       case LoginError.success:
         // on success - navigate to home page
@@ -82,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
         break;
       default:
         navigator.pop(); // stop progress circle
-        print(loginError);
         break;
     }
   }
@@ -154,16 +159,31 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SignInButtonWidget(
                       title: "Login",
-                      onTap: tryLogin,
+                      onTap: _login,
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 24.0,
                     ),
-                    SignUpButtonWidget(
-                      // TODO: on pressed, register
-                      title: "Sign Up",
-                      onTap: () {},
-                    )
+                    RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: Global.white,
+                            fontSize: 20,
+                          ),
+                          text: 'No account? ',
+                          children: [
+                            TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = widget.onClickedSignUp,
+                              text: 'Sign Up',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Global.orange,
+                              ),
+                            ),
+                          ],
+                        ),
+                    ),
                   ],
                 ),
               ),
