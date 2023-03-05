@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "961788590304",
+    "project_id": "ai-trainer-db",
+    "storage_bucket": "ai-trainer-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961788590304:android:40db75ae72e169920e7885",
+        "android_client_info": {
+          "package_name": "com.example.ai_trainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961788590304-d24mdsf17iesfe4l4t80dfghd4nfd8af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_A5gi3Dfh8ncLWAhxfyRK36mR7coI3GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961788590304-d24mdsf17iesfe4l4t80dfghd4nfd8af.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
