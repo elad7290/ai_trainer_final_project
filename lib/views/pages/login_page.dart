@@ -4,12 +4,12 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/login_controller.dart';
 import '../../shared/globals.dart';
+import '../../shared/utils.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
 import '../widgets/wave_widget.dart';
 
 class LoginPage extends StatefulWidget {
-
 
   const LoginPage({Key? key}) : super(key: key);
 
@@ -71,6 +71,14 @@ class _LoginPageState extends State<LoginPage> {
       case LoginError.success:
         // on success - navigate to home page
         navigator.pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+        break;
+      case LoginError.userNotExist:
+        navigator.pop(); // stop progress circle
+        Utils.showSnackBar("Incorrect email or password."); // error message
+        break;
+      case LoginError.errorDbConnection:
+        navigator.pop(); // stop progress circle
+        Utils.showSnackBar("Something went wrong. Please try again later.");
         break;
       default:
         navigator.pop(); // stop progress circle

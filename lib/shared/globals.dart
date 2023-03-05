@@ -7,5 +7,6 @@ class Global {
   static const orange = Colors.orange;
   static const black = Colors.black;
   static const white = Colors.white;
+  static const errorColor = Colors.red;
 
 }

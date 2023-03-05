@@ -1,3 +1,4 @@
+import 'package:ai_trainer/shared/utils.dart';
 import 'package:ai_trainer/views/pages/home_page.dart';
 import 'package:ai_trainer/views/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         home: HomePage(),
       );
     } else {
-      return const MaterialApp(
+      return MaterialApp(
+        scaffoldMessengerKey: Utils.messengerKey,
         debugShowCheckedModeBanner: false,
         home: LoginPage(),
       );
