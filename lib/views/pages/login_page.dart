@@ -1,6 +1,4 @@
 import 'package:ai_trainer/views/pages/home_page.dart';
-import 'package:ai_trainer/views/pages/register_page.dart';
-import 'package:ai_trainer/views/widgets/sign_up_button_widget.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     RichText(
                         text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Global.white,
                             fontSize: 20,
                           ),
@@ -176,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                               recognizer: TapGestureRecognizer()
                                 ..onTap = widget.onClickedSignUp,
                               text: 'Sign Up',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Global.orange,
                               ),
