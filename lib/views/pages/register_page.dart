@@ -7,7 +7,6 @@ import '../../shared/globals.dart';
 import '../../shared/utils.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
-import '../widgets/wave_widget.dart';
 import 'home_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -52,7 +51,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  // TODO: write register function
+  String? validConfirmPassword(String? confPass) {
+    if (confPass != null && confPass != passwordController.text) {
+      return "Passwords are not equal";
+    } else {
+      return null;
+    }
+  }
+
   Future _register() async {
     // form validation check - email & password
     final isValid = formKey.currentState!.validate();
@@ -68,26 +74,15 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ));
     final navigator = Navigator.of(context);
-    // try login
-    LoginError loginError =
-        await login(emailController.text, passwordController.text);
-    switch (loginError) {
-      case LoginError.success:
-        // on success - navigate to home page
-        navigator.pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()));
-        break;
-      case LoginError.userNotExist:
-        navigator.pop(); // stop progress circle
-        Utils.showSnackBar("Incorrect email or password."); // error message
-        break;
-      case LoginError.errorDbConnection:
-        navigator.pop(); // stop progress circle
-        Utils.showSnackBar("Something went wrong. Please try again later.");
-        break;
-      default:
-        navigator.pop(); // stop progress circle
-        break;
+    // try register
+    String? error = await register(emailController.text, passwordController.text);
+    navigator.pop(); // stop progress circle
+    if (error != null) {
+      Utils.showSnackBar(error); // error message
+    } else {
+      // on success - navigate to home page
+      navigator.pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomePage()));
     }
   }
 
@@ -99,68 +94,71 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.all(30.0),
         child: Form(
           key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFieldWidget(
-                hintText: "Email",
-                prefixIconData: Icons.mail_outline,
-                password: false,
-                controller: emailController,
-                validator: validEmail,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              TextFieldWidget(
-                hintText: "Password",
-                prefixIconData: Icons.lock_outline,
-                password: true,
-                controller: passwordController,
-                validator: validPassword,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              // TODO: function to compare passwords
-              TextFieldWidget(
-                hintText: "Confirm Password",
-                prefixIconData: Icons.lock_outline,
-                password: true,
-                controller: confirmPasswordController,
-                validator: null,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              SignInButtonWidget(
-                title: "Sign Up",
-                onTap: _register,
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    color: Global.white,
-                    fontSize: 20,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextFieldWidget(
+                    hintText: "Email",
+                    prefixIconData: Icons.mail_outline,
+                    password: false,
+                    controller: emailController,
+                    validator: validEmail,
                   ),
-                  text: 'Already have an account? ',
-                  children: [
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onClickedLogin,
-                      text: 'Login',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Global.orange,
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldWidget(
+                    hintText: "Password",
+                    prefixIconData: Icons.lock_outline,
+                    password: true,
+                    controller: passwordController,
+                    validator: validPassword,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldWidget(
+                    hintText: "Confirm Password",
+                    prefixIconData: Icons.lock_outline,
+                    password: true,
+                    controller: confirmPasswordController,
+                    validator: validConfirmPassword,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  SignInButtonWidget(
+                    title: "Sign Up",
+                    onTap: _register,
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        color: Global.white,
+                        fontSize: 20,
                       ),
+                      text: 'Already have an account? ',
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = widget.onClickedLogin,
+                          text: 'Login',
+                          style: const TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Global.orange,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

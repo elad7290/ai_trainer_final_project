@@ -19,4 +19,25 @@ Future<LoginError> loginUser({required String email, required String password}) 
     return LoginError.errorDbConnection;
 }
 
+Future<String?> registerUser({required String email, required String password}) async {
+  try {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password);
+  } on FirebaseAuthException catch(e) {
+    return e.message;
+  }
+  return null;
+}
+
+User getUser() {
+  return FirebaseAuth.instance.currentUser!;
+}
+
+void logoutUser() {
+  FirebaseAuth.instance.signOut();
+}
+
+
+
 
