@@ -132,57 +132,61 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(30.0),
               child: Form(
                 key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextFieldWidget(
-                      hintText: "Email",
-                      prefixIconData: Icons.mail_outline,
-                      password: false,
-                      controller: emailController,
-                      validator: validEmail,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFieldWidget(
-                      hintText: "Password",
-                      prefixIconData: Icons.lock_outline,
-                      password: true,
-                      controller: passwordController,
-                      validator: validPassword,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    SignInButtonWidget(
-                      title: "Login",
-                      onTap: _login,
-                    ),
-                    const SizedBox(
-                      height: 24.0,
-                    ),
-                    RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            color: Global.white,
-                            fontSize: 20,
-                          ),
-                          text: 'No account? ',
-                          children: [
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = widget.onClickedSignUp,
-                              text: 'Sign Up',
-                              style: const TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Global.orange,
-                              ),
-                            ),
-                          ],
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        TextFieldWidget(
+                          hintText: "Email",
+                          prefixIconData: Icons.mail_outline,
+                          password: false,
+                          controller: emailController,
+                          validator: validEmail,
                         ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        TextFieldWidget(
+                          hintText: "Password",
+                          prefixIconData: Icons.lock_outline,
+                          password: true,
+                          controller: passwordController,
+                          validator: validPassword,
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        SignInButtonWidget(
+                          title: "Login",
+                          onTap: _login,
+                        ),
+                        const SizedBox(
+                          height: 24.0,
+                        ),
+                        RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                color: Global.white,
+                                fontSize: 20,
+                              ),
+                              text: 'No account? ',
+                              children: [
+                                TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = widget.onClickedSignUp,
+                                  text: 'Sign Up',
+                                  style: const TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Global.orange,
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
