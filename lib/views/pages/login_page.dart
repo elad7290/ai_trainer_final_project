@@ -74,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
     switch (loginError) {
       case LoginError.success:
         // on success - navigate to home page
+        navigator.pop(context.widget);
         navigator.pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
         break;
       case LoginError.userNotExist:
