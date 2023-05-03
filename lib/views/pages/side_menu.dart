@@ -4,26 +4,15 @@ import 'package:ai_trainer/views/widgets/side_menu_tile.dart';
 import 'package:flutter/material.dart';
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({Key? key}) : super(key: key);
+  const SideMenu({Key? key, required this.changePage}) : super(key: key);
+
+  final void Function(dynamic) changePage;
 
   @override
   State<SideMenu> createState() => _SideMenuState();
 }
 
-List<Map<String,dynamic>> menu = [
-  {
-    "icon": Icons.home,
-    "title": "Home",
-  },
-  {
-    "icon": Icons.person,
-    "title": "My Profile",
-  },
-  {
-    "icon": Icons.home,
-    "title": "Home",
-  },
-];
+
 
 class _SideMenuState extends State<SideMenu> {
 
@@ -55,6 +44,7 @@ class _SideMenuState extends State<SideMenu> {
                   setState(() {
                     selectedMenu=m;
                   });
+                  widget.changePage(m);
                 },
                 isActive: selectedMenu==m,
               )

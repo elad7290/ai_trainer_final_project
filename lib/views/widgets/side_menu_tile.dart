@@ -23,6 +23,7 @@ class SideMenuTile extends StatelessWidget {
       children: [
         AnimatedPositioned(
           duration: Duration(milliseconds: 300),
+          curve: Curves.fastOutSlowIn,
           height: 56,
           width: isActive? 288: 0,
           left: 0,

@@ -1,6 +1,6 @@
 import 'package:ai_trainer/shared/utils.dart';
 import 'package:ai_trainer/views/pages/auth_page.dart';
-import 'package:ai_trainer/views/pages/home_page.dart';
+import 'package:ai_trainer/views/pages/entry_point.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     if (FirebaseAuth.instance.currentUser != null) {
       return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: EntryPoint(),
       );
     } else {
       return MaterialApp(

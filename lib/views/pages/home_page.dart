@@ -1,5 +1,4 @@
 import 'package:ai_trainer/views/pages/auth_page.dart';
-import 'package:ai_trainer/views/pages/side_menu.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/login_controller.dart';
 
@@ -15,8 +14,7 @@ class HomePage extends StatelessWidget {
       navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
     }
     //TODO: need to be review again!!!
-    return SideMenu();
-    /*
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Home"),
@@ -63,6 +61,6 @@ class HomePage extends StatelessWidget {
           ),
         ));
 
-     */
+
   }
 }
