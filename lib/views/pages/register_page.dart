@@ -1,3 +1,4 @@
+import 'package:ai_trainer/views/pages/entry_point.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       // on success - navigate to home page
       navigator.pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomePage()));
+          MaterialPageRoute(builder: (context) => EntryPoint()));
     }
   }
 
