@@ -1,4 +1,4 @@
-import 'package:ai_trainer/views/pages/home_page.dart';
+import 'package:ai_trainer/views/pages/entry_point.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
       case LoginError.success:
         // on success - navigate to home page
         navigator.pop(context.widget);
-        navigator.pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+        navigator.pushReplacement(MaterialPageRoute(builder: (context) =>  EntryPoint()));
         break;
       case LoginError.userNotExist:
         navigator.pop(); // stop progress circle
