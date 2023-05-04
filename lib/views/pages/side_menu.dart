@@ -26,30 +26,32 @@ class _SideMenuState extends State<SideMenu> {
         height: double.infinity,
         color: Global.lightBlack,
         child: SafeArea(
-          child: Column(
-            children: [
-              InfoCard(name: "elad", email: "email"),
-              Padding(
-                padding: const EdgeInsets.only(left: 24),
-                child: Divider(
-                  color: Global.lightWhite,
-                  height: 1,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                InfoCard(name: "elad", email: "email"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Divider(
+                    color: Global.lightWhite,
+                    height: 1,
+                  ),
                 ),
-              ),
-              ...menu.map((m) =>
-              SideMenuTile(
-                icon: m['icon'],
-                title: m['title'],
-                press: (){
-                  setState(() {
-                    selectedMenu=m;
-                  });
-                  widget.changePage(m);
-                },
-                isActive: selectedMenu==m,
-              )
-              )
-            ],
+                ...menu.map((m) =>
+                SideMenuTile(
+                  icon: m['icon'],
+                  title: m['title'],
+                  press: (){
+                    setState(() {
+                      selectedMenu=m;
+                    });
+                    widget.changePage(m);
+                  },
+                  isActive: selectedMenu==m,
+                )
+                )
+              ],
+            ),
           ),
         ),
       ),
