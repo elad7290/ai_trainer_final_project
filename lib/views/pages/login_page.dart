@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String? validEmail(String? email) {
-    if (email != null && !EmailValidator.validate(email)){
+    if (email != null && !EmailValidator.validate(email.trim())){
       return "Enter a valid email";
     }
     else{
