@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../../controllers/login_controller.dart';
 import '../../shared/globals.dart';
 import '../../shared/utils.dart';
+import '../widgets/datefield_widget.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
-import 'home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback onClickedLogin;
@@ -25,6 +25,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  //
+  final nameController = TextEditingController();
+  final birthDateController = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -32,7 +38,33 @@ class _RegisterPageState extends State<RegisterPage> {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    //
+    nameController.dispose();
+    birthDateController.dispose();
+    weightController.dispose();
+    heightController.dispose();
+
     super.dispose();
+  }
+
+  String? validWeight(String? height){
+    var h = double.tryParse(height!);
+    if(h == null){
+      return "Enter numbers only";
+    }
+    if(h<0){
+      return "Enter a valid height";
+    }
+  }
+
+  String? validHeight(String? weight){
+    var w = double.tryParse(weight!);
+    if(w == null){
+      return "Enter numbers only";
+    }
+    if(w<0){
+      return "Enter a valid weight";
+    }
   }
 
   String? validEmail(String? email) {
@@ -46,6 +78,14 @@ class _RegisterPageState extends State<RegisterPage> {
   String? validPassword(String? pass) {
     if (pass != null && pass.length < 6) {
       return "Enter min 6 characters";
+    } else {
+      return null;
+    }
+  }
+
+  String? validName(String? name) {
+    if (name != null && name.isEmpty) {
+      return "Enter your name";
     } else {
       return null;
     }
@@ -75,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ));
     final navigator = Navigator.of(context);
     // try register
-    String? error = await register(emailController.text, passwordController.text);
+    String? error = await register(emailController.text, passwordController.text, nameController.text,birthDateController.text,weightController.text,heightController.text);
     navigator.pop(); // stop progress circle
     if (error != null) {
       Utils.showSnackBar(error); // error message
@@ -100,6 +140,48 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextFieldWidget(
+                    textInputType: TextInputType.name,
+                    hintText: "Name",
+                    prefixIconData: Icons.person,
+                    password: false,
+                    controller:nameController,
+                    validator: validName,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  DateFieldWidget(
+                    prefixIconData: Icons.cake,
+                    controller:birthDateController,
+                    validator: validName,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldWidget(
+                    hintText: "Weight",
+                    textInputType: TextInputType.number,
+                    prefixIconData: Icons.monitor_weight,
+                    password: false,
+                    controller:weightController,
+                    validator: validWeight,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldWidget(
+                    hintText: "Height",
+                    textInputType: TextInputType.number,
+                    prefixIconData: Icons.height,
+                    password: false,
+                    controller:heightController,
+                    validator: validHeight,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  TextFieldWidget(
+                    textInputType: TextInputType.emailAddress,
                     hintText: "Email",
                     prefixIconData: Icons.mail_outline,
                     password: false,
@@ -110,6 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 10.0,
                   ),
                   TextFieldWidget(
+                    textInputType: TextInputType.visiblePassword,
                     hintText: "Password",
                     prefixIconData: Icons.lock_outline,
                     password: true,
@@ -120,6 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 10.0,
                   ),
                   TextFieldWidget(
+                    textInputType: TextInputType.visiblePassword,
                     hintText: "Confirm Password",
                     prefixIconData: Icons.lock_outline,
                     password: true,

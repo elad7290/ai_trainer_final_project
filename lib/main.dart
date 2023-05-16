@@ -1,3 +1,4 @@
+import 'package:ai_trainer/shared/globals.dart';
 import 'package:ai_trainer/shared/utils.dart';
 import 'package:ai_trainer/views/pages/auth_page.dart';
 import 'package:ai_trainer/views/pages/entry_point.dart';
@@ -22,15 +23,23 @@ class MyApp extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
-      return const MaterialApp(
+      return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: EntryPoint(),
+        home: const EntryPoint(),
+        theme: ThemeData(
+            primarySwatch: Global.orange,
+            brightness: Brightness.dark
+        ),
       );
     } else {
       return MaterialApp(
         scaffoldMessengerKey: Utils.messengerKey,
         debugShowCheckedModeBanner: false,
         home: const AuthPage(),
+        theme: ThemeData(
+          primarySwatch: Global.orange,
+          brightness: Brightness.dark
+        ),
       );
     }
   }

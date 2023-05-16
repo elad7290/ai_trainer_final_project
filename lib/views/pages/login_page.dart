@@ -145,11 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                           password: false,
                           controller: emailController,
                           validator: validEmail,
+                          textInputType: TextInputType.emailAddress,
                         ),
                         const SizedBox(
                           height: 10.0,
                         ),
                         TextFieldWidget(
+                          textInputType: TextInputType.visiblePassword,
                           hintText: "Password",
                           prefixIconData: Icons.lock_outline,
                           password: true,

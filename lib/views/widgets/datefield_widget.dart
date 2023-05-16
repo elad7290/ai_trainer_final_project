@@ -1,40 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../shared/globals.dart';
 
-class TextFieldWidget extends StatefulWidget {
-  final String hintText;
+class DateFieldWidget extends StatefulWidget {
   final IconData? prefixIconData;
-  final bool password;
   final TextEditingController controller;
   final String? Function(String?)? validator;
-  final TextInputType textInputType;
+
+
 
   //constructor
-  const TextFieldWidget({super.key, required this.hintText, this.prefixIconData,
-    this.password = false, required this.controller,this.validator, required this.textInputType});
+  const DateFieldWidget({super.key, this.prefixIconData,
+     required this.controller,this.validator});
 
   @override
-  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+  State<DateFieldWidget> createState() => _DateFieldWidgetState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
+class _DateFieldWidgetState extends State<DateFieldWidget> {
   bool isVisible = false;
+  DateTime dateTime = DateTime.now();
+
+  String? validator(){
+    var date = DateTime.tryParse(widget.controller.text);
+    if(date == null){
+      return "enter a valid date";
+    }
+    else{
+      if(date.isBefore(DateTime(1960))||date.isAfter(DateTime.now()))
+        {
+          return "enter a valid date";
+        }
+      return null;
+    }
+  }
+
+  void _showDatePicker(){
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1960),
+        lastDate: DateTime.now()
+    ).then((value){
+      setState(() {
+        dateTime = value!;
+        widget.controller.text = DateFormat('yyyy-MM-dd').format(dateTime);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: widget.textInputType,
+      onTap: _showDatePicker,
+      keyboardType: TextInputType.datetime,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (text) => widget.validator != null ? widget.validator!(text) : null, // validate field
+      validator: (text)=>validator(), // validate field
       controller: widget.controller,
-      obscureText: widget.password ? (isVisible? false : true) : false,
+      obscureText: false,
       style: const TextStyle(
         color: Global.orange,
         fontSize: 18.0,
       ),
       cursorColor: Global.orange,
       decoration: InputDecoration(
-          labelText: widget.hintText,
+          labelText: "Birth Date",
           prefixIcon: Icon(
             widget.prefixIconData,
             size: 18,
@@ -51,16 +81,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               color: Global.orange,
             ),
           ),
-          suffixIcon: widget.password? IconButton(
-            onPressed: () {
-              setState(() {
-                isVisible = !isVisible;
-              });
-            },
-            icon: isVisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-            iconSize: 18,
-            color: Global.orange,
-          ) : null,
+          suffixIcon: null,
           labelStyle: const TextStyle(
             color: Global.orange,
           ),
