@@ -26,7 +26,7 @@ List<Map<String,dynamic>> menu = [
   {
     "icon": Icons.sports_gymnastics,
     "title": "Start Workout",
-    "screen": WorkoutPage(),
+    // "screen": WorkoutPage(),
   },
   {
     "icon": Icons.home,

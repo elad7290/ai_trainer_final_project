@@ -1,38 +1,28 @@
-import 'package:ai_trainer/shared/utils.dart';
-import 'package:ai_trainer/views/pages/auth_page.dart';
-import 'package:ai_trainer/views/pages/entry_point.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
+import 'package:camera/camera.dart';
+import 'package:ai_trainer/home.dart';
 
 
+List<CameraDescription>? cameras;
+void main() async { 
 
-void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
-}
+  cameras = await availableCameras();
+  runApp(new MyApp()); 
+  }
+ 
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({ Key? key}) : super(key:key);
 
-   @override
+  @override
   Widget build(BuildContext context) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: EntryPoint(),
-      );
-    } else {
-      return MaterialApp(
-        scaffoldMessengerKey: Utils.messengerKey,
-        debugShowCheckedModeBanner: false,
-        home: const AuthPage(),
-      );
-    }
-  }
+    return MaterialApp(
+      theme: ThemeData(primaryColor:  Colors.deepOrange),
+      debugShowCheckedModeBanner: false,
+      home: Home(),
 
+    );
+  }
 }
+
