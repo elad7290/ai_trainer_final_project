@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 class MyUser {
   final String name;
+  final String email;
   final DateTime birthDate;
   final int level;
   final double weight;
@@ -12,12 +13,13 @@ class MyUser {
   //final Imag pic
 
 
-  MyUser({required this.name, required this.birthDate, required this.level,
+  MyUser({required this.name,required this.email, required this.birthDate, required this.level,
     required this.weight, required this.height });
 
   Map<String, dynamic> toJson() =>
       {
         'name': name,
+        'email': email,
         'birthDate': DateFormat('yyyy-MM-dd').format(birthDate).toString(),
         'level': level.toString(),
         'weight': weight.toString(),
@@ -27,6 +29,7 @@ class MyUser {
   static MyUser fromJson(Map<String, dynamic> json) =>
       MyUser(
         name: json['name'],
+        email: json['email'],
         birthDate: DateTime.parse(json['birthDate']),
         level: int.parse(json['level']),
         weight: double.parse(json['weight']),
