@@ -37,7 +37,7 @@ User get() {
   return getCurrentAuthUser();
 }
 
-Future<MyUser?> getUserInfo() async {
+Future<MyUser?> getUser() async {
   return await getUserInfo();
 }
 

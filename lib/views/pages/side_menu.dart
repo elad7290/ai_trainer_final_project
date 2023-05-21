@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/login_controller.dart';
 import '../../models/user_table.dart';
+import 'auth_page.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key, required this.changePage}) : super(key: key);
@@ -21,6 +22,7 @@ class _SideMenuState extends State<SideMenu> {
 
   Map<String,dynamic> selectedMenu= menu.first;
   MyUser? user;
+  bool isUserInitialized = false;
 
   @override
   void initState() {
@@ -29,11 +31,18 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   void initUser() async {
-    user = await getUserInfo();
+    user = await getUser();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    Future _logout() async{
+      logout();
+      final navigator = Navigator.of(context);
+      navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
+    }
+
     if (user != null){
       return Scaffold(
         body: Container(
@@ -67,6 +76,19 @@ class _SideMenuState extends State<SideMenu> {
                         },
                         isActive: selectedMenu==m,
                       )
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 24),
+                    child: Divider(
+                      color: Global.lightWhite,
+                      height: 1,
+                    ),
+                  ),
+                  SideMenuTile(
+                    icon: Icons.arrow_back,
+                    title: 'Sign Out',
+                    press: _logout,
+                    isActive: false,
                   )
                 ],
               ),
