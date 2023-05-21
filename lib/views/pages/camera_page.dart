@@ -1,6 +1,7 @@
 import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:tflite/tflite.dart';
 
 import '../widgets/excercise_count.dart';
 
@@ -12,6 +13,10 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+
+  CameraImage? cameraImage;
+  String output = '';
+
   late List<CameraDescription> cameras;
   late CameraController camera_controller;
   bool isCameraInitialized = false;
@@ -31,6 +36,10 @@ class _CameraScreenState extends State<CameraScreen> {
       }
       setState(() {
         isCameraInitialized = true;
+        camera_controller.startImageStream((imageStream) {
+          cameraImage = imageStream;
+          runModel();
+        });
       });
     }).catchError((e) {
       print(e);
@@ -47,6 +56,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     initCamera();
+    loadmodel();
     super.initState();
   }
 
@@ -56,6 +66,30 @@ class _CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
+  runModel()async{
+    if(cameraImage!=null) {
+      var predictions = await Tflite.runModelOnFrame(bytesList: cameraImage!.planes.map((plane) {
+        return plane.bytes;
+       }).toList(),
+       imageHeight: cameraImage!.height,
+       imageWidth: cameraImage!.width,
+       imageMean: 127.5,
+       imageStd: 127.5,
+       rotation: 90,
+       numResults: 2,
+       threshold: 0.1,
+       asynch: true);
+       predictions!.forEach((element) {
+        setState(() {
+          output = element['label'];
+        });
+       });
+       
+  }
+  }
+  loadmodel()async{
+    await Tflite.loadModel(model: "assets/model.tflite", labels: "assets/labels.txt");
+ }
   @override
   Widget build(BuildContext context) {
     if (isCameraInitialized && camera_controller.value.isInitialized) {
@@ -78,6 +112,9 @@ class _CameraScreenState extends State<CameraScreen> {
                       ExcerciseCount("Repetitions:   " + repetitions.toString() + " / 30"),
                       SizedBox(height: 10,),
                       ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
+                      SizedBox(height:10,),
+                      ExcerciseCount("Current Excercise:   " + output),
+
                     ],
                   ),
                 ),
