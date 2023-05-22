@@ -3,8 +3,8 @@ import 'package:ai_trainer/views/widgets/info_card.dart';
 import 'package:ai_trainer/views/widgets/side_menu_tile.dart';
 import 'package:flutter/material.dart';
 
-import '../../controllers/login_controller.dart';
-import '../../models/user_table.dart';
+import '../../controllers/user_controller.dart';
+import '../../models/user_model.dart';
 import 'auth_page.dart';
 
 class SideMenu extends StatefulWidget {
@@ -32,6 +32,9 @@ class _SideMenuState extends State<SideMenu> {
 
   void initUser() async {
     user = await getUser();
+    setState(() {
+      isUserInitialized = true;
+    });
   }
 
   @override
@@ -43,7 +46,7 @@ class _SideMenuState extends State<SideMenu> {
       navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
     }
 
-    if (user != null){
+    if (isUserInitialized){
       return Scaffold(
         body: Container(
           width: 288,

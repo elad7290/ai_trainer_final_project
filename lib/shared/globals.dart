@@ -28,11 +28,6 @@ List<Map<String,dynamic>> menu = [
     "title": "Start Workout",
     "screen": WorkoutPage(),
   },
-  {
-    "icon": Icons.home,
-    "title": "Home",
-    "screen": HomePage(),
-  },
 ];
 
 class Global {

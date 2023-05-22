@@ -1,8 +1,9 @@
-import 'package:ai_trainer/models/user_table.dart';
+import 'package:ai_trainer/models/user_model.dart';
 import '../db_access/user_db.dart';
 import '../shared/globals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+//TODO: errors by myself
 Future<LoginError> login(String email, String password) async {
   String? error = await loginUser(email: email.trim(), password: password.trim());
   if (error == null) {

@@ -1,6 +1,6 @@
 import 'package:ai_trainer/views/pages/auth_page.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/login_controller.dart';
+import '../../controllers/user_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

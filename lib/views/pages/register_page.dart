@@ -2,7 +2,7 @@ import 'package:ai_trainer/views/pages/entry_point.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/login_controller.dart';
+import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
 import '../../shared/utils.dart';
 import '../widgets/datefield_widget.dart';

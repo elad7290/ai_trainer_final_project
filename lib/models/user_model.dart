@@ -21,9 +21,9 @@ class MyUser {
         'name': name,
         'email': email,
         'birthDate': DateFormat('yyyy-MM-dd').format(birthDate).toString(),
-        'level': level.toString(),
-        'weight': weight.toString(),
-        'height': height.toString(),
+        'level': level,
+        'weight': weight,
+        'height': height,
       };
 
   static MyUser fromJson(Map<String, dynamic> json) =>
@@ -31,9 +31,9 @@ class MyUser {
         name: json['name'],
         email: json['email'],
         birthDate: DateTime.parse(json['birthDate']),
-        level: int.parse(json['level']),
-        weight: double.parse(json['weight']),
-        height: double.parse(json['height']),
+        level: json['level'],
+        weight: json['weight'],
+        height: json['height'],
       );
 }
 
