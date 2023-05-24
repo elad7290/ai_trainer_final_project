@@ -1,3 +1,4 @@
+import 'package:ai_trainer/models/user_model.dart';
 import 'package:ai_trainer/views/pages/home_page.dart';
 import 'package:ai_trainer/views/pages/info_page.dart';
 import 'package:ai_trainer/views/pages/my_profile.dart';
@@ -10,23 +11,23 @@ List<Map<String,dynamic>> menu = [
   {
     "icon": Icons.home,
     "title": "Home",
-    "screen": HomePage(),
+    "screen": (MyUser user)=> HomePage(user: user,),
   },
   {
     "icon": Icons.person,
     "title": "My Profile",
-    "screen": MyProfile(),
+    "screen": (MyUser user) => MyProfile(user: user,),
 
   },
   {
     "icon": Icons.info,
     "title": "Information",
-    "screen": Info(),
+    "screen": (MyUser user) => Info(user: user,),
   },
   {
     "icon": Icons.sports_gymnastics,
     "title": "Start Workout",
-    "screen": WorkoutPage(),
+    "screen": (MyUser user) => WorkoutPage(user: user),
   },
 ];
 

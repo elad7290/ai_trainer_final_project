@@ -8,8 +8,9 @@ import '../../models/user_model.dart';
 import 'auth_page.dart';
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({Key? key, required this.changePage}) : super(key: key);
+  const SideMenu({Key? key, required this.changePage, required this.user}) : super(key: key);
 
+  final MyUser user;
   final void Function(dynamic) changePage;
 
   @override
@@ -21,20 +22,11 @@ class SideMenu extends StatefulWidget {
 class _SideMenuState extends State<SideMenu> {
 
   Map<String,dynamic> selectedMenu= menu.first;
-  MyUser? user;
-  bool isUserInitialized = false;
+
 
   @override
   void initState() {
-    initUser();
     super.initState();
-  }
-
-  void initUser() async {
-    user = await getUser();
-    setState(() {
-      isUserInitialized = true;
-    });
   }
 
   @override
@@ -45,62 +37,58 @@ class _SideMenuState extends State<SideMenu> {
       final navigator = Navigator.of(context);
       navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
     }
-
-    if (isUserInitialized){
-      return Scaffold(
-        body: Container(
-          width: 288,
-          height: double.infinity,
-          color: Global.lightBlack,
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  InfoCard(
-                      name: user!.name,
-                      email: user!.email,
+    return Scaffold(
+      body: Container(
+        width: 288,
+        height: double.infinity,
+        color: Global.lightBlack,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                InfoCard(
+                    name: widget.user.name,
+                    email: widget.user.email,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Divider(
+                    color: Global.lightWhite,
+                    height: 1,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24),
-                    child: Divider(
-                      color: Global.lightWhite,
-                      height: 1,
-                    ),
+                ),
+                ...menu.map((m) =>
+                    SideMenuTile(
+                      icon: m['icon'],
+                      title: m['title'],
+                      press: (){
+                        setState(() {
+                          selectedMenu=m;
+                        });
+                        widget.changePage(m);
+                      },
+                      isActive: selectedMenu==m,
+                    )
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 24),
+                  child: Divider(
+                    color: Global.lightWhite,
+                    height: 1,
                   ),
-                  ...menu.map((m) =>
-                      SideMenuTile(
-                        icon: m['icon'],
-                        title: m['title'],
-                        press: (){
-                          setState(() {
-                            selectedMenu=m;
-                          });
-                          widget.changePage(m);
-                        },
-                        isActive: selectedMenu==m,
-                      )
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 24),
-                    child: Divider(
-                      color: Global.lightWhite,
-                      height: 1,
-                    ),
-                  ),
-                  SideMenuTile(
-                    icon: Icons.arrow_back,
-                    title: 'Sign Out',
-                    press: _logout,
-                    isActive: false,
-                  )
-                ],
-              ),
+                ),
+                SideMenuTile(
+                  icon: Icons.arrow_back,
+                  title: 'Sign Out',
+                  press: _logout,
+                  isActive: false,
+                )
+              ],
             ),
           ),
         ),
-      );
-    } else {
-      return const SizedBox();
-    }
+      ),
+    );
+
   }
 }

@@ -1,9 +1,11 @@
+import 'package:ai_trainer/models/user_model.dart';
 import 'package:ai_trainer/views/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/user_controller.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.user}) : super(key: key);
+  final MyUser? user;
 
   @override
   Widget build(BuildContext context) {
