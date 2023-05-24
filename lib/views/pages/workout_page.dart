@@ -5,6 +5,7 @@ import 'package:ai_trainer/views/pages/video_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../controllers/plan_controller.dart';
+import '../../shared/globals.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key, required this.user}) : super(key: key);
@@ -27,40 +28,56 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void initPlan() async {
     plan = await getPlan(widget.user);
     setState(() {
-      isPlanInitialized = true;
+      if (plan != null){
+        isPlanInitialized = true;
+      }
     });
   }
 
-  void nevigateToVideoPage(Exercise exercise) {
+  void navigateToVideoPage(Exercise exercise) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => VideoPage(exercise: exercise)),
     );
   }
 
+
+  //TODO: if user level = 0 then navigate to questionaire
   @override
   Widget build(BuildContext context) {
-    if (isPlanInitialized) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Workout'),
-        ),
-        body: ListView.builder(
-          itemCount: plan!.exercises.length,
-          itemBuilder: (BuildContext context, int index) {
-            Exercise exercise = plan!.exercises[index];
-            return ListTile(
-              title: Text(exercise.name),
-              onTap: () => nevigateToVideoPage(exercise),
-            );
-          },
+      return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+                'Weekly Workout',
+                textAlign: TextAlign.center,
+              style: TextStyle(color: Global.orange),
+            ),
+            centerTitle: true,
+          ),
+          body: isPlanInitialized ?
+          ListView.builder(
+            itemCount: plan!.exercises.length,
+            itemBuilder: (BuildContext context, int index) {
+              Exercise exercise = plan!.exercises[index];
+              return GestureDetector(
+                onTap: () => navigateToVideoPage(exercise),
+                child: Container(
+
+                  child: ListTile(
+                    title: Text(
+                      exercise.name,
+                      style: TextStyle(fontSize: 22.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    selectedTileColor: Global.orange,
+                  ),
+                ),
+              );
+            },
+          )
+          : const SizedBox(),
         ),
       );
-    }
-    else{
-      return const SizedBox();
-    }
-
-    return VideoPage(exercise: Exercise(name: 'hi', tools: 'tools', videoURL: 'https://firebasestorage.googleapis.com/v0/b/ai-trainer-db.appspot.com/o/training_videos%2Fpexels-artem-podrez-5752729-3840x2160-30fps.mp4?alt=media&token=3bfa0fa9-730a-4d58-8b9f-a599f35b2a89'));
   }
 }
