@@ -11,8 +11,8 @@ class PlanDB {
       var planRef = db.collection('plans');
       var query = planRef.where("level", isEqualTo: user.level).limit(1);
       var snapshot = await query.get();
-      final data = snapshot.docs[0] as Map<String, dynamic>;
-      Plan plan = Plan.fromJson(data);
+      final data = snapshot.docs[0].data() as Map<String, dynamic>;
+      Plan plan = await Plan.fromJson(data);
       return plan;
     } catch (e) {
       print(e);

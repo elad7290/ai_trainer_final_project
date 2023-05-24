@@ -35,7 +35,7 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
 
     void startWorkOut(){
-
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CameraScreen()),
