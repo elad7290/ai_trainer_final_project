@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/plan_controller.dart';
 import '../../shared/globals.dart';
+import 'fitness_questionnaire.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key, required this.user}) : super(key: key);
@@ -42,42 +43,43 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
 
-  //TODO: if user level = 0 then navigate to questionaire
   @override
   Widget build(BuildContext context) {
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-                'Weekly Workout',
-                textAlign: TextAlign.center,
-              style: TextStyle(color: Global.orange),
-            ),
-            centerTitle: true,
-          ),
-          body: isPlanInitialized ?
-          ListView.builder(
-            itemCount: plan!.exercises.length,
-            itemBuilder: (BuildContext context, int index) {
-              Exercise exercise = plan!.exercises[index];
-              return GestureDetector(
-                onTap: () => navigateToVideoPage(exercise),
-                child: Container(
+    if (widget.user.level <= 0){
+      return FitnessQuestionnaire();
+    }
 
-                  child: ListTile(
-                    title: Text(
-                      exercise.name,
-                      style: TextStyle(fontSize: 22.0),
-                      textAlign: TextAlign.center,
-                    ),
-                    selectedTileColor: Global.orange,
-                  ),
-                ),
-              );
-            },
-          )
-          : const SizedBox(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+            'Weekly Workout',
+            textAlign: TextAlign.center,
+          style: TextStyle(color: Global.orange),
         ),
-      );
+        centerTitle: true,
+      ),
+      body: isPlanInitialized ?
+      ListView.builder(
+        itemCount: plan!.exercises.length,
+        itemBuilder: (BuildContext context, int index) {
+          Exercise exercise = plan!.exercises[index];
+          return GestureDetector(
+            onTap: () => navigateToVideoPage(exercise),
+            child: Container(
+
+              child: ListTile(
+                title: Text(
+                  exercise.name,
+                  style: TextStyle(fontSize: 22.0),
+                  textAlign: TextAlign.center,
+                ),
+                selectedTileColor: Global.orange,
+              ),
+            ),
+          );
+        },
+      )
+      : const SizedBox(),
+    );
   }
 }
