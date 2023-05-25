@@ -16,7 +16,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   CameraImage? cameraImage;
   String output = '';
-
+  String test = 'hello';
   late List<CameraDescription> cameras;
   late CameraController camera_controller;
   bool isCameraInitialized = false;
@@ -24,6 +24,9 @@ class _CameraScreenState extends State<CameraScreen> {
 
   int repetitions = 0;
   int sets = 0;
+
+  bool isProcessing = false; // Flag to track inference status
+
 
   void initCamera() async {
     cameras = await availableCameras();
@@ -65,27 +68,38 @@ class _CameraScreenState extends State<CameraScreen> {
     camera_controller.dispose();
     super.dispose();
   }
+var latestPrediction = '';
+runModel() async {
+    if (cameraImage != null && !isProcessing) { // Check if inference is not already in progress
+      setState(() {
+        isProcessing = true; // Set the flag to indicate that inference is in progress
+      });
 
-  runModel()async{
-    if(cameraImage!=null) {
-      var predictions = await Tflite.runModelOnFrame(bytesList: cameraImage!.planes.map((plane) {
-        return plane.bytes;
-       }).toList(),
-       imageHeight: cameraImage!.height,
-       imageWidth: cameraImage!.width,
-       imageMean: 127.5,
-       imageStd: 127.5,
-       rotation: 90,
-       numResults: 2,
-       threshold: 0.1,
-       asynch: true);
-       predictions!.forEach((element) {
+      var predictions = await Tflite.runModelOnFrame(
+        bytesList: cameraImage!.planes.map((plane) {
+          return plane.bytes;
+        }).toList(),
+        imageHeight: cameraImage!.height,
+        imageWidth: cameraImage!.width,
+        imageMean: 127.5,
+        imageStd: 127.5,
+        rotation: 90,
+        numResults: 2,
+        threshold: 0.1,
+        asynch: true,
+      );
+
+      if (predictions != null && predictions.isNotEmpty) {
         setState(() {
-          output = element['label'];
+          latestPrediction = predictions[0]['label'];
+          print("Latest Prediction: $latestPrediction");
         });
-       });
-       
-  }
+      }
+
+      setState(() {
+        isProcessing = false; // Set the flag to indicate that inference is completed
+      });
+    }
   }
   loadmodel()async{
     await Tflite.loadModel(model: "assets/model.tflite", labels: "assets/labels.txt");
