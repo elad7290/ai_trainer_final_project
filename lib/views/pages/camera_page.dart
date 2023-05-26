@@ -2,7 +2,7 @@ import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
-
+import 'dart:async';
 import '../widgets/excercise_count.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -13,26 +13,23 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-
   CameraImage? cameraImage;
-  String output = '';
-  String test = 'hello';
+  var threshold = 0.8;
   late List<CameraDescription> cameras;
   late CameraController camera_controller;
   bool isCameraInitialized = false;
   int direction = 1;
-
   int repetitions = 0;
   int sets = 0;
-
   bool isProcessing = false; // Flag to track inference status
+  int inferenceDelay = 1000; // Delay in milliseconds (1 second)
 
+  Timer? timer;
+  var latestPrediction = '';
 
   void initCamera() async {
     cameras = await availableCameras();
-    camera_controller = CameraController(
-        cameras[direction], ResolutionPreset.high,
-        enableAudio: false);
+    camera_controller = CameraController(cameras[direction], ResolutionPreset.high, enableAudio: false);
     await camera_controller.initialize().then((value) {
       if (!mounted) {
         return;
@@ -41,7 +38,6 @@ class _CameraScreenState extends State<CameraScreen> {
         isCameraInitialized = true;
         camera_controller.startImageStream((imageStream) {
           cameraImage = imageStream;
-          runModel();
         });
       });
     }).catchError((e) {
@@ -61,18 +57,24 @@ class _CameraScreenState extends State<CameraScreen> {
     initCamera();
     loadmodel();
     super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (!isProcessing) {
+        runModel();
+      }
+    });
   }
 
   @override
   void dispose() {
     camera_controller.dispose();
+    timer?.cancel(); // Cancel the timer
     super.dispose();
   }
-var latestPrediction = '';
-runModel() async {
-    if (cameraImage != null && !isProcessing) { // Check if inference is not already in progress
+
+  runModel() async {
+    if (cameraImage != null && !isProcessing) {
       setState(() {
-        isProcessing = true; // Set the flag to indicate that inference is in progress
+        isProcessing = true;
       });
 
       var predictions = await Tflite.runModelOnFrame(
@@ -97,13 +99,15 @@ runModel() async {
       }
 
       setState(() {
-        isProcessing = false; // Set the flag to indicate that inference is completed
+        isProcessing = false;
       });
     }
   }
-  loadmodel()async{
+
+  loadmodel() async {
     await Tflite.loadModel(model: "assets/model.tflite", labels: "assets/labels.txt");
- }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isCameraInitialized && camera_controller.value.isInitialized) {
@@ -112,9 +116,10 @@ runModel() async {
           body: Stack(
             children: [
               Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: CameraPreview(camera_controller)),
+                height: double.infinity,
+                width: double.infinity,
+                child: CameraPreview(camera_controller),
+              ),
               FlipCameraButton(flip),
               Padding(
                 padding: EdgeInsets.all(10),
@@ -122,18 +127,15 @@ runModel() async {
                   alignment: Alignment.topRight,
                   child: Column(
                     children: [
-                      //TODO: take sets and rep from DB
                       ExcerciseCount("Repetitions:   " + repetitions.toString() + " / 30"),
                       SizedBox(height: 10,),
                       ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
-                      SizedBox(height:10,),
-                      ExcerciseCount("Current Excercise:   " + output),
-
+                      SizedBox(height: 10,),
+                      ExcerciseCount("Current Exercise:   " + latestPrediction),
                     ],
                   ),
                 ),
-              )
-
+              ),
             ],
           ),
         ),
