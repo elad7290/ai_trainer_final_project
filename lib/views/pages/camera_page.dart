@@ -94,6 +94,17 @@ class _CameraScreenState extends State<CameraScreen> {
       if (predictions != null && predictions.isNotEmpty) {
         setState(() {
           latestPrediction = predictions[0]['label'];
+          var confidence = predictions[0]['confidence'];
+
+      if (confidence > 0.85) {
+        setState(() {
+          latestPrediction = predictions[0]['label'];
+        });
+      } else {
+        setState(() {
+          latestPrediction = 'undetected';
+        });
+      }
           print("Latest Prediction: $latestPrediction");
         });
       }
@@ -118,6 +129,12 @@ class _CameraScreenState extends State<CameraScreen> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
+                decoration: BoxDecoration(
+                border: Border.all(
+                  color: latestPrediction != 'undetected' ? Colors.green : Colors.red,
+                  width: 4,
+                ),
+              ),
                 child: CameraPreview(camera_controller),
               ),
               FlipCameraButton(flip),

@@ -1,2 +1,2 @@
-0 open
-1 close
+0 Squats
+1 bicep curls
