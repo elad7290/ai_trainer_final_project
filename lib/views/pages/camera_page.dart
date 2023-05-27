@@ -6,7 +6,9 @@ import 'dart:async';
 import '../widgets/excercise_count.dart';
 
 class CameraScreen extends StatefulWidget {
-  const CameraScreen({Key? key}) : super(key: key);
+  final String selectedValue; 
+
+  const CameraScreen({Key? key, required this.selectedValue}) : super(key: key);
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -149,6 +151,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
                       SizedBox(height: 10,),
                       ExcerciseCount("Current Exercise:   " + latestPrediction),
+                      ExcerciseCount(widget.selectedValue),
                     ],
                   ),
                 ),
