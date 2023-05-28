@@ -34,6 +34,7 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
 
+    //TODO: here send to CameraScreen the exercise
     void startWorkOut(){
       Navigator.pop(context);
       Navigator.push(
@@ -116,33 +117,6 @@ class _VideoPageState extends State<VideoPage> {
             ],
           ),
         ),
-      ),
-    );
-
-
-
-
-
-
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Get ready to work!'),
-        ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8,),
-          Expanded(
-              child: AspectRatio(
-                aspectRatio: 16/9,
-                child: BetterPlayer(
-                  key: betterPlayerKey,
-                  controller: betterPlayerController,
-                ),
-              )
-          ),
-
-        ],
       ),
     );
   }
