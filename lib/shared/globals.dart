@@ -41,4 +41,10 @@ class Global {
   static const white = Colors.white;
   static const errorColor = Colors.red;
 
+  static const white10 = Colors.white10;
+  static const redAccent = Colors.redAccent;
+  static const black54 = Colors.black54;
+  static const white54 = Colors.white54;
+
+
 }

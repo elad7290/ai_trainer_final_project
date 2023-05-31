@@ -1,7 +1,8 @@
 import 'package:ai_trainer/models/user_model.dart';
-import 'package:ai_trainer/views/pages/auth_page.dart';
+import 'package:ai_trainer/views/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/user_controller.dart';
+import '../../controllers/progress_controller.dart';
+import '../../shared/globals.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -9,60 +10,37 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = get();
-    Future _logout() async{
-      logout();
-      final navigator = Navigator.of(context);
-      navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
-    }
-    //TODO: need to be review again!!!
-
+    final progressPoints = getProgressPoint();
     return Scaffold(
         appBar: AppBar(
           title: const Text("Home"),
           automaticallyImplyLeading: false,
         ),
-        body: Padding(
-          padding: EdgeInsets.all(32),
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Signed in as',
-                style: TextStyle(fontSize: 16),
+                "data",
+                style: TextStyle(fontSize: 14, color: Global.orange),
               ),
               const SizedBox(
-                height: 8,
+                height: 15.0,
               ),
-              Text(
-                user.email!,
-                style: const TextStyle(
-                  fontSize: 20,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3,
+                margin: EdgeInsets.all(8.0),
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Global.white54,
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
+                child: LineChartWidget(points: progressPoints),
               ),
-              const SizedBox(
-                height: 40,
-              ),
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size.fromHeight(50),
-                  ),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 32,
-                  ),
-                  label: const Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                onPressed: _logout,
-              )
             ],
           ),
         ));
-
-
   }
 }

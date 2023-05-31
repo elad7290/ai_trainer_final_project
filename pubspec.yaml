@@ -46,6 +46,8 @@ dependencies:
   validators: ^3.0.0
   cloud_firestore: ^4.7.1
   better_player: ^0.0.83
+  fl_chart: ^0.62.0
+
 
 dev_dependencies:
   flutter_test:
