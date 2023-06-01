@@ -1,9 +1,13 @@
+import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
 
 class FitnessQuestionnaire extends StatefulWidget {
-  const FitnessQuestionnaire({Key? key}) : super(key: key);
+  final MyUser user;
+  final Function levelUpdated;
+  const FitnessQuestionnaire({Key? key, required this.user, required this.levelUpdated}) : super(key: key);
 
 
   @override
@@ -96,7 +100,28 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
     } else {
       _fitnessLevel = "Beginner";
     }
-    //TODO: save users level
+    saveUserLevel();
+  }
+
+  void saveUserLevel() async{
+    int level = 0;
+    switch(_fitnessLevel){
+      case "Beginner":
+        level = 1;
+        break;
+      case "Intermediate":
+        level = 2;
+        break;
+      case "Advanced":
+        level = 3;
+        break;
+    }
+    await changeUserLevel(widget.user, level);
+    widget.levelUpdated();
+  }
+
+  void out() {
+    Navigator.pop(context);
   }
 
   @override
@@ -166,9 +191,7 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
                   ),
                   SizedBox(height: 16.0,),
                   ElevatedButton(
-                    onPressed: () {
-                      //TODO: Handle "Done" button pressed -> nevigate
-                    },
+                    onPressed: out,
                     child: Text('Done', style: TextStyle(fontSize: 22),),
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all(Size(250.0, 50.0),),

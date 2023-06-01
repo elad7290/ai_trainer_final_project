@@ -5,7 +5,7 @@ class MyUser {
   final String name;
   final String email;
   final DateTime birthDate;
-  final int level;
+  int level;
   final double weight;
   final double height;
 

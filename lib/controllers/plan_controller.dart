@@ -11,7 +11,8 @@ Future<Plan?> getPlan(MyUser user) async {
     //TODO: navigate to questionnaire
     return null;
   }
+}
 
-
-
+Future<List<String>> getExercisesID(MyUser user) async {
+  return await PlanDB.getPlanExercisesID(user);
 }

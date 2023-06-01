@@ -2,7 +2,8 @@ import 'package:ai_trainer/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<String?> loginUser({required String email, required String password}) async {
+Future<String?> loginUser(
+    {required String email, required String password}) async {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
   try {
@@ -77,4 +78,32 @@ Future<User?> getAuthUser(String email, String password) async {
 
 void logoutUser() {
   FirebaseAuth.instance.signOut();
+}
+
+Future<MyUser?> getUserFromRef(DocumentReference<Map<String, dynamic>> userRef) async {
+  var snapshot = await userRef.get();
+  if (snapshot.exists) {
+    try {
+      final data = snapshot.data() as Map<String, dynamic>;
+      MyUser user = MyUser.fromJson(data);
+      return user;
+    } catch (e) {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+Future changeLevel(int level) async{
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    var userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+    userRef.update({
+      'level': level
+    });
+  } catch (e) {
+    print(e.toString());
+  }
+
 }

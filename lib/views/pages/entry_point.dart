@@ -1,11 +1,9 @@
-
 import 'dart:math';
 import 'package:ai_trainer/shared/globals.dart';
 import 'package:ai_trainer/views/pages/home_page.dart';
 import 'package:ai_trainer/views/pages/side_menu.dart';
 import 'package:ai_trainer/views/widgets/menu_button_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../controllers/user_controller.dart';
 import '../../models/user_model.dart';
 
@@ -58,6 +56,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
         CurvedAnimation(parent: _animationController,
             curve: Curves.fastOutSlowIn));
     current_page = HomePage(user: user,);
+
     super.initState();
   }
 

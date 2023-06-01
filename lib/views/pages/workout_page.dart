@@ -1,10 +1,8 @@
 import 'package:ai_trainer/models/exercise_model.dart';
-import 'package:ai_trainer/models/plan_model.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:ai_trainer/views/pages/video_page.dart';
 import 'package:flutter/material.dart';
-
-import '../../controllers/plan_controller.dart';
+import '../../controllers/exercise_controller.dart';
 import '../../shared/globals.dart';
 import 'fitness_questionnaire.dart';
 
@@ -17,20 +15,20 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  Plan? plan;
-  bool isPlanInitialized = false;
+  List<Exercise>? exercises;
+  bool isExercisesInitialized = false;
 
   @override
   void initState() {
-    initPlan();
+    initExercises();
     super.initState();
   }
 
-  void initPlan() async {
-    plan = await getPlan(widget.user);
+  void initExercises() async {
+    exercises = await getExercises();
     setState(() {
-      if (plan != null){
-        isPlanInitialized = true;
+      if (exercises != null){
+        isExercisesInitialized = true;
       }
     });
   }
@@ -42,13 +40,19 @@ class _WorkoutPageState extends State<WorkoutPage> {
     );
   }
 
+  void navigateToQuestionnaire() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FitnessQuestionnaire(user: widget.user, levelUpdated: levelUpdated,)),
+    );
+  }
+
+  void levelUpdated() {
+    initExercises();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.user.level <= 0){
-      return FitnessQuestionnaire();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -58,11 +62,42 @@ class _WorkoutPageState extends State<WorkoutPage> {
         ),
         centerTitle: true,
       ),
-      body: isPlanInitialized ?
+      body: widget.user.level <= 0 ?
+      Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20,),
+            const Text(
+              "To determine your level please fill out a questionnaire",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              alignment: Alignment.centerRight,
+              width: 250,
+              child: ElevatedButton(
+                onPressed: navigateToQuestionnaire,
+                child: Row(
+                    children: const [
+                      Text('Fill The Questionnaire', style: TextStyle(fontSize: 16,)),
+                      Icon(Icons.arrow_right),
+                    ]
+                ),
+              ),
+            ),
+          ],
+        ),
+      )
+      :
+      isExercisesInitialized ?
       ListView.builder(
-        itemCount: plan!.exercises.length,
+        itemCount: exercises!.length,
         itemBuilder: (BuildContext context, int index) {
-          Exercise exercise = plan!.exercises[index];
+          Exercise exercise = exercises![index];
           return GestureDetector(
             onTap: () => navigateToVideoPage(exercise),
             child: Container(
@@ -79,7 +114,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
           );
         },
       )
-      : const SizedBox(),
+      :
+      const SizedBox(),
     );
   }
 }

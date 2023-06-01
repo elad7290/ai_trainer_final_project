@@ -1,3 +1,4 @@
+import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import '../db_access/user_db.dart';
 import '../shared/globals.dart';
@@ -44,4 +45,19 @@ Future<MyUser?> getUser() async {
 
 void logout() {
   logoutUser();
+}
+
+Future<MyUser?> getUserByRef(dynamic userRef) async{
+  var u = await getUserFromRef(userRef);
+  if (u==null){
+    print("error in getUserByRef");
+  }
+  return u;
+}
+
+Future changeUserLevel(MyUser user, int level) async{
+  await changeLevel(level);
+  user.level = level;
+  delete();
+  initial(user);
 }

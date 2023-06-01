@@ -1,13 +1,10 @@
-import 'package:ai_trainer/models/exercise_model.dart';
-
-import '../controllers/exercise_controller.dart';
 
 class Plan {
   final int level;
   final int repetitions;
   final int sets;
   final String information;
-  final List<Exercise> exercises;
+  final List<String> exercises;
 
 
   Plan({required this.level, required this.repetitions, required this.sets,
@@ -19,19 +16,17 @@ class Plan {
         'repetitions': repetitions,
         'sets': sets,
         'information': information,
-        'exercises': exercises.map((data) => data.toJson()).toList(),
+        'exercises': exercises,
       };
 
-  static Future<Plan> fromJson(Map<String, dynamic> json) async{
-    var exercises = await getExercisesByRef(json['exercises']);
-    return Plan(
+  static Plan fromJson(Map<String, dynamic> json) =>
+     Plan(
       level: json['level'],
       repetitions: json['repetitions'],
       sets: json['sets'],
       information: json['information'],
-      exercises: exercises,
+      exercises: json['exercises'],
     );
-  }
 
 }
 
