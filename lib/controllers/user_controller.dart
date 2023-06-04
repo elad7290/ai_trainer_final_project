@@ -77,8 +77,8 @@ Future changeUserLevel(MyUser user, int level) async{
   try {
     await UserDB.changeLevel(level);
     user.level = level;
-    await delete();
-    await initial(user);
+    await deleteExercises();
+    await initialExercises(user);
   } catch (e){
     print(e.toString());
   }
