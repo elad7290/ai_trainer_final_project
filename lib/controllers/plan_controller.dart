@@ -4,15 +4,21 @@ import '../db_access/plan_db.dart';
 import '../models/plan_model.dart';
 
 Future<Plan?> getPlan(MyUser user) async {
-  if (user.level > 0) {
-    return await PlanDB.getPlanInfo(user);
+  try {
+    if (user.level > 0) {
+      return await PlanDB.getPlanInfo(user);
+    }
+  } catch (e) {
+    print(e.toString());
   }
-  else {
-    //TODO: navigate to questionnaire
-    return null;
-  }
+  return null;
 }
 
 Future<List<String>> getExercisesID(MyUser user) async {
-  return await PlanDB.getPlanExercisesID(user);
+  try {
+    return await PlanDB.getPlanExercisesID(user);
+  } catch (e) {
+    print(e.toString());
+    return [];
+  }
 }
