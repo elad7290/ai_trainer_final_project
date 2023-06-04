@@ -22,22 +22,27 @@ Future<User?> login(String email, String password) async {
 }
 
 Future<String?> register(String email, String password, String name, String birthDate, String weight, String height) async {
-  String? s = await UserDB.register(email: email.trim(), password: password.trim());
-  if (s != null) {
-    return s;
+  try {
+    User? authUser = await UserDB.register(email: email.trim(), password: password.trim());
+    if (authUser != null) {
+      MyUser myUser = MyUser(name: name,
+          email: email.trim(),
+          birthDate: DateTime.parse(birthDate),
+          level: 0,
+          weight: double.parse(weight),
+          height: double.parse(height),
+          progress_points: []);
+      try {
+        await UserDB.createDoc(myUser, authUser);
+      } catch (e) {
+        UserDB.deleteAuthUser(authUser);
+        return e.toString();
+      }
+    }
+  } on FirebaseAuthException catch (e) {
+    return e.message;
   }
-  User? autUser = await UserDB.getAuthUser(email.trim(), password.trim());
-  if (autUser == null) {
-    return "error";
-  }
-  MyUser myUser = MyUser(name: name,
-      email: email.trim(),
-      birthDate: DateTime.parse(birthDate),
-      level: 0,
-      weight: double.parse(weight),
-      height: double.parse(height),
-      progress_points: []);
-  return await UserDB.createDoc(myUser, autUser);
+  return null;
 }
 
 User get() {

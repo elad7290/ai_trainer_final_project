@@ -14,30 +14,25 @@ class UserDB {
     return user;
   }
 
-  static Future<String?> register({required String email, required String password}) async {
-    try {
-      await auth.createUserWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-    return null;
+  static Future<User?> register({required String email, required String password}) async {
+    UserCredential userCredential =  await auth.createUserWithEmailAndPassword(email: email, password: password);
+    return userCredential.user;
   }
 
-  static Future<String?> createDoc(MyUser user, User authUser) async {
+  static Future createDoc(MyUser user, User authUser) async {
     var uid = authUser.uid;
     var userRef = db.collection('users').doc(uid);
     var snapshot = await userRef.get();
     if (!snapshot.exists) {
-      try {
-        var jsonUser = user.toJson();
-        userRef.set(jsonUser);
-      } catch (e) {
-        return e.toString();
-      }
-      return null;
+      var jsonUser = user.toJson();
+      userRef.set(jsonUser);
     } else {
-      return "user didnt added";
+      print("user didnt added");
     }
+  }
+
+  static Future deleteAuthUser(User authUser) async{
+    await authUser.delete();
   }
 
   static Future<MyUser?> getInfo() async {
