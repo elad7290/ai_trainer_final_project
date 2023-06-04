@@ -1,8 +1,8 @@
 class ProgressPoint{
-  final int month;
+  final int week;
   final double percent;
 
-  ProgressPoint({required this.month, required this.percent});
+  ProgressPoint({required this.week, required this.percent});
 
 }
 

@@ -68,11 +68,11 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           border: Border.all(color: Global.black),
         ),
         minY: 0,
-        maxY: 100,
+        maxY: 103,
         lineBarsData: [
           LineChartBarData(
             spots: widget.points
-                .map((point) => FlSpot(point.month.toDouble(), point.percent))
+                .map((point) => FlSpot(point.week.toDouble(), point.percent))
                 .toList(),
             isCurved: true,
             gradient: LinearGradient(

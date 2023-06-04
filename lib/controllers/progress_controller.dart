@@ -2,12 +2,9 @@ import '../models/progress_point.dart';
 
 //TODO: fix this!!
 // static data need be dynamic in the further
-List<ProgressPoint> getProgressPoint(){
-  final List<ProgressPoint> data = [];
-  data.add(ProgressPoint(month: 1, percent: 20));
-  data.add(ProgressPoint(month: 2, percent: 37));
-  data.add(ProgressPoint(month: 3, percent: 58));
-  data.add(ProgressPoint(month: 4, percent: 85));
-  data.add(ProgressPoint(month: 5, percent: 98));
+List<ProgressPoint> getProgressPoint() {
+  final List<double> percents = [15, 13, 34, 56, 56, 87, 12, 33, 99, 90];
+  final List<ProgressPoint> data = percents
+      .asMap().entries.map((e) => ProgressPoint(week: e.key, percent: e.value)).toList();
   return data;
 }

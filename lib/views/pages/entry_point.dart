@@ -55,7 +55,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
     scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(
         CurvedAnimation(parent: _animationController,
             curve: Curves.fastOutSlowIn));
-    current_page = HomePage(user: user,);
+
 
     super.initState();
   }
@@ -63,7 +63,10 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
   void initUser() async {
     user = await getUser();
     setState(() {
-      isUserInitialized = true;
+      if(user!= null){
+        isUserInitialized = true;
+        current_page = HomePage(user: user,);
+      }
     });
   }
 

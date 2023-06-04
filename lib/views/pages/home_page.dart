@@ -1,7 +1,6 @@
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:ai_trainer/views/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/progress_controller.dart';
 import '../../shared/globals.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,7 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressPoints = getProgressPoint();
     return Scaffold(
         appBar: AppBar(
           title: const Text("Home"),
@@ -37,7 +35,7 @@ class HomePage extends StatelessWidget {
                   color: Global.white54,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: LineChartWidget(points: progressPoints),
+                child: LineChartWidget(points: user!.progress_points),
               ),
             ],
           ),

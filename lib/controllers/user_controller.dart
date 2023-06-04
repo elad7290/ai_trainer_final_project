@@ -31,7 +31,8 @@ Future<String?> register(String email, String password, String name, String birt
       birthDate: DateTime.parse(birthDate),
       level: 0,
       weight: double.parse(weight),
-      height: double.parse(height));
+      height: double.parse(height),
+      progress_points: []);
   return await createUserDoc(myUser, autUser);
 }
 
@@ -58,6 +59,6 @@ Future<MyUser?> getUserByRef(dynamic userRef) async{
 Future changeUserLevel(MyUser user, int level) async{
   await changeLevel(level);
   user.level = level;
-  delete();
-  initial(user);
+  await delete();
+  await initial(user);
 }

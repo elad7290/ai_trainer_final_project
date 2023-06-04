@@ -71,7 +71,7 @@ class ExerciseDB {
       for (var exercise_id in exercisesId){
         var wt = WeeklyTraining(user_id: user_id, exercise_id: exercise_id, is_done: false);
         var data = wt.toJson();
-        db.collection('weekly_training').add(data);
+        await db.collection('weekly_training').add(data);
       }
     } catch (e){
       print(e.toString());
