@@ -45,7 +45,7 @@ class ExerciseDB {
   static Future<List<Exercise>> getExercisesFromUser() async {
     List<Exercise> exercises = [];
     try {
-      User user = get();
+      User user = getUserAuth();
       String user_id = user.uid;
       var weeklyTrainingRef = db.collection('weekly_training');
       var query = weeklyTrainingRef.where("user_id", isEqualTo: user_id);
@@ -67,7 +67,7 @@ class ExerciseDB {
   static Future initialExercises(List<String> exercisesId) async {
     // create weekly_training docs
     try {
-      final user = get();
+      final user = getUserAuth();
       var user_id = user.uid;
       for (var exercise_id in exercisesId){
         var wt = WeeklyTraining(user_id: user_id, exercise_id: exercise_id, is_done: false);
@@ -81,7 +81,7 @@ class ExerciseDB {
 
   static Future deleteExercises() async {
     try {
-      User user = get();
+      User user = getUserAuth();
       String user_id = user.uid;
       var weeklyTrainingRef = db.collection('weekly_training');
       var query = weeklyTrainingRef.where("user_id", isEqualTo: user_id);

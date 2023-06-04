@@ -36,17 +36,13 @@ class UserDB {
   }
 
   static Future<MyUser?> getInfo() async {
-    String uid = auth.currentUser!.uid;
+    String uid = getCurrentAuthUser().uid;
     var userRef = db.collection('users').doc(uid);
     var snapshot = await userRef.get();
     if (snapshot.exists) {
-      try {
-        final data = snapshot.data() as Map<String, dynamic>;
-        MyUser user = MyUser.fromJson(data);
-        return user;
-      } catch (e) {
-        return null;
-      }
+      final data = snapshot.data() as Map<String, dynamic>;
+      MyUser user = MyUser.fromJson(data);
+      return user;
     } else {
       return null;
     }
@@ -67,32 +63,23 @@ class UserDB {
     auth.signOut();
   }
 
-  static Future<MyUser?> getUserFromRef(DocumentReference<Map<String, dynamic>> userRef) async {
+  static Future<MyUser?> getUserByRef(DocumentReference<Map<String, dynamic>> userRef) async {
     var snapshot = await userRef.get();
     if (snapshot.exists) {
-      try {
-        final data = snapshot.data() as Map<String, dynamic>;
-        MyUser user = MyUser.fromJson(data);
-        return user;
-      } catch (e) {
-        return null;
-      }
+      final data = snapshot.data() as Map<String, dynamic>;
+      MyUser user = MyUser.fromJson(data);
+      return user;
     } else {
       return null;
     }
   }
 
   static Future changeLevel(int level) async{
-    try {
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-      var userRef = FirebaseFirestore.instance.collection('users').doc(uid);
-      userRef.update({
-        'level': level
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-
+    String uid = getCurrentAuthUser().uid;
+    var userRef = db.collection('users').doc(uid);
+    await userRef.update({
+      'level': level
+    });
   }
 
 }

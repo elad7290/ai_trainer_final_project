@@ -2,7 +2,6 @@ import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import '../db_access/user_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../shared/utils.dart';
 
 Future<User?> login(String email, String password) async {
@@ -45,12 +44,17 @@ Future<String?> register(String email, String password, String name, String birt
   return null;
 }
 
-User get() {
+User getUserAuth() {
   return UserDB.getCurrentAuthUser();
 }
 
-Future<MyUser?> getUser() async {
-  return await UserDB.getInfo();
+Future<MyUser?> getUserInfo() async {
+  try {
+    return await UserDB.getInfo();
+  } catch (e) {
+    print(e.toString());
+    return null;
+  }
 }
 
 void logout() {
@@ -58,16 +62,24 @@ void logout() {
 }
 
 Future<MyUser?> getUserByRef(dynamic userRef) async{
-  var u = await UserDB.getUserFromRef(userRef);
-  if (u==null){
+  try {
+    MyUser? user = await UserDB.getUserByRef(userRef);
+    if (user != null) {
+      return user;
+    }
+  } catch (e) {
     print("error in getUserByRef");
   }
-  return u;
+  return null;
 }
 
 Future changeUserLevel(MyUser user, int level) async{
-  await UserDB.changeLevel(level);
-  user.level = level;
-  await delete();
-  await initial(user);
+  try {
+    await UserDB.changeLevel(level);
+    user.level = level;
+    await delete();
+    await initial(user);
+  } catch (e){
+    print(e.toString());
+  }
 }

@@ -61,7 +61,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
   }
 
   void initUser() async {
-    user = await getUser();
+    user = await getUserInfo();
     setState(() {
       if(user!= null){
         isUserInitialized = true;
