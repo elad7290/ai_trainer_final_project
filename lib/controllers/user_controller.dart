@@ -1,28 +1,32 @@
 import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import '../db_access/user_db.dart';
-import '../shared/globals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//TODO: errors by myself
-Future<LoginError> login(String email, String password) async {
-  String? error = await loginUser(email: email.trim(), password: password.trim());
-  if (error == null) {
-    return LoginError.success;
-  } else if (error == "user-not-found") {
-    return LoginError.userNotExist;
+import '../shared/utils.dart';
+
+Future<User?> login(String email, String password) async {
+  try {
+    User? user = await UserDB.login(email: email.trim(), password: password.trim());
+    if (user != null) {
+      return user;
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == "user-not-found") {
+      Utils.showSnackBar("Incorrect email or password.");
+      return null;
+    }
   }
-  else{
-    return LoginError.errorDbConnection;
-  }
+  Utils.showSnackBar("Something went wrong. Please try again later.");
+  return null;
 }
 
 Future<String?> register(String email, String password, String name, String birthDate, String weight, String height) async {
-  String? s = await registerUser(email: email.trim(), password: password.trim());
+  String? s = await UserDB.register(email: email.trim(), password: password.trim());
   if (s != null) {
     return s;
   }
-  User? autUser = await getAuthUser(email.trim(), password.trim());
+  User? autUser = await UserDB.getAuthUser(email.trim(), password.trim());
   if (autUser == null) {
     return "error";
   }
@@ -33,23 +37,23 @@ Future<String?> register(String email, String password, String name, String birt
       weight: double.parse(weight),
       height: double.parse(height),
       progress_points: []);
-  return await createUserDoc(myUser, autUser);
+  return await UserDB.createDoc(myUser, autUser);
 }
 
 User get() {
-  return getCurrentAuthUser();
+  return UserDB.getCurrentAuthUser();
 }
 
 Future<MyUser?> getUser() async {
-  return await getUserInfo();
+  return await UserDB.getInfo();
 }
 
 void logout() {
-  logoutUser();
+  UserDB.logout();
 }
 
 Future<MyUser?> getUserByRef(dynamic userRef) async{
-  var u = await getUserFromRef(userRef);
+  var u = await UserDB.getUserFromRef(userRef);
   if (u==null){
     print("error in getUserByRef");
   }
@@ -57,7 +61,7 @@ Future<MyUser?> getUserByRef(dynamic userRef) async{
 }
 
 Future changeUserLevel(MyUser user, int level) async{
-  await changeLevel(level);
+  await UserDB.changeLevel(level);
   user.level = level;
   await delete();
   await initial(user);

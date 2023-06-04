@@ -1,10 +1,10 @@
 import 'package:ai_trainer/views/pages/entry_point.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
-import '../../shared/utils.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
 import '../widgets/wave_widget.dart';
@@ -71,24 +71,10 @@ class _LoginPageState extends State<LoginPage> {
     );
     final navigator = Navigator.of(context);
     // try login
-    LoginError loginError = await login(emailController.text, passwordController.text);
-    switch (loginError) {
-      case LoginError.success:
-        // on success - navigate to home page
-        navigator.pop(context.widget);
-        navigator.pushReplacement(MaterialPageRoute(builder: (context) =>  EntryPoint()));
-        break;
-      case LoginError.userNotExist:
-        navigator.pop(); // stop progress circle
-        Utils.showSnackBar("Incorrect email or password."); // error message
-        break;
-      case LoginError.errorDbConnection:
-        navigator.pop(); // stop progress circle
-        Utils.showSnackBar("Something went wrong. Please try again later.");
-        break;
-      default:
-        navigator.pop(); // stop progress circle
-        break;
+    User? user = await login(emailController.text, passwordController.text);
+    navigator.pop();
+    if (user != null) {
+      navigator.pushReplacement(MaterialPageRoute(builder: (context) =>  const EntryPoint()));
     }
   }
 
