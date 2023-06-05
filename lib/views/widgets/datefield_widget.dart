@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../shared/globals.dart';
+import '../../shared/validators.dart';
 
 class DateFieldWidget extends StatefulWidget {
   final IconData? prefixIconData;
@@ -20,20 +21,6 @@ class DateFieldWidget extends StatefulWidget {
 class _DateFieldWidgetState extends State<DateFieldWidget> {
   bool isVisible = false;
   DateTime dateTime = DateTime.now();
-
-  String? validator(){
-    var date = DateTime.tryParse(widget.controller.text);
-    if(date == null){
-      return "enter a valid date";
-    }
-    else{
-      if(date.isBefore(DateTime(1960))||date.isAfter(DateTime.now()))
-        {
-          return "enter a valid date";
-        }
-      return null;
-    }
-  }
 
   void _showDatePicker(){
     showDatePicker(
@@ -55,7 +42,7 @@ class _DateFieldWidgetState extends State<DateFieldWidget> {
       onTap: _showDatePicker,
       keyboardType: TextInputType.datetime,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (text)=>validator(), // validate field
+      validator: (text)=>Validators.validateDate(text), // validate field
       controller: widget.controller,
       obscureText: false,
       style: const TextStyle(

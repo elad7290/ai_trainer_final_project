@@ -1,10 +1,10 @@
 import 'package:ai_trainer/views/pages/entry_point.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
 import '../../shared/utils.dart';
+import '../../shared/validators.dart';
 import '../widgets/datefield_widget.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
@@ -45,50 +45,6 @@ class _RegisterPageState extends State<RegisterPage> {
     heightController.dispose();
 
     super.dispose();
-  }
-
-  String? validWeight(String? height){
-    var h = double.tryParse(height!);
-    if(h == null){
-      return "Enter numbers only";
-    }
-    if(h<0){
-      return "Enter a valid height";
-    }
-  }
-
-  String? validHeight(String? weight){
-    var w = double.tryParse(weight!);
-    if(w == null){
-      return "Enter numbers only";
-    }
-    if(w<0){
-      return "Enter a valid weight";
-    }
-  }
-
-  String? validEmail(String? email) {
-    if (email != null && !EmailValidator.validate(email)) {
-      return "Enter a valid email";
-    } else {
-      return null;
-    }
-  }
-
-  String? validPassword(String? pass) {
-    if (pass != null && pass.length < 6) {
-      return "Enter min 6 characters";
-    } else {
-      return null;
-    }
-  }
-
-  String? validName(String? name) {
-    if (name != null && name.isEmpty) {
-      return "Enter your name";
-    } else {
-      return null;
-    }
   }
 
   String? validConfirmPassword(String? confPass) {
@@ -145,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     prefixIconData: Icons.person,
                     password: false,
                     controller:nameController,
-                    validator: validName,
+                    validator: Validators.validateName,
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -153,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   DateFieldWidget(
                     prefixIconData: Icons.cake,
                     controller:birthDateController,
-                    validator: validName,
+                    validator: Validators.validateName,
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -164,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     prefixIconData: Icons.monitor_weight,
                     password: false,
                     controller:weightController,
-                    validator: validWeight,
+                    validator: Validators.validateWeight,
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -175,7 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     prefixIconData: Icons.height,
                     password: false,
                     controller:heightController,
-                    validator: validHeight,
+                    validator: Validators.validateHeight,
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -186,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     prefixIconData: Icons.mail_outline,
                     password: false,
                     controller: emailController,
-                    validator: validEmail,
+                    validator: Validators.validateEmail,
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -197,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     prefixIconData: Icons.lock_outline,
                     password: true,
                     controller: passwordController,
-                    validator: validPassword,
+                    validator: Validators.validatePassword,
                   ),
                   const SizedBox(
                     height: 10.0,
