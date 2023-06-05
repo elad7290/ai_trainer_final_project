@@ -69,6 +69,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         ),
         minY: 0,
         maxY: 103,
+        maxX: widget.points.length + 1 / 4 * widget.points.length,
         lineBarsData: [
           LineChartBarData(
             spots: widget.points
