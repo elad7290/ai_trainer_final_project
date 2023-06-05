@@ -1,8 +1,11 @@
 import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-
+import 'dart:convert';
 import '../widgets/excercise_count.dart';
+import 'package:teachable/teachable.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -20,11 +23,18 @@ class _CameraScreenState extends State<CameraScreen> {
   int repetitions = 0;
   int sets = 0;
 
+  String pose = "";
+
   void initCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await Permission.camera.request();
     cameras = await availableCameras();
     camera_controller = CameraController(
-        cameras[direction], ResolutionPreset.high,
-        enableAudio: false);
+      cameras[direction],
+      ResolutionPreset.high,
+      enableAudio: false,
+    );
     await camera_controller.initialize().then((value) {
       if (!mounted) {
         return;
@@ -58,37 +68,59 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (isCameraInitialized && camera_controller.value.isInitialized) {
-      return SafeArea(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: CameraPreview(camera_controller)),
-              FlipCameraButton(flip),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Column(
-                    children: [
-                      //TODO: take sets and rep from DB
-                      ExcerciseCount("Repetitions:   " + repetitions.toString() + " / 30"),
-                      SizedBox(height: 10,),
-                      ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
-                    ],
+    return Scaffold(
+        appBar: AppBar(title: Text("Pose classifier")),
+        body: Stack(
+          children: [
+            Container(
+                child: Column(children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: Teachable(
+                    path: "lib/assets/index.html",
+                    results: (res) {
+                      var resp = jsonDecode(res);
+                      // print("The values are ${}");
+                      setState(() {
+                        pose = (resp['Tree Pose'] * 100.0).toString();
+                      });
+                    },
                   ),
                 ),
-              )
-
-            ],
-          ),
-        ),
-      );
-    } else {
-      return const SizedBox();
-    }
+              ),
+            ])),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "TREE POSE test",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            pose,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )),
+            )
+          ],
+        ));
   }
 }
