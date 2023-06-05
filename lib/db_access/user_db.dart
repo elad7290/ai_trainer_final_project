@@ -82,6 +82,18 @@ class UserDB {
     });
   }
 
+  static Future editMyUser (Map<String,dynamic> json) async {
+    var uid = getCurrentAuthUser().uid;
+    await db.collection('users').doc(uid).update(json);
+  }
+
+  static Future editAuthUser(String? email, String? password) async{
+    var user = getCurrentAuthUser();
+    if(email != null && email != '') await user.updateEmail(email);
+    if(password != null && password != '') await user.updatePassword(password);
+  }
+
+
 }
 
 

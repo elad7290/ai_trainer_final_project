@@ -1,3 +1,5 @@
+import 'package:ai_trainer/controllers/user_controller.dart';
+import 'package:ai_trainer/shared/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../models/user_model.dart';
@@ -13,6 +15,41 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final birthDateController = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  Future saveChanges() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+    editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text);
+    // show progress circle
+    // showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (context) => const Center(
+    //           child: CircularProgressIndicator(
+    //             color: Global.orange,
+    //             strokeWidth: 3,
+    //           ),
+    //         ));
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    birthDateController.dispose();
+    weightController.dispose();
+    heightController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,64 +71,109 @@ class _MyProfileState extends State<MyProfile> {
           onTap: () {
             FocusScope.of(context).unfocus();
           },
-          child: ListView(
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 4, color: Global.white),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  'https://firebasestorage.googleapis.com/v0/b/ai-trainer-db.appspot.com/o/profile_images%2F24863.jpg?alt=media&token=cca85cac-c9f9-4285-bdef-17f636f76969'))),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
+          child: Form(
+            key: formKey,
+            child: ListView(
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 130,
+                        height: 130,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 4, color: Global.white),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.1))
+                            ],
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Global.white
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    'https://firebasestorage.googleapis.com/v0/b/ai-trainer-db.appspot.com/o/profile_images%2F24863.jpg?alt=media&token=cca85cac-c9f9-4285-bdef-17f636f76969'))),
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(width: 4, color: Global.white),
+                                color: Colors.orangeAccent),
+                            child: Icon(
+                              Icons.edit,
+                              color: Global.black,
                             ),
-                            color: Colors.orangeAccent
-                          ),
-                          child: Icon(Icons.edit,color: Global.black,),
-                        )
-                    ),
-                  ],
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
+                SizedBox(
+                  height: 30,
                 ),
-              EditText(label: 'Name', placeHoler: widget.user.name, isPassword: false),
-              EditText(label: 'Email', placeHoler: widget.user.email, isPassword: false),
-              EditText(label: 'Password', placeHoler: '*******', isPassword: true),
-              EditText(label: 'Confirm Password', placeHoler: '*******', isPassword: true),
-              EditText(label: 'Birth Date', placeHoler: DateFormat('dd-MM-yyyy').format(widget.user.birthDate) , isPassword: false),
-              EditText(label: 'Weight', placeHoler: widget.user.weight.toString(), isPassword: false),
-              EditText(label: 'Hight', placeHoler: widget.user.height.toString(), isPassword: false),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                      onPressed: (){},
+                EditText(
+                  label: 'Name',
+                  placeHoler: widget.user.name,
+                  isPassword: false,
+                  controller: nameController,
+                  validator: Validators.validateName,
+                  textInputType: TextInputType.name,
+                ),
+                EditText(
+                  label: 'Email',
+                  placeHoler: widget.user.email,
+                  isPassword: false,
+                  validator: Validators.validateEmail,
+                  controller: emailController,
+                  textInputType: TextInputType.emailAddress,
+                ),
+                EditText(
+                  label: 'Password',
+                  placeHoler: '*******',
+                  isPassword: true,
+                  controller: passwordController,
+                  validator: Validators.validatePassword,
+                  textInputType: TextInputType.text,
+                ),
+                EditText(
+                  label: 'Birth Date',
+                  placeHoler:
+                      DateFormat('dd-MM-yyyy').format(widget.user.birthDate),
+                  isPassword: false,
+                  controller: birthDateController,
+                  validator: Validators.validateDate,
+                  textInputType: TextInputType.datetime,
+                ),
+                EditText(
+                  label: 'Weight',
+                  placeHoler: widget.user.weight.toString(),
+                  isPassword: false,
+                  controller: weightController,
+                  validator: Validators.validateWeight,
+                  textInputType: TextInputType.number,
+                ),
+                EditText(
+                  label: 'Hight',
+                  placeHoler: widget.user.height.toString(),
+                  isPassword: false,
+                  controller: heightController,
+                  validator: Validators.validateHeight,
+                  textInputType: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: saveChanges,
                       child: Text(
                         'SAVE',
                         style: TextStyle(
@@ -100,20 +182,22 @@ class _MyProfileState extends State<MyProfile> {
                           color: Global.white,
                         ),
                       ),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 50,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 50,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 20,),
-
-            ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),

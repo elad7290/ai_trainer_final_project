@@ -150,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFieldWidget(
                     textInputType: TextInputType.visiblePassword,
                     hintText: "Password",
-                    prefixIconData: Icons.lock_outline,
+                    prefixIconData: Icons.fingerprint_outlined,
                     password: true,
                     controller: passwordController,
                     validator: Validators.validatePassword,
@@ -161,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextFieldWidget(
                     textInputType: TextInputType.visiblePassword,
                     hintText: "Confirm Password",
-                    prefixIconData: Icons.lock_outline,
+                    prefixIconData: Icons.fingerprint_outlined,
                     password: true,
                     controller: confirmPasswordController,
                     validator: validConfirmPassword,

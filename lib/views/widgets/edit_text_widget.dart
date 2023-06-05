@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditText extends StatefulWidget {
-  const EditText({super.key, required this.label, required this.placeHoler, required this.isPassword});
+  const EditText({super.key, required this.label, required this.placeHoler, required this.isPassword, required this.controller, required this.validator, required this.textInputType});
   final String label;
   final String placeHoler;
   final bool isPassword;
+  final TextEditingController controller;
+  final String? Function(String?) validator;
+  final TextInputType textInputType;
 
   @override
   State<EditText> createState() => _EditTextState();
@@ -21,7 +24,11 @@ class _EditTextState extends State<EditText> {
       padding: EdgeInsets.only(
         bottom: 30,
       ),
-      child: TextField(
+      child: TextFormField(
+        keyboardType: widget.textInputType,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (text) => text!= null && text!= ''? widget.validator(text): null, // validate field
+        controller: widget.controller,
         obscureText: widget.isPassword? isObscurePassword: false,
         decoration: InputDecoration(
             suffixIcon: widget.isPassword?

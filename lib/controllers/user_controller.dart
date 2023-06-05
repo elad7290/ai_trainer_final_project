@@ -6,7 +6,8 @@ import '../shared/utils.dart';
 
 Future<User?> login(String email, String password) async {
   try {
-    User? user = await UserDB.login(email: email.trim(), password: password.trim());
+    User? user =
+        await UserDB.login(email: email.trim(), password: password.trim());
     if (user != null) {
       return user;
     }
@@ -20,11 +21,14 @@ Future<User?> login(String email, String password) async {
   return null;
 }
 
-Future<String?> register(String email, String password, String name, String birthDate, String weight, String height) async {
+Future<String?> register(String email, String password, String name,
+    String birthDate, String weight, String height) async {
   try {
-    User? authUser = await UserDB.register(email: email.trim(), password: password.trim());
+    User? authUser =
+        await UserDB.register(email: email.trim(), password: password.trim());
     if (authUser != null) {
-      MyUser myUser = MyUser(name: name,
+      MyUser myUser = MyUser(
+          name: name,
           email: email.trim(),
           birthDate: DateTime.parse(birthDate),
           level: 0,
@@ -61,7 +65,7 @@ void logout() {
   UserDB.logout();
 }
 
-Future<MyUser?> getUserByRef(dynamic userRef) async{
+Future<MyUser?> getUserByRef(dynamic userRef) async {
   try {
     MyUser? user = await UserDB.getUserByRef(userRef);
     if (user != null) {
@@ -73,13 +77,33 @@ Future<MyUser?> getUserByRef(dynamic userRef) async{
   return null;
 }
 
-Future changeUserLevel(MyUser user, int level) async{
+Future changeUserLevel(MyUser user, int level) async {
   try {
     await UserDB.changeLevel(level);
     user.level = level;
     await deleteExercises();
     await initialExercises(user);
-  } catch (e){
+  } catch (e) {
     print(e.toString());
+  }
+}
+
+Future editUser(String? email, String? password, String? name,
+    String? birthDate, String? weight, String? height) async {
+  Map<String, dynamic> json = {};
+  if(email!=null && email!='') json['email'] = email;
+  if(password!=null && password!='') json['password'] = password;
+  if(name!=null && name!='') json['name'] = name;
+  if(birthDate!=null && birthDate!='') json['birthDate'] = birthDate;
+  if(weight!=null && weight!='') json['weight'] = double.parse(weight);
+  if(height!=null && height!='') json['height'] = double.parse(height);
+  if(json.isNotEmpty){
+    try{
+      UserDB.editMyUser(json);
+      UserDB.editAuthUser(email, password);
+    }catch (e){
+      Utils.showSnackBar('Something went wrong. Please try again later.');
+      print(e.toString());
+    }
   }
 }

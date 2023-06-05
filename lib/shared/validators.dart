@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 
 class Validators{
 
-  static String? validateWeight(String? height){
-    var h = double.tryParse(height!);
+  static String? validateWeight(String? weight){
+    var h = double.tryParse(weight!);
     if(h == null){
       return "Enter numbers only";
     }
@@ -14,8 +14,8 @@ class Validators{
     return null;
   }
 
-  static String? validateHeight(String? weight){
-    var w = double.tryParse(weight!);
+  static String? validateHeight(String? height ){
+    var w = double.tryParse(height!);
     if(w == null){
       return "Enter numbers only";
     }
