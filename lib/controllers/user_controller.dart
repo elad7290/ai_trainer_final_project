@@ -89,21 +89,18 @@ Future changeUserLevel(MyUser user, int level) async {
 }
 
 Future editUser(String? email, String? password, String? name,
-    String? birthDate, String? weight, String? height) async {
-  Map<String, dynamic> json = {};
-  if(email!=null && email!='') json['email'] = email;
-  if(password!=null && password!='') json['password'] = password;
-  if(name!=null && name!='') json['name'] = name;
-  if(birthDate!=null && birthDate!='') json['birthDate'] = birthDate;
-  if(weight!=null && weight!='') json['weight'] = double.parse(weight);
-  if(height!=null && height!='') json['height'] = double.parse(height);
-  if(json.isNotEmpty){
-    try{
-      UserDB.editMyUser(json);
-      UserDB.editAuthUser(email, password);
-    }catch (e){
-      Utils.showSnackBar('Something went wrong. Please try again later.');
-      print(e.toString());
-    }
+    String? birthDate, String? weight, String? height, MyUser user) async {
+  if(email!=null && email!='') user.email = email.trim();
+  if(name!=null && name!='') user.name = name.trim();
+  if(birthDate!=null && birthDate!='') user.birthDate = DateTime.parse(birthDate);
+  if(weight!=null && weight!='') user.weight = double.parse(weight);
+  if(height!=null && height!='') user.height = double.parse(height);
+  try{
+    UserDB.editAuthUser(email, password);
+    UserDB.editMyUser(user);
+  }catch (e){
+    Utils.showSnackBar('Something went wrong. Please try again later.');
+    print(e.toString());
   }
+
 }

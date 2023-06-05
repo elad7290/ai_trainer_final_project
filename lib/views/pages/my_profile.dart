@@ -26,17 +26,20 @@ class _MyProfileState extends State<MyProfile> {
   Future saveChanges() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
-    editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text);
-    // show progress circle
-    // showDialog(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(
-    //             color: Global.orange,
-    //             strokeWidth: 3,
-    //           ),
-    //         ));
+    //show progress circle
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: Global.orange,
+                strokeWidth: 3,
+              ),
+            ));
+    final navigator = Navigator.of(context);
+    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text, widget.user);
+    navigator.pop();
+
   }
 
   @override

@@ -82,9 +82,9 @@ class UserDB {
     });
   }
 
-  static Future editMyUser (Map<String,dynamic> json) async {
+  static Future editMyUser (MyUser user) async {
     var uid = getCurrentAuthUser().uid;
-    await db.collection('users').doc(uid).update(json);
+    await db.collection('users').doc(uid).update(user.toJson());
   }
 
   static Future editAuthUser(String? email, String? password) async{
