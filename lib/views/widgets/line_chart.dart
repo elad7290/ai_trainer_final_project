@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import '../../models/progress_point.dart';
 import 'package:flutter/material.dart';
-
 import '../../shared/globals.dart';
 
 class LineChartWidget extends StatefulWidget {
