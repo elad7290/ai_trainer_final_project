@@ -35,7 +35,7 @@ class MyUser {
   static MyUser fromJson(Map<String, dynamic> json) => MyUser(
         name: json['name'],
         email: json['email'],
-        birthDate: DateTime.parse(json['birthDate']),
+        birthDate: DateFormat('dd-MM-yyyy').parse(json['birthDate']),
         level: json['level'],
         weight: json['weight'],
         height: json['height'],

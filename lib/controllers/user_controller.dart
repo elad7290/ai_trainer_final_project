@@ -1,5 +1,6 @@
 import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
+import 'package:intl/intl.dart';
 import '../db_access/user_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../shared/utils.dart';
@@ -30,7 +31,7 @@ Future<String?> register(String email, String password, String name,
       MyUser myUser = MyUser(
           name: name,
           email: email.trim(),
-          birthDate: DateTime.parse(birthDate),
+          birthDate: DateFormat('dd-MM-yyyy').parse(birthDate),
           level: 0,
           weight: double.parse(weight),
           height: double.parse(height),
@@ -96,8 +97,9 @@ Future editUser(String? email, String? password, String? name,
   if(weight!=null && weight!='') user.weight = double.parse(weight);
   if(height!=null && height!='') user.height = double.parse(height);
   try{
-    UserDB.editAuthUser(email, password);
-    UserDB.editMyUser(user);
+    await UserDB.editAuthUser(email, password);
+    await UserDB.editMyUser(user);
+    //TODO: add indicator "completed!"
   }catch (e){
     Utils.showSnackBar('Something went wrong. Please try again later.');
     print(e.toString());
