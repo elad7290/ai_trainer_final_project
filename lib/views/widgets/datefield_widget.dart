@@ -44,7 +44,7 @@ class _DateFieldWidgetState extends State<DateFieldWidget> {
     ).then((value){
       setState(() {
         dateTime = value!;
-        widget.controller.text = DateFormat('yyyy-MM-dd').format(dateTime);
+        widget.controller.text = DateFormat('dd-MM-yyyy').format(dateTime);
       });
     });
   }

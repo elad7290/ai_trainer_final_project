@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/user_model.dart';
 import '../../shared/globals.dart';
 import '../widgets/edit_text_widget.dart';
@@ -78,13 +79,13 @@ class _MyProfileState extends State<MyProfile> {
               SizedBox(
                 height: 30,
                 ),
-              EditText(label: 'Name', placeHoler: 'elad', isPassword: false),
-              EditText(label: 'Email', placeHoler: 'elad', isPassword: false),
+              EditText(label: 'Name', placeHoler: widget.user.name, isPassword: false),
+              EditText(label: 'Email', placeHoler: widget.user.email, isPassword: false),
               EditText(label: 'Password', placeHoler: '*******', isPassword: true),
               EditText(label: 'Confirm Password', placeHoler: '*******', isPassword: true),
-              EditText(label: 'Birth Date', placeHoler: 'elad', isPassword: false),
-              EditText(label: 'Weight', placeHoler: 'elad', isPassword: false),
-              EditText(label: 'Hight', placeHoler: 'elad', isPassword: false),
+              EditText(label: 'Birth Date', placeHoler: DateFormat('dd-MM-yyyy').format(widget.user.birthDate) , isPassword: false),
+              EditText(label: 'Weight', placeHoler: widget.user.weight.toString(), isPassword: false),
+              EditText(label: 'Hight', placeHoler: widget.user.height.toString(), isPassword: false),
               SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
