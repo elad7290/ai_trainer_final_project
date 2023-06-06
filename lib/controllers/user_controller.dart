@@ -26,7 +26,7 @@ Future<User?> login(String email, String password) async {
 }
 
 Future<String?> register(String email, String password, String name,
-    String birthDate, String weight, String height) async {
+    String birthDate, String weight, String height,File? image) async {
   try {
     User? authUser =
         await UserDB.register(email: email.trim(), password: password.trim());
@@ -38,7 +38,8 @@ Future<String?> register(String email, String password, String name,
           level: 0,
           weight: double.parse(weight),
           height: double.parse(height),
-          progress_points: []);
+          progress_points: [],
+          profile_image: await ImageController.uploadImageToStorage(image));
       try {
         await UserDB.createDoc(myUser, authUser);
       } catch (e) {

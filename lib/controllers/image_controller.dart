@@ -25,7 +25,8 @@ class ImageController extends GetxController {
     pickedFile = Rx<File?>(File(pickedImage!.path));
 
   }
-  static Future<String?> uploadImageToStorage (File image) async {
+  static Future<String?> uploadImageToStorage (File? image) async {
+    if(image == null) return null;
     try{
       return await ImageDB.uploadImageToStorage(image);
     }catch (e){
