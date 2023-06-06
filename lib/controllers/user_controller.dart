@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:ai_trainer/controllers/exercise_controller.dart';
+import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:intl/intl.dart';
 import '../db_access/user_db.dart';
@@ -23,7 +26,7 @@ Future<User?> login(String email, String password) async {
 }
 
 Future<String?> register(String email, String password, String name,
-    String birthDate, String weight, String height) async {
+    String birthDate, String weight, String height,File? image) async {
   try {
     User? authUser =
         await UserDB.register(email: email.trim(), password: password.trim());
@@ -35,7 +38,8 @@ Future<String?> register(String email, String password, String name,
           level: 0,
           weight: double.parse(weight),
           height: double.parse(height),
-          progress_points: []);
+          progress_points: [],
+          profile_image: await ImageController.uploadImageToStorage(image));
       try {
         await UserDB.createDoc(myUser, authUser);
       } catch (e) {
@@ -90,13 +94,14 @@ Future changeUserLevel(MyUser user, int level) async {
 }
 
 Future editUser(String? email, String? password, String? name,
-    String? birthDate, String? weight, String? height, MyUser user) async {
+    String? birthDate, String? weight, String? height,File? image, MyUser user) async {
   Map<String, dynamic> json = {};
   if(email!=null && email!='') json['email'] = email.trim();
   if(name!=null && name!='') json['name'] = name.trim();
   if(birthDate!=null && birthDate!='') json['birthDate'] = DateTime.parse(birthDate);
   if(weight!=null && weight!='') json['weight'] = double.parse(weight);
   if(height!=null && height!='') json['height'] = double.parse(height);
+  if(image!=null) json['profile_image'] = await ImageController.uploadImageToStorage(image);
   try{
     await UserDB.editAuthUser(email, password);
     await UserDB.editMyUser(json);
@@ -121,4 +126,6 @@ void updateUser(MyUser user, Map<String, dynamic> json) {
   if(json.containsKey('birthDate')) user.birthDate = json['birthDate'];
   if(json.containsKey('weight')) user.weight = json['weight'];
   if(json.containsKey('height')) user.height = json['height'];
+  if(json.containsKey('profile_image')) user.profile_image = json['profile_image'];
 }
+

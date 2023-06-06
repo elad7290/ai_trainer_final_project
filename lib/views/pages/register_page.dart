@@ -1,6 +1,10 @@
+import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/views/pages/entry_point.dart';
+import 'package:ai_trainer/views/widgets/image_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
 import '../../shared/utils.dart';
@@ -30,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final birthDateController = TextEditingController();
   final weightController = TextEditingController();
   final heightController = TextEditingController();
+  final imageController = Get.put(ImageController());
 
   final formKey = GlobalKey<FormState>();
 
@@ -43,6 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
     birthDateController.dispose();
     weightController.dispose();
     heightController.dispose();
+
 
     super.dispose();
   }
@@ -71,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ));
     final navigator = Navigator.of(context);
     // try register
-    String? error = await register(emailController.text, passwordController.text, nameController.text,birthDateController.text,weightController.text,heightController.text);
+    String? error = await register(emailController.text, passwordController.text, nameController.text,birthDateController.text,weightController.text,heightController.text,imageController.proflieImage);
     navigator.pop(); // stop progress circle
     if (error != null) {
       Utils.showSnackBar(error); // error message
@@ -95,6 +101,9 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  const SizedBox(height: 15.0),
+                  ImageWidget(controller: imageController,profile_image: null),
+                  const SizedBox(height: 15.0),
                   TextFieldWidget(
                     textInputType: TextInputType.name,
                     hintText: "Name",

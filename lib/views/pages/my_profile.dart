@@ -1,6 +1,10 @@
+import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/controllers/user_controller.dart';
 import 'package:ai_trainer/shared/validators.dart';
+import 'package:ai_trainer/views/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import '../../models/user_model.dart';
 import '../../shared/globals.dart';
@@ -22,6 +26,7 @@ class _MyProfileState extends State<MyProfile> {
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  var imageController = Get.put(ImageController());
 
   Future saveChanges() async {
     final isValid = formKey.currentState!.validate();
@@ -37,11 +42,15 @@ class _MyProfileState extends State<MyProfile> {
               ),
             ));
     final navigator = Navigator.of(context);
-    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text, widget.user);
+    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController.proflieImage, widget.user);
     navigator.pop();
     setState(() {
       clearData();
     });
+  }
+
+  void pickImage(){
+    imageController.chooseImageFromGallery();
   }
 
   void clearData() {
@@ -53,6 +62,8 @@ class _MyProfileState extends State<MyProfile> {
     heightController.clear();
   }
 
+
+
   @override
   void dispose() {
     emailController.dispose();
@@ -63,6 +74,8 @@ class _MyProfileState extends State<MyProfile> {
     heightController.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,45 +102,50 @@ class _MyProfileState extends State<MyProfile> {
             key: formKey,
             child: ListView(
               children: [
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Global.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://firebasestorage.googleapis.com/v0/b/ai-trainer-db.appspot.com/o/profile_images%2F24863.jpg?alt=media&token=cca85cac-c9f9-4285-bdef-17f636f76969'))),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(width: 4, color: Global.white),
-                                color: Colors.orangeAccent),
-                            child: Icon(
-                              Icons.edit,
-                              color: Global.black,
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
+                // Center(
+                //   child: Stack(
+                //     children: [
+                //       Container(
+                //         width: 130,
+                //         height: 130,
+                //         decoration: BoxDecoration(
+                //             border: Border.all(width: 4, color: Global.white),
+                //             boxShadow: [
+                //               BoxShadow(
+                //                   spreadRadius: 2,
+                //                   blurRadius: 10,
+                //                   color: Colors.black.withOpacity(0.1))
+                //             ],
+                //             shape: BoxShape.circle,
+                //             image: widget.user.profile_image != null?  DecorationImage(
+                //                 fit: BoxFit.cover,
+                //                 image: NetworkImage(
+                //                     widget.user.profile_image!
+                //                 )
+                //             ) : null,
+                //         ),
+                //       ),
+                //       Positioned(
+                //           bottom: 0,
+                //           right: 0,
+                //           child: Container(
+                //             height: 40,
+                //             width: 40,
+                //             decoration: BoxDecoration(
+                //                 shape: BoxShape.circle,
+                //                 border:
+                //                     Border.all(width: 4, color: Global.white),
+                //                 color: Colors.orangeAccent),
+                //             child: IconButton(
+                //               icon: Icon(Icons.edit),
+                //               color: Global.black,
+                //               onPressed: pickImage,
+                //             ),
+                //           )),
+                //     ],
+                //   ),
+                // ),
+                ImageWidget(controller: imageController, profile_image: widget.user.profile_image),
                 SizedBox(
                   height: 30,
                 ),
