@@ -13,7 +13,7 @@ Future<User?> login(String email, String password) async {
       return user;
     }
   } on FirebaseAuthException catch (e) {
-    if (e.code == "user-not-found") {
+    if (e.code == "user-not-found" || e.code == "wrong-password") {
       Utils.showSnackBar("Incorrect email or password.");
       return null;
     }

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
       return MaterialApp(
+        scaffoldMessengerKey: Utils.messengerKey,
         debugShowCheckedModeBanner: false,
         home: const EntryPoint(),
         theme: ThemeData(
