@@ -1,6 +1,7 @@
 import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/controllers/user_controller.dart';
 import 'package:ai_trainer/shared/validators.dart';
+import 'package:ai_trainer/views/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -101,49 +102,50 @@ class _MyProfileState extends State<MyProfile> {
             key: formKey,
             child: ListView(
               children: [
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Global.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1))
-                            ],
-                            shape: BoxShape.circle,
-                            image: widget.user.profile_image != null?  DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    widget.user.profile_image!
-                                )
-                            ) : null,
-                        ),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(width: 4, color: Global.white),
-                                color: Colors.orangeAccent),
-                            child: IconButton(
-                              icon: Icon(Icons.edit),
-                              color: Global.black,
-                              onPressed: pickImage,
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
+                // Center(
+                //   child: Stack(
+                //     children: [
+                //       Container(
+                //         width: 130,
+                //         height: 130,
+                //         decoration: BoxDecoration(
+                //             border: Border.all(width: 4, color: Global.white),
+                //             boxShadow: [
+                //               BoxShadow(
+                //                   spreadRadius: 2,
+                //                   blurRadius: 10,
+                //                   color: Colors.black.withOpacity(0.1))
+                //             ],
+                //             shape: BoxShape.circle,
+                //             image: widget.user.profile_image != null?  DecorationImage(
+                //                 fit: BoxFit.cover,
+                //                 image: NetworkImage(
+                //                     widget.user.profile_image!
+                //                 )
+                //             ) : null,
+                //         ),
+                //       ),
+                //       Positioned(
+                //           bottom: 0,
+                //           right: 0,
+                //           child: Container(
+                //             height: 40,
+                //             width: 40,
+                //             decoration: BoxDecoration(
+                //                 shape: BoxShape.circle,
+                //                 border:
+                //                     Border.all(width: 4, color: Global.white),
+                //                 color: Colors.orangeAccent),
+                //             child: IconButton(
+                //               icon: Icon(Icons.edit),
+                //               color: Global.black,
+                //               onPressed: pickImage,
+                //             ),
+                //           )),
+                //     ],
+                //   ),
+                // ),
+                ImageWidget(controller: imageController, profile_image: widget.user.profile_image),
                 SizedBox(
                   height: 30,
                 ),

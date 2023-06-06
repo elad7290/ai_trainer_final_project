@@ -19,7 +19,6 @@ class DateFieldWidget extends StatefulWidget {
 }
 
 class _DateFieldWidgetState extends State<DateFieldWidget> {
-  bool isVisible = false;
   DateTime dateTime = DateTime.now();
 
   void _showDatePicker(){
