@@ -8,19 +8,22 @@ class InfoCard extends StatelessWidget {
     Key? key,
     required this.name,
     required this.email,
+    required this.image,
   }) : super(key: key);
 
   final String name,email;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
+        backgroundImage: image != null ? NetworkImage(image!) : null,
         backgroundColor: Global.orange,
-        child: Icon(
+        child: image == null ? Icon(
           Icons.person,
           color: Global.lightWhite ,
-        ),
+        ) : null,
       ),
       title: Text(
         name,

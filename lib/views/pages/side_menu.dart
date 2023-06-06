@@ -49,6 +49,7 @@ class _SideMenuState extends State<SideMenu> {
                 InfoCard(
                     name: widget.user.name,
                     email: widget.user.email,
+                    image: widget.user.profile_image,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 24),
