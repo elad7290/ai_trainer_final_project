@@ -9,6 +9,7 @@ class MyUser {
   double weight;
   double height;
   List<ProgressPoint> progress_points;
+  String? profile_image;
 
   //final map<int,double>
   //final Imag pic
@@ -20,7 +21,8 @@ class MyUser {
       required this.level,
       required this.weight,
       required this.height,
-      required this.progress_points});
+      required this.progress_points,
+      this.profile_image});
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -30,6 +32,7 @@ class MyUser {
         'weight': weight,
         'height': height,
         'percents': progress_points.map((point) => point.percent).toList(),
+        'profile_image': profile_image,
       };
 
   static MyUser fromJson(Map<String, dynamic> json) => MyUser(
@@ -39,6 +42,7 @@ class MyUser {
         level: json['level'],
         weight: json['weight'],
         height: json['height'],
+        profile_image: json['profile_image'],
         progress_points:
             List<ProgressPoint>.from(json['percents'].asMap().entries.map((e) {
           int week = e.key;

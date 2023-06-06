@@ -50,6 +50,7 @@ dependencies:
   workmanager: ^0.5.1
   get: ^4.6.5
   image_picker: ^0.8.7+5
+  firebase_storage: ^11.2.2
 
 
 dev_dependencies:

@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../db_access/image_db.dart';
+
 
 class ImageController extends GetxController {
   late Rx<File?> pickedFile;
@@ -23,6 +25,14 @@ class ImageController extends GetxController {
     }
     pickedFile = Rx<File?>(File(pickedImage!.path));
 
+  }
+  static Future<String?> uploadImageToStorage (File image) async {
+    try{
+      return await ImageDB.uploadImageToStorage(image);
+    }catch (e){
+      print(e.toString());
+      return null;
+    }
   }
 
 

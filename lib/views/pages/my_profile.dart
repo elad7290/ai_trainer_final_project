@@ -41,7 +41,7 @@ class _MyProfileState extends State<MyProfile> {
               ),
             ));
     final navigator = Navigator.of(context);
-    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text, widget.user);
+    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController.proflieImage, widget.user);
     navigator.pop();
     setState(() {
       clearData();
@@ -116,10 +116,13 @@ class _MyProfileState extends State<MyProfile> {
                                   color: Colors.black.withOpacity(0.1))
                             ],
                             shape: BoxShape.circle,
-                            image: DecorationImage(
+                            image: widget.user.profile_image != null?  DecorationImage(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(
-                                    'https://firebasestorage.googleapis.com/v0/b/ai-trainer-db.appspot.com/o/profile_images%2F24863.jpg?alt=media&token=cca85cac-c9f9-4285-bdef-17f636f76969'))),
+                                    widget.user.profile_image!
+                                )
+                            ) : null,
+                        ),
                       ),
                       Positioned(
                           bottom: 0,
