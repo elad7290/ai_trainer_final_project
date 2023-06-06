@@ -48,6 +48,8 @@ dependencies:
   better_player: ^0.0.83
   fl_chart: ^0.62.0
   workmanager: ^0.5.1
+  get: ^4.6.5
+  image_picker: ^0.8.7+5
 
 
 dev_dependencies:

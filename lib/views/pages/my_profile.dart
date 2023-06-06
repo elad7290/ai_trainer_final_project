@@ -1,6 +1,9 @@
+import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/controllers/user_controller.dart';
 import 'package:ai_trainer/shared/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import '../../models/user_model.dart';
 import '../../shared/globals.dart';
@@ -22,6 +25,7 @@ class _MyProfileState extends State<MyProfile> {
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  var imageController = Get.put(ImageController());
 
   Future saveChanges() async {
     final isValid = formKey.currentState!.validate();
@@ -44,6 +48,10 @@ class _MyProfileState extends State<MyProfile> {
     });
   }
 
+  void pickImage(){
+    imageController.chooseImageFromGallery();
+  }
+
   void clearData() {
     emailController.clear();
     passwordController.clear();
@@ -52,6 +60,8 @@ class _MyProfileState extends State<MyProfile> {
     weightController.clear();
     heightController.clear();
   }
+
+
 
   @override
   void dispose() {
@@ -63,6 +73,7 @@ class _MyProfileState extends State<MyProfile> {
     heightController.dispose();
     super.dispose();
   }
+
 
 
   @override
@@ -121,9 +132,10 @@ class _MyProfileState extends State<MyProfile> {
                                 border:
                                     Border.all(width: 4, color: Global.white),
                                 color: Colors.orangeAccent),
-                            child: Icon(
-                              Icons.edit,
+                            child: IconButton(
+                              icon: Icon(Icons.edit),
                               color: Global.black,
+                              onPressed: pickImage,
                             ),
                           )),
                     ],

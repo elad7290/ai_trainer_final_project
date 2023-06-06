@@ -122,3 +122,4 @@ void updateUser(MyUser user, Map<String, dynamic> json) {
   if(json.containsKey('weight')) user.weight = json['weight'];
   if(json.containsKey('height')) user.height = json['height'];
 }
+
