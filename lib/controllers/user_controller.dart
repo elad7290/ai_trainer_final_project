@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
