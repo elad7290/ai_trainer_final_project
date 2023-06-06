@@ -39,7 +39,18 @@ class _MyProfileState extends State<MyProfile> {
     final navigator = Navigator.of(context);
     await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text, widget.user);
     navigator.pop();
+    setState(() {
+      clearData();
+    });
+  }
 
+  void clearData() {
+    emailController.clear();
+    passwordController.clear();
+    nameController.clear();
+    birthDateController.clear();
+    weightController.clear();
+    heightController.clear();
   }
 
   @override

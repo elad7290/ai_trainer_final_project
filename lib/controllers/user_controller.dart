@@ -91,18 +91,34 @@ Future changeUserLevel(MyUser user, int level) async {
 
 Future editUser(String? email, String? password, String? name,
     String? birthDate, String? weight, String? height, MyUser user) async {
-  if(email!=null && email!='') user.email = email.trim();
-  if(name!=null && name!='') user.name = name.trim();
-  if(birthDate!=null && birthDate!='') user.birthDate = DateTime.parse(birthDate);
-  if(weight!=null && weight!='') user.weight = double.parse(weight);
-  if(height!=null && height!='') user.height = double.parse(height);
+  Map<String, dynamic> json = {};
+  if(email!=null && email!='') json['email'] = email.trim();
+  if(name!=null && name!='') json['name'] = name.trim();
+  if(birthDate!=null && birthDate!='') json['birthDate'] = DateTime.parse(birthDate);
+  if(weight!=null && weight!='') json['weight'] = double.parse(weight);
+  if(height!=null && height!='') json['height'] = double.parse(height);
   try{
     await UserDB.editAuthUser(email, password);
-    await UserDB.editMyUser(user);
+    await UserDB.editMyUser(json);
+    updateUser(user, json);
     //TODO: add indicator "completed!"
-  }catch (e){
+  } on FirebaseAuthException catch (e) {
+    if (e.code == "email-already-in-use") {
+      Utils.showSnackBar("This email is already in use.");
+    }
+    if (e.code == "requires-recent-login"){
+      Utils.showSnackBar('In order to do this, you are required to login again to the app.');
+    }
+  } catch (e){
     Utils.showSnackBar('Something went wrong. Please try again later.');
     print(e.toString());
   }
+}
 
+void updateUser(MyUser user, Map<String, dynamic> json) {
+  if(json.containsKey('email')) user.email = json['email'];
+  if(json.containsKey('name')) user.name = json['name'];
+  if(json.containsKey('birthDate')) user.birthDate = json['birthDate'];
+  if(json.containsKey('weight')) user.weight = json['weight'];
+  if(json.containsKey('height')) user.height = json['height'];
 }
