@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../controllers/image_controller.dart';
 import '../../shared/globals.dart';
 
@@ -20,9 +18,14 @@ class _ImageWidgetState extends State<ImageWidget> {
   File? image;
   bool isImageUpdated = false;
 
-  @override
-  void initState() {
-    super.initState();
+  DecorationImage? displayImage (){
+    if(isImageUpdated && image != null){
+      return DecorationImage(image: FileImage(image!),fit: BoxFit.cover);
+    }
+    if (!isImageUpdated && widget.profile_image!= null){
+      return DecorationImage(image: NetworkImage(widget.profile_image!),fit: BoxFit.cover);
+    }
+    return null;
   }
 
   void pickImage() async{
@@ -52,15 +55,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                     color: Colors.black.withOpacity(0.1))
               ],
               shape: BoxShape.circle,
-              image: !isImageUpdated && widget.profile_image != null ? DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(widget.profile_image!),
-              ) :
-              isImageUpdated && image != null ? DecorationImage(
-                fit: BoxFit.cover,
-                image: FileImage(image!),
-              ) :
-              null,
+              image: displayImage(),
             ),
           ),
           Positioned(
