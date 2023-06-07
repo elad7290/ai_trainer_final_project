@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.4.1
+  teachable: any
 
 
 
@@ -49,6 +50,7 @@ dependencies:
   workmanager: ^0.5.1
   image_picker: ^0.8.7+5
   firebase_storage: ^11.2.2
+  permission_handler: ^10.3.0
 
 
 dev_dependencies:
@@ -67,6 +69,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - lib/assets/index.html
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
