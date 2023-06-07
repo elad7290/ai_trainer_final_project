@@ -8,6 +8,7 @@ import '../../models/user_model.dart';
 import '../../shared/globals.dart';
 import '../widgets/edit_text_widget.dart';
 
+
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key, required this.user}) : super(key: key);
   final MyUser user;
