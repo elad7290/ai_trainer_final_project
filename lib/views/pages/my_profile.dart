@@ -3,8 +3,6 @@ import 'package:ai_trainer/controllers/user_controller.dart';
 import 'package:ai_trainer/shared/validators.dart';
 import 'package:ai_trainer/views/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import '../../models/user_model.dart';
 import '../../shared/globals.dart';
@@ -26,7 +24,7 @@ class _MyProfileState extends State<MyProfile> {
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  var imageController = Get.put(ImageController());
+  var imageController = ImageController();
 
   Future saveChanges() async {
     final isValid = formKey.currentState!.validate();
@@ -42,7 +40,7 @@ class _MyProfileState extends State<MyProfile> {
               ),
             ));
     final navigator = Navigator.of(context);
-    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController?.proflieImage, widget.user);
+    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController.image, widget.user);
     navigator.pop();
     setState(() {
       clearData();
@@ -68,7 +66,6 @@ class _MyProfileState extends State<MyProfile> {
     birthDateController.dispose();
     weightController.dispose();
     heightController.dispose();
-    imageController.dispose();
     super.dispose();
   }
 

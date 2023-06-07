@@ -8,7 +8,6 @@ class ImageDB{
 
   static Future<String> uploadImageToStorage(File image)async{
     Reference reference = storage.ref().child('profile_images').child(getUserAuth().uid);
-
     UploadTask uploadTask = reference.putFile(image);
     TaskSnapshot taskSnapshot = await uploadTask;
     String downloadUrl =  await taskSnapshot.ref.getDownloadURL();

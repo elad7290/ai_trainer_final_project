@@ -28,8 +28,8 @@ class _ImageWidgetState extends State<ImageWidget> {
   void pickImage() async{
     await widget.controller.chooseImageFromGallery();
     setState(() {
-      if (widget.controller.proflieImage != null) {
-        image = widget.controller.proflieImage;
+      if (widget.controller.image != null) {
+        image = widget.controller.image;
         isImageUpdated = true;
       }
     });
