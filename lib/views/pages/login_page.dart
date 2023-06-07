@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
         barrierDismissible: false,
         builder: (context) => const Center(
           child: CircularProgressIndicator(
-            color: Global.orange,
+            color: AppColors.orange,
             strokeWidth: 3,
           ),
         )
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
     final bool keyBoardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
     return Scaffold(
-        backgroundColor: Global.orange,
+        backgroundColor: AppColors.orange,
         body: Stack(
           children: <Widget>[
             AnimatedPositioned(
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
               child: WaveWidget(
                 size: size,
                 yOffset: size.height / 3.0,
-                color: Global.black,
+                color: AppColors.black,
               ),
             ),
 
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Login',
                     style: TextStyle(
-                      color: Global.black,
+                      color: AppColors.black,
                       fontSize: 50.0,
                       fontWeight: FontWeight.w900,
                     ),
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                         RichText(
                             text: TextSpan(
                               style: const TextStyle(
-                                color: Global.white,
+                                color: AppColors.white,
                                 fontSize: 20,
                               ),
                               text: 'No account? ',
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                                   text: 'Sign Up',
                                   style: const TextStyle(
                                     decoration: TextDecoration.underline,
-                                    color: Global.orange,
+                                    color: AppColors.orange,
                                   ),
                                 ),
                               ],

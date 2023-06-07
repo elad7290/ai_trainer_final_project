@@ -5,8 +5,6 @@ import 'package:ai_trainer/views/pages/my_profile.dart';
 import 'package:ai_trainer/views/pages/workout_page.dart';
 import 'package:flutter/material.dart';
 
-enum LoginError {success, userNotExist, errorDbConnection}
-
 List<Map<String,dynamic>> menu = [
   {
     "icon": Icons.home,
@@ -31,7 +29,7 @@ List<Map<String,dynamic>> menu = [
   },
 ];
 
-class Global {
+class AppColors {
 
   static const orange = Colors.orange;
   static const yellow = Colors.yellowAccent;
@@ -45,6 +43,8 @@ class Global {
   static const redAccent = Colors.redAccent;
   static const black54 = Colors.black54;
   static const white54 = Colors.white54;
+  static const orangeAccent = Colors.orangeAccent;
+  static const grey = Colors.grey;
 
 
 }

@@ -8,7 +8,7 @@ Widget ExcerciseCount(String text) {
     text,
     style: TextStyle(
         fontSize: 20,
-        color: Global.black,
+        color: AppColors.black,
         fontWeight: FontWeight.bold,
     ),
   );

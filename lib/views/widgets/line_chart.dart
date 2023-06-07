@@ -14,8 +14,8 @@ class LineChartWidget extends StatefulWidget {
 
 class _LineChartWidgetState extends State<LineChartWidget> {
   List<Color> gradientColors = [
-    Global.redAccent,
-    Global.orange,
+    AppColors.redAccent,
+    AppColors.orange,
   ];
 
   @override
@@ -23,7 +23,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     return AspectRatio(
       aspectRatio: 1.7,
       child: LineChart(LineChartData(
-        backgroundColor: Global.black54,
+        backgroundColor: AppColors.black54,
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
@@ -31,13 +31,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           verticalInterval: 1,
           getDrawingHorizontalLine: (value) {
             return FlLine(
-              color: Global.white10,
+              color: AppColors.white10,
               strokeWidth: 1,
             );
           },
           getDrawingVerticalLine: (value) {
             return FlLine(
-              color: Global.white10,
+              color: AppColors.white10,
               strokeWidth: 1,
             );
           },
@@ -64,7 +64,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         ),
         borderData: FlBorderData(
           show: true,
-          border: Border.all(color: Global.black),
+          border: Border.all(color: AppColors.black),
         ),
         minY: 0,
         maxY: 103,
@@ -99,7 +99,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
   Widget LeftTitelWidget(double value, TitleMeta meta) {
     const style = TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 10, color: Global.black);
+        fontWeight: FontWeight.bold, fontSize: 10, color: AppColors.black);
     String text;
     if (value.toInt() % 10 == 0) {
       text = value.toInt().toString();

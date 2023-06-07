@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const EntryPoint(),
         theme: ThemeData(
-            primarySwatch: Global.orange,
+            primarySwatch: AppColors.orange,
             brightness: Brightness.dark
         ),
       );
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const AuthPage(),
         theme: ThemeData(
-          primarySwatch: Global.orange,
+          primarySwatch: AppColors.orange,
           brightness: Brightness.dark
         ),
       );

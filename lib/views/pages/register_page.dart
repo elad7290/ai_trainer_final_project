@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
         barrierDismissible: false,
         builder: (context) => const Center(
               child: CircularProgressIndicator(
-                color: Global.orange,
+                color: AppColors.orange,
                 strokeWidth: 3,
               ),
             ));
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Global.black,
+      backgroundColor: AppColors.black,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Form(
@@ -187,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   RichText(
                     text: TextSpan(
                       style: const TextStyle(
-                        color: Global.white,
+                        color: AppColors.white,
                         fontSize: 20,
                       ),
                       text: 'Already have an account? ',
@@ -198,7 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           text: 'Login',
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
-                            color: Global.orange,
+                            color: AppColors.orange,
                           ),
                         ),
                       ],

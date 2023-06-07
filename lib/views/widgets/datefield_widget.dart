@@ -45,16 +45,16 @@ class _DateFieldWidgetState extends State<DateFieldWidget> {
       controller: widget.controller,
       obscureText: false,
       style: const TextStyle(
-        color: Global.orange,
+        color: AppColors.orange,
         fontSize: 18.0,
       ),
-      cursorColor: Global.orange,
+      cursorColor: AppColors.orange,
       decoration: InputDecoration(
           labelText: "Birth Date",
           prefixIcon: Icon(
             widget.prefixIconData,
             size: 18,
-            color: Global.orange,
+            color: AppColors.orange,
           ),
           filled: true,
           enabledBorder: UnderlineInputBorder(
@@ -64,14 +64,14 @@ class _DateFieldWidgetState extends State<DateFieldWidget> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
-              color: Global.orange,
+              color: AppColors.orange,
             ),
           ),
           suffixIcon: null,
           labelStyle: const TextStyle(
-            color: Global.orange,
+            color: AppColors.orange,
           ),
-          focusColor: Global.orange
+          focusColor: AppColors.orange
       ),
     );
   }

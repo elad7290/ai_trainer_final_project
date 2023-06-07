@@ -29,7 +29,7 @@ class SideMenuTile extends StatelessWidget {
           left: 0,
           child: Container(
             decoration: BoxDecoration(
-              color: Global.orange,
+              color: AppColors.orange,
               borderRadius: BorderRadius.all(Radius.circular(10)),
 
             ),
@@ -40,11 +40,11 @@ class SideMenuTile extends StatelessWidget {
           leading: SizedBox(
             height: 34,
             width: 34,
-            child: Icon(icon,color: Global.lightWhite,),
+            child: Icon(icon,color: AppColors.lightWhite,),
           ),
           title: Text(
             title,
-            style: TextStyle(color: Global.lightWhite),
+            style: TextStyle(color: AppColors.lightWhite),
           ),
         ),
       ],

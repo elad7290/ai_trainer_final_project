@@ -59,7 +59,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
         title: const Text(
             'Weekly Workout',
             textAlign: TextAlign.center,
-          style: TextStyle(color: Global.orange),
+          style: TextStyle(color: AppColors.orange),
         ),
         centerTitle: true,
       ),
@@ -109,7 +109,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   style: TextStyle(fontSize: 22.0),
                   textAlign: TextAlign.center,
                 ),
-                selectedTileColor: Global.orange,
+                selectedTileColor: AppColors.orange,
               ),
             ),
           );

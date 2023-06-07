@@ -19,10 +19,10 @@ class MenuBtn extends StatelessWidget {
           height: 40,
           width: 40,
           decoration: const BoxDecoration(
-              color: Global.orange,
+              color: AppColors.orange,
               shape: BoxShape.circle,
               boxShadow: [BoxShadow(
-                color: Global.lightBlack,
+                color: AppColors.lightBlack,
                 offset: Offset(0,3),
                 blurRadius: 8,
               )]

@@ -13,13 +13,13 @@ class SignUpButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Global.black,
+      color: AppColors.black,
       child: Ink(
         decoration: BoxDecoration(
-          color: Global.black,
+          color: AppColors.black,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Global.orange,
+            color: AppColors.orange,
             width: 1.0,
           ),
         ),
@@ -31,7 +31,7 @@ class SignUpButtonWidget extends StatelessWidget {
               child: Text(
                 title,
                 style: const TextStyle(
-                  color:Global.orange,
+                  color:AppColors.orange,
                   fontWeight: FontWeight.w600,
                   fontSize: 18.0,
                 ),

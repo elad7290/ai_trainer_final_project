@@ -9,7 +9,7 @@ class Utils {
     if (text == null) return;
     final snackBar = SnackBar(
       content: Text(text),
-      backgroundColor: Global.errorColor,
+      backgroundColor: AppColors.errorColor,
     );
     messengerKey.currentState!
       ..removeCurrentSnackBar()

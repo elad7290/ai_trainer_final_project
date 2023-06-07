@@ -41,7 +41,7 @@ class _SideMenuState extends State<SideMenu> {
       body: Container(
         width: 288,
         height: double.infinity,
-        color: Global.lightBlack,
+        color: AppColors.lightBlack,
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -54,7 +54,7 @@ class _SideMenuState extends State<SideMenu> {
                 Padding(
                   padding: const EdgeInsets.only(left: 24),
                   child: Divider(
-                    color: Global.lightWhite,
+                    color: AppColors.lightWhite,
                     height: 1,
                   ),
                 ),
@@ -74,7 +74,7 @@ class _SideMenuState extends State<SideMenu> {
                 const Padding(
                   padding: EdgeInsets.only(left: 24),
                   child: Divider(
-                    color: Global.lightWhite,
+                    color: AppColors.lightWhite,
                     height: 1,
                   ),
                 ),

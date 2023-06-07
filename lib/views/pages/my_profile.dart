@@ -36,7 +36,7 @@ class _MyProfileState extends State<MyProfile> {
         barrierDismissible: false,
         builder: (context) => const Center(
               child: CircularProgressIndicator(
-                color: Global.orange,
+                color: AppColors.orange,
                 strokeWidth: 3,
               ),
             ));
@@ -79,7 +79,7 @@ class _MyProfileState extends State<MyProfile> {
         title: const Text(
           'Edit Profile',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Global.orange),
+          style: TextStyle(color: AppColors.orange),
         ),
         centerTitle: true,
       ),
@@ -206,7 +206,7 @@ class _MyProfileState extends State<MyProfile> {
                         style: TextStyle(
                           fontSize: 15,
                           letterSpacing: 2,
-                          color: Global.white,
+                          color: AppColors.white,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(

@@ -15,10 +15,10 @@ class SignInButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Global.black,
+      color: AppColors.black,
       child: Ink(
         decoration: BoxDecoration(
-          color: Global.orange,
+          color: AppColors.orange,
           borderRadius: BorderRadius.circular(10),
           border: const Border.fromBorderSide(BorderSide.none),
         ),
@@ -30,7 +30,7 @@ class SignInButtonWidget extends StatelessWidget {
               child: Text(
                 title,
                 style: const TextStyle(
-                  color: Global.black,
+                  color: AppColors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 18.0,
                 ),

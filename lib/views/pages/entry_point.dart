@@ -81,7 +81,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     if (isUserInitialized){
       return Scaffold(
-        backgroundColor: Global.lightBlack,
+        backgroundColor: AppColors.lightBlack,
         resizeToAvoidBottomInset: false,
         extendBody: true,
         body: Stack(

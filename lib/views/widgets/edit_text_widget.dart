@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../shared/globals.dart';
 
 class EditText extends StatefulWidget {
   const EditText({super.key, required this.label, required this.placeHoler, required this.isPassword, required this.controller, required this.validator, required this.textInputType});
@@ -48,7 +49,7 @@ class _EditTextState extends State<EditText> {
             hintStyle: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: AppColors.grey,
             )
         ),
       ),

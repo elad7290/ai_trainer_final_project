@@ -47,7 +47,7 @@ class _ImageWidgetState extends State<ImageWidget> {
             width: 130,
             height: 130,
             decoration: BoxDecoration(
-              border: Border.all(width: 4, color: Global.white),
+              border: Border.all(width: 4, color: AppColors.white),
               boxShadow: [
                 BoxShadow(
                     spreadRadius: 2,
@@ -67,11 +67,11 @@ class _ImageWidgetState extends State<ImageWidget> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border:
-                    Border.all(width: 4, color: Global.white),
-                    color: Colors.orangeAccent),
+                    Border.all(width: 4, color: AppColors.white),
+                    color: AppColors.orangeAccent),
                 child: IconButton(
                   icon: Icon(Icons.edit),
-                  color: Global.black,
+                  color: AppColors.black,
                   onPressed: pickImage,
                 ),
               )),

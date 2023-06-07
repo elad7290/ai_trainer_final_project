@@ -130,7 +130,7 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
       appBar: AppBar(
         title: const Text("Fitness Questionnaire"),
         centerTitle: true,
-        backgroundColor: Global.orange,
+        backgroundColor: AppColors.orange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -144,7 +144,7 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
             const SizedBox(height: 16.0),
             Text(
               _questions[_questionIndex],
-              style: const TextStyle(fontSize: 24.0, color: Global.orange),
+              style: const TextStyle(fontSize: 24.0, color: AppColors.orange),
             ),
             const SizedBox(height: 16.0),
             Center(

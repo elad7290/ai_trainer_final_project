@@ -19,20 +19,20 @@ class InfoCard extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: image != null ? NetworkImage(image!) : null,
-        backgroundColor: Global.orange,
+        backgroundColor: AppColors.orange,
         child: image == null ? Icon(
           Icons.person,
-          color: Global.lightWhite ,
+          color: AppColors.lightWhite ,
         ) : null,
       ),
       title: Text(
         name,
         style: TextStyle(
-            color: Global.lightWhite
+            color: AppColors.lightWhite
         ),
       ),
       subtitle: Text(email,
-        style: TextStyle(color: Global.lightWhite),
+        style: TextStyle(color: AppColors.lightWhite),
       ),
     );
   }

@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
             children: [
               const Text(
                 "data",
-                style: TextStyle(fontSize: 14, color: Global.orange),
+                style: TextStyle(fontSize: 14, color: AppColors.orange),
               ),
               const SizedBox(
                 height: 15.0,
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Global.white54,
+                  color: AppColors.white54,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: LineChartWidget(points: user!.progress_points),

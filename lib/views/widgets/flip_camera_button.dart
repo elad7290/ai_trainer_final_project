@@ -14,7 +14,7 @@ Widget FlipCameraButton(VoidCallback flip){
         height: 50,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Global.yellow,
+            color: AppColors.yellow,
             boxShadow: [
               BoxShadow(
                   color: Colors.black26,
