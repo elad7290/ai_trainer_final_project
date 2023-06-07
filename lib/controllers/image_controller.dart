@@ -5,16 +5,15 @@ import '../db_access/image_db.dart';
 
 
 class ImageController extends GetxController {
-  late Rx<File?> pickedFile;
-  File? get proflieImage => pickedFile.value;
+  Rx<File?>? pickedFile;
+  File? get proflieImage => pickedFile?.value;
 
   Future chooseImageFromGallery() async {
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       if(pickedImage!= null){
-        Get.snackbar("Profile Image", "you have successfully selected your profile image.", duration: const Duration(seconds: 3));
+        Get.snackbar("Profile Image", "you have successfully selected your profile image.");
       }
       pickedFile = Rx<File?>(File(pickedImage!.path));
-
   }
 
   void chooseImageFromCamera() async {
@@ -33,6 +32,12 @@ class ImageController extends GetxController {
       print(e.toString());
       return null;
     }
+  }
+
+  @override
+  void dispose() {
+    pickedFile?.close();
+    super.dispose();
   }
 
 

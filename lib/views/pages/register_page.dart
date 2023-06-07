@@ -48,6 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
     birthDateController.dispose();
     weightController.dispose();
     heightController.dispose();
+    imageController.dispose();
+
 
 
     super.dispose();

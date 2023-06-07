@@ -42,15 +42,11 @@ class _MyProfileState extends State<MyProfile> {
               ),
             ));
     final navigator = Navigator.of(context);
-    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController.proflieImage, widget.user);
+    await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController?.proflieImage, widget.user);
     navigator.pop();
     setState(() {
       clearData();
     });
-  }
-
-  void pickImage(){
-    imageController.chooseImageFromGallery();
   }
 
   void clearData() {
@@ -72,6 +68,7 @@ class _MyProfileState extends State<MyProfile> {
     birthDateController.dispose();
     weightController.dispose();
     heightController.dispose();
+    imageController.dispose();
     super.dispose();
   }
 
