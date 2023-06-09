@@ -2,12 +2,20 @@ import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
+import '../../models/exercise_model.dart';
 import '../widgets/excercise_count.dart';
 import 'package:teachable/teachable.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+
 class CameraScreen extends StatefulWidget {
-  const CameraScreen({Key? key}) : super(key: key);
+  // Exercise exercise;
+  // late String exe = "";
+  final String exercise;
+
+
+  const CameraScreen({Key? key, required this.exercise}) : super(key: key);
+
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -18,7 +26,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   late CameraController camera_controller;
   bool isCameraInitialized = false;
   int direction = 1;
-
   int repetitions = 0;
   int sets = 0;
 
@@ -26,10 +33,21 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   String confidence = "";
   bool isLoading = false; // Added loading indicator
 
-  Map<String, String> exercises = {
-    'Push Ups': 'Push Ups',
+  Map<String, String> pushups = {
+    'Push ups': 'Push ups',
     'Nothing': 'Nothing',
   };
+
+  Map<String, String> crunches = {
+    'Crunches': 'Crunches',
+    'Nothing': 'Nothing',
+  };
+
+  // final String chosen_exercise = "";
+
+  // _CameraScreenState(String chosenExercise){
+  //   chosenExercise = chosen_exercise;
+  // }
 
   @override
   void initState() {
@@ -85,9 +103,9 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   void processResult(String result) {
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
-      if (score > 0.5) {
+      if (score > 0.9) {
         setState(() {
-          currentExercise = exercises[exercise]!;
+          currentExercise = pushups[exercise]!;
           confidence = (score * 100.0).toStringAsFixed(2);
           isLoading = false; // Set isLoading to false when the result is obtained
         });
@@ -104,6 +122,8 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    print(widget.exercise);
+   // String exe = widget.exe.name;
     return Scaffold(
       appBar: AppBar(title: const Text("Pose classifier")),
       body: Stack(
@@ -135,22 +155,22 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
               child: isLoading // Conditional rendering based on isLoading
                   ? CircularProgressIndicator() // Show loading indicator
                   : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Exercise: $currentExercise",
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          "Confidence: $confidence%",
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "Exercise: $currentExercise",
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
+                  ),
+                  Text(
+                    "Confidence: $confidence%",
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
