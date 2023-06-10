@@ -123,6 +123,8 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   @override
   Widget build(BuildContext context) {
     print(widget.exercise);
+    String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
+    String temp = "lib/assets/" + exe + ".html";
    // String exe = widget.exe.name;
     return Scaffold(
       appBar: AppBar(title: const Text("Pose classifier")),
@@ -134,7 +136,7 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
                 Expanded(
                   child: Container(
                     child: Teachable(
-                      path: "lib/assets/index.html",
+                      path: temp,
                       results: (res) {
                         processResult(res);
                       },
