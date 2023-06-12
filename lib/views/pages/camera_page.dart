@@ -1,4 +1,3 @@
-import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
@@ -7,21 +6,17 @@ import '../widgets/excercise_count.dart';
 import 'package:teachable/teachable.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class CameraScreen extends StatefulWidget {
-  // Exercise exercise;
-  // late String exe = "";
   final String exercise;
 
-
   const CameraScreen({Key? key, required this.exercise}) : super(key: key);
-
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver {
+class _CameraScreenState extends State<CameraScreen>
+    with WidgetsBindingObserver {
   late List<CameraDescription> cameras;
   late CameraController camera_controller;
   bool isCameraInitialized = false;
@@ -31,7 +26,8 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
 
   String currentExercise = "";
   String confidence = "";
-  bool isLoading = false; // Added loading indicator
+  bool isLoading = false;
+  int counter = 0; // Counter variable
 
   Map<String, String> pushups = {
     'Push ups': 'Push ups',
@@ -42,12 +38,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
     'Crunches': 'Crunches',
     'Nothing': 'Nothing',
   };
-
-  // final String chosen_exercise = "";
-
-  // _CameraScreenState(String chosenExercise){
-  //   chosenExercise = chosen_exercise;
-  // }
 
   @override
   void initState() {
@@ -101,13 +91,19 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   }
 
   void processResult(String result) {
+    if (isLoading) {
+      return;
+    }
+
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
-      if (score > 0.2) {
+      if (score > 0.3) {
+        print(score);
         setState(() {
           currentExercise = pushups[exercise]!;
           confidence = (score * 100.0).toStringAsFixed(2);
-          isLoading = false; // Set isLoading to false when the result is obtained
+          isLoading = false;
+          counter++;
         });
         return;
       }
@@ -116,16 +112,20 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
 
   void startProcessing() {
     setState(() {
-      isLoading = true; // Set isLoading to true when processing starts
+      isLoading = true;
+    });
+  }
+
+  void incrementCounter() {
+    setState(() {
+      counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.exercise);
     String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
     String temp = "lib/assets/" + exe + ".html";
-   // String exe = widget.exe.name;
     return Scaffold(
       appBar: AppBar(title: const Text("Pose classifier")),
       body: Stack(
@@ -154,8 +154,8 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
               ),
-              child: isLoading // Conditional rendering based on isLoading
-                  ? CircularProgressIndicator() // Show loading indicator
+              child: isLoading
+                  ? CircularProgressIndicator()
                   : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -169,6 +169,27 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
                     "Confidence: $confidence%",
                     style: const TextStyle(
                       color: Colors.white,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: incrementCounter,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          counter.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
