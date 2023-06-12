@@ -103,7 +103,7 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
   void processResult(String result) {
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
-      if (score > 0.9) {
+      if (score > 0.2) {
         setState(() {
           currentExercise = pushups[exercise]!;
           confidence = (score * 100.0).toStringAsFixed(2);

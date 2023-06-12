@@ -5,8 +5,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
 <script type="text/javascript">
 const URL = "https://teachablemachine.withgoogle.com/models/aNKrlOcWi/";
-// https://teachablemachine.withgoogle.com/models/aNKrlOcWi/ //Crunches
-// https://teachablemachine.withgoogle.com/models/-qUq7hqG5/ //Push ups
+
+
 let model, webcam, ctx, labelContainer, maxPredictions;
 
 async function init() {
@@ -52,7 +52,7 @@ async function predict() {
     }
 
     // finally draw the poses
-    drawPose(pose);
+    //drawPose(pose);
 
     try {
         // Code to run
