@@ -97,16 +97,31 @@ class _CameraScreenState extends State<CameraScreen>
 
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
-      if (score > 0.3) {
+      setState(() {
+        currentExercise = pushups[exercise]!;
+        confidence = (score * 100.0).toStringAsFixed(2);
+        if(exercise == 'Nothing'){
+          return;
+        }
         print(score);
-        setState(() {
-          currentExercise = pushups[exercise]!;
-          confidence = (score * 100.0).toStringAsFixed(2);
-          isLoading = false;
+        print(currentExercise);
+        if (exercise == 'Push ups' && score > 0.97) {
           counter++;
-        });
+          print(counter);
+        }
+        isLoading = false;
         return;
-      }
+      });
+      // if (score > 0.95) {
+      //   // print(score);
+      //   setState(() {
+      //     currentExercise = pushups[exercise]!;
+      //     confidence = (score * 100.0).toStringAsFixed(2);
+      //     isLoading = false;
+      //     counter++;
+      //   });
+      //   return;
+      // }
     });
   }
 
