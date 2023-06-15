@@ -4,15 +4,17 @@ import 'dart:convert';
 import '../../models/exercise_model.dart';
 import '../widgets/excercise_count.dart';
 import 'package:teachable/teachable.dart';
+//import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatefulWidget {
-  final String exercise;
 
+  final String exercise;
   const CameraScreen({Key? key, required this.exercise}) : super(key: key);
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
+
 }
 
 class _CameraScreenState extends State<CameraScreen>
@@ -24,20 +26,21 @@ class _CameraScreenState extends State<CameraScreen>
   int repetitions = 0;
   int sets = 0;
 
+
   String currentExercise = "";
   String confidence = "";
   bool isLoading = false;
   int counter = 0; // Counter variable
 
-  Map<String, String> pushups = {
-    'Push ups': 'Push ups',
-    'Nothing': 'Nothing',
-  };
+  // Map<String, String> pushups = {
+  //   'Push ups': 'Push ups',
+  //   'Nothing': 'Nothing',
+  // };
 
-  Map<String, String> crunches = {
-    'Crunches': 'Crunches',
-    'Nothing': 'Nothing',
-  };
+  // Map<String, String> crunches = {
+  //   'Crunches': 'Crunches',
+  //   'Nothing': 'Nothing',
+  // };
 
   @override
   void initState() {
@@ -90,7 +93,8 @@ class _CameraScreenState extends State<CameraScreen>
     });
   }
 
-  void processResult(String result) {
+  void processResult(String result, String exe) {
+
     if (isLoading) {
       return;
     }
@@ -98,18 +102,32 @@ class _CameraScreenState extends State<CameraScreen>
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
       setState(() {
-        currentExercise = pushups[exercise]!;
+
+        Map<String, String> exerciseMap = {
+          'Push ups': 'Push ups',
+          'Crunches' : 'Crunches',
+          'Squats' : 'Squats',
+          'Lateral raises' : 'Lateral Raises',
+          'Bench dips' : 'Bench dips',
+          'Dips' : 'Dips',
+          'Bicep curls' : 'Bicep curls',
+          'Pull ups' : 'Pull ups',
+          'Nothing': 'Nothing',
+        };
+
+        currentExercise = exerciseMap[exercise]!;
         confidence = (score * 100.0).toStringAsFixed(2);
-        if (exercise == 'Push ups' && score > 0.999) {
+        if(currentExercise == 'Nothing'){
+          isLoading = false;
+          return;
+        }
+        if (score > 0.999) {
           counter++;
           print(counter);
           isLoading = false;
           return;
         }
-        if(currentExercise == 'Nothing'){
-          isLoading = false;
-          return;
-        }
+
         //print(score);
         //print(currentExercise);
         // if (exercise == 'Push ups' && score > 0.999) {
@@ -144,6 +162,7 @@ class _CameraScreenState extends State<CameraScreen>
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
@@ -160,7 +179,7 @@ class _CameraScreenState extends State<CameraScreen>
                     child: Teachable(
                       path: temp,
                       results: (res) {
-                        processResult(res);
+                        processResult(res,exe);
                       },
                     ),
                   ),
@@ -179,20 +198,15 @@ class _CameraScreenState extends State<CameraScreen>
               child: isLoading
                   ? CircularProgressIndicator()
                   : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Exercise: $currentExercise",
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
                   Text(
                     "Confidence: $confidence%",
                     style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
+
                   GestureDetector(
                     onTap: incrementCounter,
                     child: Container(
