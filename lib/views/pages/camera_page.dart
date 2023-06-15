@@ -100,17 +100,24 @@ class _CameraScreenState extends State<CameraScreen>
       setState(() {
         currentExercise = pushups[exercise]!;
         confidence = (score * 100.0).toStringAsFixed(2);
-        if(exercise == 'Nothing'){
-          return;
-        }
-        print(score);
-        print(currentExercise);
-        if (exercise == 'Push ups' && score > 0.97) {
+        if (exercise == 'Push ups' && score > 0.999) {
           counter++;
           print(counter);
+          isLoading = false;
+          return;
         }
-        isLoading = false;
-        return;
+        if(currentExercise == 'Nothing'){
+          isLoading = false;
+          return;
+        }
+        //print(score);
+        //print(currentExercise);
+        // if (exercise == 'Push ups' && score > 0.999) {
+        //   counter++;
+        //   print(counter);
+        // }
+        // isLoading = false;
+        // return;
       });
       // if (score > 0.95) {
       //   // print(score);
@@ -142,7 +149,7 @@ class _CameraScreenState extends State<CameraScreen>
     String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
     String temp = "lib/assets/" + exe + ".html";
     return Scaffold(
-      appBar: AppBar(title: const Text("Pose classifier")),
+      appBar: AppBar(title: Text(widget.exercise)),
       body: Stack(
         children: [
           Container(
