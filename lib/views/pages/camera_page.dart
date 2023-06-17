@@ -32,15 +32,6 @@ class _CameraScreenState extends State<CameraScreen>
   bool isLoading = false;
   int counter = 0; // Counter variable
 
-  // Map<String, String> pushups = {
-  //   'Push ups': 'Push ups',
-  //   'Nothing': 'Nothing',
-  // };
-
-  // Map<String, String> crunches = {
-  //   'Crunches': 'Crunches',
-  //   'Nothing': 'Nothing',
-  // };
 
   @override
   void initState() {
@@ -127,26 +118,7 @@ class _CameraScreenState extends State<CameraScreen>
           isLoading = false;
           return;
         }
-
-        //print(score);
-        //print(currentExercise);
-        // if (exercise == 'Push ups' && score > 0.999) {
-        //   counter++;
-        //   print(counter);
-        // }
-        // isLoading = false;
-        // return;
       });
-      // if (score > 0.95) {
-      //   // print(score);
-      //   setState(() {
-      //     currentExercise = pushups[exercise]!;
-      //     confidence = (score * 100.0).toStringAsFixed(2);
-      //     isLoading = false;
-      //     counter++;
-      //   });
-      //   return;
-      // }
     });
   }
 
