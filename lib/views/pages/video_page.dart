@@ -13,6 +13,7 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
+  late String exercise;
   late BetterPlayerController betterPlayerController;
   GlobalKey betterPlayerKey = GlobalKey();
 
@@ -36,13 +37,15 @@ class _VideoPageState extends State<VideoPage> {
 
     //TODO: here send to CameraScreen the exercise
     void startWorkOut(){
+      exercise = widget.exercise.name;
+      print(exercise + "!!!!!!!!!!!!!!!!!!!");
       Navigator.pop(context);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CameraScreen()),
+        MaterialPageRoute(builder: (context) => CameraScreen(exercise: exercise)),
       );
     }
-    
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
