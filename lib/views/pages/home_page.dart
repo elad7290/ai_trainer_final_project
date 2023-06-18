@@ -34,48 +34,98 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),
-          automaticallyImplyLeading: false,
+          title: const Text(
+            'Home Page',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppColors.orange),
+          ),
+          centerTitle: true,
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "data",
-                style: TextStyle(fontSize: 14, color: AppColors.orange),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3,
-                margin: EdgeInsets.all(8.0),
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: AppColors.white54,
-                  borderRadius: BorderRadius.circular(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Welcome, ${widget.user!.name}!",
+                  style: const TextStyle(
+                      fontSize: 30,
+                      color: AppColors.white
+                  ),
                 ),
-                child: LineChartWidget(points: widget.user!.progress_points),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 1.2,
-                height: MediaQuery.of(context).size.height / 3.5,
-                margin: EdgeInsets.all(8.0),
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: AppColors.white54,
-                  borderRadius: BorderRadius.circular(10.0),
+                const SizedBox(
+                  height: 15.0,
                 ),
-                child: CirclePercentWidget(percent: percent,),
-              ),
-            ],
+                const Text(
+                  "Are you ready to see your progress?",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: AppColors.white
+                  ),
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 3,
+                  margin: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.white54,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Your Progress From the beginning:",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.orangeAccent
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      LineChartWidget(points: widget.user!.progress_points),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 3,
+                  margin: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.white54,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Your Weekly Progress:",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.orangeAccent
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Flexible(
+                          child:
+                          CirclePercentWidget(percent: percent,)
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ));
   }
