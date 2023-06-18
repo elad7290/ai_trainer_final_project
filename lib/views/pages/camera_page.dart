@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
-import '../../models/exercise_model.dart';
-import '../widgets/excercise_count.dart';
 import 'package:teachable/teachable.dart';
 //import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -25,8 +23,6 @@ class _CameraScreenState extends State<CameraScreen>
   int direction = 1;
   int repetitions = 0;
   int sets = 0;
-
-
   String currentExercise = "";
   String confidence = "";
   bool isLoading = false;
@@ -36,13 +32,13 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     initCamera();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     camera_controller.dispose();
     super.dispose();
   }
@@ -56,15 +52,13 @@ class _CameraScreenState extends State<CameraScreen>
 
   void initCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
-
     await Permission.camera.request();
     cameras = await availableCameras();
     camera_controller = CameraController(
       cameras[direction],
-      ResolutionPreset.high,
+      ResolutionPreset.low,
       enableAudio: false,
     );
-
     await camera_controller.initialize().then((value) {
       if (!mounted) {
         return;
@@ -93,7 +87,6 @@ class _CameraScreenState extends State<CameraScreen>
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
       setState(() {
-
         Map<String, String> exerciseMap = {
           'Push ups': 'Push ups',
           'Crunches' : 'Crunches',
@@ -112,7 +105,7 @@ class _CameraScreenState extends State<CameraScreen>
           isLoading = false;
           return;
         }
-        if (score > 0.999) {
+      if (score > 0.99) {
           counter++;
           print(counter);
           isLoading = false;
@@ -122,11 +115,11 @@ class _CameraScreenState extends State<CameraScreen>
     });
   }
 
-  void startProcessing() {
-    setState(() {
-      isLoading = true;
-    });
-  }
+  // void startProcessing() {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  // }
 
   void incrementCounter() {
     setState(() {
@@ -138,7 +131,7 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   Widget build(BuildContext context) {
     String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
-    String temp = "lib/assets/" + exe + ".html";
+    String temp = "lib/assets/$exe.html";
     return Scaffold(
       appBar: AppBar(title: Text(widget.exercise)),
       body: Stack(
