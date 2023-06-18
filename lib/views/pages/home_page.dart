@@ -5,6 +5,7 @@ import '../../controllers/exercise_controller.dart';
 import '../../shared/globals.dart';
 import '../widgets/circle_percent.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
   final MyUser? user;
