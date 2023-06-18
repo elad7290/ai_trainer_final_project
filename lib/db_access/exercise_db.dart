@@ -50,6 +50,17 @@ class ExerciseDB {
     return exercises;
   }
 
+  static Future<double> getProgress() async {
+    User user = getUserAuth();
+    String user_id = user.uid;
+    var weeklyTrainingRef = db.collection('weekly_training');
+    var ex_count_query = weeklyTrainingRef.where("user_id", isEqualTo: user_id).count();
+    var ex_done_count_query = weeklyTrainingRef.where("user_id", isEqualTo: user_id).where("is_done",  isEqualTo: true).count();
+    var snapshot_ex_count = await ex_count_query.get();
+    var snapshot_ex_done_count = await ex_done_count_query.get();
+    return snapshot_ex_done_count.count / snapshot_ex_count.count;
+  }
+
   static Future initial(List<String> exercisesId) async {
     // create weekly_training docs
     final user = getUserAuth();

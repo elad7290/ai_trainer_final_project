@@ -3,18 +3,18 @@ import 'package:ai_trainer/models/user_model.dart';
 import '../db_access/exercise_db.dart';
 import '../models/exercise_model.dart';
 
-Future<List<Exercise>> getExercisesByRef(dynamic exercisesRef) async{
+Future<List<Exercise>> getExercisesByRef(dynamic exercisesRef) async {
   List<Exercise> exercises = [];
-  for (var exRef in exercisesRef){
+  for (var exRef in exercisesRef) {
     var ex = await getExerciseByRef(exRef);
-    if (ex !=null){
+    if (ex != null) {
       exercises.add(ex);
     }
   }
   return exercises;
 }
 
-Future<Exercise?> getExerciseByRef(dynamic exRef) async{
+Future<Exercise?> getExerciseByRef(dynamic exRef) async {
   try {
     return await ExerciseDB.getExerciseByRef(exRef);
   } catch (e) {
@@ -25,11 +25,24 @@ Future<Exercise?> getExerciseByRef(dynamic exRef) async{
 Future<List<Exercise>> getExercises() async {
   try {
     return await ExerciseDB.getExercisesFromUser();
-  } catch (e){
+  } catch (e) {
     print(e.toString());
     return [];
   }
+}
 
+Future<double> getProgress() async {
+  try {
+    double percent = await ExerciseDB.getProgress();
+    if (percent != double.nan) {
+      return percent;
+    } else {
+      return 0;
+    }
+  } catch (e) {
+    print(e.toString());
+    return 0;
+  }
 }
 
 Future initialExercises(MyUser user) async {
