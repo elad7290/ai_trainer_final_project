@@ -38,18 +38,18 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
     ["Poor", "Fair", "Good", "Excellent"],
     ["Yes", "No"],
     ["Poor", "Fair", "Good", "Excellent"],
-    ["Very important", "Somewhat important", "Not important"],
-    ["Very motivated", "Somewhat motivated", "Not very motivated"]
+    ["Not important", "Somewhat important", "Very important"],
+    ["Not very motivated", "Somewhat motivated", "Very motivated"]
   ];
 
   final List<List<int>> _scoringSystem = [
     [1, 2, 3, 4],
-    [2, 4, 6],
+    [2, 2, 4],
     [1, 2, 3],
-    [1, 2, 3],
+    [1, 1, 2],
     [2, 4, 6],
     [1, 2, 3, 4],
-    [2, 0],
+    [0, 2],
     [1, 2, 3, 4],
     [2, 3, 5],
     [2, 4, 6]
@@ -79,7 +79,6 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
     setState(() {
       _answer = answer;
       _score += _scoringSystem[_questionIndex][_answers[_questionIndex].indexOf(answer)] * _weights[_questionIndex];
-      _answer = "";
     });
 
     if (_questionIndex == _questions.length - 1) {
@@ -93,12 +92,13 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
 
   // Define a function to determine the fitness level based on the score
   void _determineFitnessLevel() {
-    if (_score >= 50) {
-      _fitnessLevel = "Advanced";
-    } else if (_score >= 30) {
+    // score starts from 35
+    if (_score <= 60) {
+      _fitnessLevel = "Beginner";
+    } else if (_score <= 83) {
       _fitnessLevel = "Intermediate";
     } else {
-      _fitnessLevel = "Beginner";
+      _fitnessLevel = "Advanced";
     }
     saveUserLevel();
   }
