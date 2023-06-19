@@ -19,7 +19,6 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
-
   late List<CameraDescription> cameras;
   late CameraController camera_controller;
   bool isCameraInitialized = false;
@@ -27,10 +26,7 @@ class _CameraScreenState extends State<CameraScreen>
   int repetitions = 0;
   int sets = 0;
   String currentExercise = "";
-  bool isLoading = false;
-
-
-
+  //bool isLoading = false;
 
   @override
   void initState() {
@@ -82,20 +78,31 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   void processResult(String result, String exe) {
-    if (isLoading) {
-      return;
-    }
+    // if (isLoading) {
+    //   return;
+    // }
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
       setState(() {
         currentExercise = exercise;
         if (currentExercise == 'Nothing') {
-          isLoading = false;
+          //isLoading = false;
           return;
         }
         if (score > 0.99) {
-          repetitions++;
-          isLoading = false;
+          if(sets<=3){
+            if (repetitions >= 30) {
+              sets++;
+              repetitions = 0;
+            }
+            else{
+              repetitions++;
+            }
+          }
+          else{
+            //TODO: done this page
+          }
+          //isLoading = false;
           return;
         }
       });
@@ -108,42 +115,45 @@ class _CameraScreenState extends State<CameraScreen>
     String temp = "lib/assets/$exe.html";
     return Scaffold(
       appBar: AppBar(title: Text(widget.exercise)),
-      body: isCameraInitialized ?
-      Stack(
-        children: [
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Teachable(
-                  path: temp,
-                  results: (res) {
-                    processResult(res, exe);
-                  },
+      body: isCameraInitialized
+          ? Stack(
+              children: [
+                Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Teachable(
+                        path: temp,
+                        results: (res) {
+                          processResult(res, exe);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          // FlipCameraButton(flip),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Column(
-                children: [
-                  //TODO: take sets and rep from DB
-                  ExcerciseCount("Repetitions:   " + repetitions.toString() + " / 30"),
-                  SizedBox(height: 10,),
-                  ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
-                ],
-              ),
+                // FlipCameraButton(flip),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      children: [
+                        //TODO: take sets and rep from DB
+                        ExcerciseCount("Repetitions:   " +
+                            repetitions.toString() +
+                            " / 30"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
+          : const SizedBox(
+              height: 13,
             ),
-          )
-        ],
-      )
-      :
-      const SizedBox(
-        height: 13,
-      ),
     );
   }
 }
