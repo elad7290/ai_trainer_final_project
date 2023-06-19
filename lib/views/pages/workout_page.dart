@@ -6,7 +6,6 @@ import '../../controllers/exercise_controller.dart';
 import '../../shared/globals.dart';
 import 'fitness_questionnaire.dart';
 
-
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key, required this.user}) : super(key: key);
   final MyUser user;
