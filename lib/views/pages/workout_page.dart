@@ -106,8 +106,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
               child: ListTile(
                 title: Text(
                   exercise.name,
-                  style: TextStyle(fontSize: 22.0),
+                  style: TextStyle(
+                      fontSize: 22.0,
+                  ),
                   textAlign: TextAlign.center,
+
                 ),
                 selectedTileColor: AppColors.orange,
               ),
