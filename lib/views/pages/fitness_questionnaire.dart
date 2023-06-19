@@ -1,6 +1,5 @@
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
 
