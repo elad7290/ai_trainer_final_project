@@ -6,12 +6,12 @@ import '../models/user_model.dart';
 class PlanDB {
   static var db = FirebaseFirestore.instance;
 
-  static Future<Plan?> getPlanInfo(MyUser user) async {
+  static Future<Plan> getPlanInfo(MyUser user) async {
     var planRef = db.collection('plans');
     var query = planRef.where("level", isEqualTo: user.level).limit(1);
     var snapshot = await query.get();
     final data = snapshot.docs[0].data() as Map<String, dynamic>;
-    Plan plan = await Plan.fromJson(data);
+    Plan plan = Plan.fromJson(data);
     return plan;
   }
 

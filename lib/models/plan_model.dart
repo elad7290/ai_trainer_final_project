@@ -25,7 +25,7 @@ class Plan {
       repetitions: json['repetitions'],
       sets: json['sets'],
       information: json['information'],
-      exercises: json['exercises'],
+      exercises: [for (var ex in json['exercises']) ex.toString()],
     );
 
 }
