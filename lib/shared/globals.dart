@@ -5,6 +5,8 @@ import 'package:ai_trainer/views/pages/my_profile.dart';
 import 'package:ai_trainer/views/pages/workout_page.dart';
 import 'package:flutter/material.dart';
 
+import '../views/pages/change_level.dart';
+
 List<Map<String,dynamic>> menu = [
   {
     "icon": Icons.home,
@@ -26,6 +28,11 @@ List<Map<String,dynamic>> menu = [
     "icon": Icons.sports_gymnastics,
     "title": "Start Workout",
     "screen": (MyUser user) => WorkoutPage(user: user),
+  },
+  {
+    "icon": Icons.swap_calls_outlined,
+    "title": "Change My Level",
+    "screen": (MyUser user) => ChangeLevelPage(user: user),
   },
 ];
 

@@ -34,7 +34,7 @@ Future<List<Exercise>> getExercises() async {
 Future<double> getProgress() async {
   try {
     double percent = await ExerciseDB.getProgress();
-    if (percent != double.nan) {
+    if (percent.isFinite) {
       return percent;
     } else {
       return 0;
