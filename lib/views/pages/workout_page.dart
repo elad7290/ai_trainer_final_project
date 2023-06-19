@@ -102,7 +102,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
           return GestureDetector(
             onTap: () => navigateToVideoPage(exercise),
             child: Container(
-
               child: ListTile(
                 title: Text(
                   exercise.name,
@@ -113,6 +112,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
                 ),
                 selectedTileColor: AppColors.orange,
+                shape: const Border(top: BorderSide(color: AppColors.grey)),
               ),
             ),
           );
