@@ -83,13 +83,13 @@ class _HomePageState extends State<HomePage> {
                         "Your Progress From the beginning:",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Colors.orangeAccent
+                            color: AppColors.orangeAccent
                         ),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      LineChartWidget(points: widget.user!.progress_points),
+                      Expanded(child: LineChartWidget(points: widget.user!.progress_points)),
                     ],
                   ),
                 ),
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 3,
+                  height: MediaQuery.of(context).size.height / 2.7,
                   margin: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(16.0),
@@ -112,15 +112,14 @@ class _HomePageState extends State<HomePage> {
                         "Your Weekly Progress:",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Colors.orangeAccent
+                            color: AppColors.orangeAccent,
                         ),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Flexible(
-                          child:
-                          CirclePercentWidget(percent: percent,)
+                      Expanded(
+                          child: CirclePercentWidget(percent: percent,)
                       ),
                     ],
                   ),
