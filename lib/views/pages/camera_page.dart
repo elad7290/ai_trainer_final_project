@@ -13,6 +13,7 @@ import '../widgets/excercise_count.dart';
 //import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 //import '../../shared/globals.dart';
 
+
 class CameraScreen extends StatefulWidget {
   final Exercise exercise;
   final MyUser user;
