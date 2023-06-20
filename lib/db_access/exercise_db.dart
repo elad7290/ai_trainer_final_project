@@ -83,5 +83,18 @@ class ExerciseDB {
     }
   }
 
+  static Future finished(String exercise_id) async {
+    User user = getUserAuth();
+    String user_id = user.uid;
+    var weeklyTrainingRef = db.collection('weekly_training');
+    var query = weeklyTrainingRef.where("user_id", isEqualTo: user_id).where("exercise_id", isEqualTo: exercise_id);
+    var snapshot = await query.get();
+    var trainingRef = snapshot.docs[0].reference;
+    await trainingRef.update({
+      'is_done': true
+    });
+    
+  }
+
 
 }

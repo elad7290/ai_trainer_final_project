@@ -8,8 +8,9 @@ import '../../models/user_model.dart';
 class VideoPage extends StatefulWidget {
   final Exercise exercise;
   final MyUser user;
+  final void Function() finished;
 
-  const VideoPage({Key? key, required this.exercise, required this.user}) : super(key: key);
+  const VideoPage({Key? key, required this.exercise, required this.user, required this.finished}) : super(key: key);
 
   @override
   State<VideoPage> createState() => _VideoPageState();
@@ -34,18 +35,15 @@ class _VideoPageState extends State<VideoPage> {
     super.dispose();
   }
 
+  void startWorkOut(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => CameraScreen(exercise: widget.exercise, user: widget.user, finished: widget.finished,)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    //TODO: here send to CameraScreen the exercise
-    void startWorkOut(){
-      print(widget.exercise.name + "!!!!!!!!!!!!!!!!!!!");
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CameraScreen(exercise: widget.exercise, user: widget.user,)),
-      );
-    }
 
     return SafeArea(
       child: Scaffold(

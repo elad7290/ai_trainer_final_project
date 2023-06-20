@@ -36,14 +36,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void navigateToVideoPage(Exercise exercise) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => VideoPage(exercise: exercise, user: widget.user,)),
+      MaterialPageRoute(builder: (context) => VideoPage(exercise: exercise, user: widget.user, finished: initExercises,)),
     );
+
   }
 
+  //TODO: check if works initExercises instead of levelUpdated
   void navigateToQuestionnaire() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FitnessQuestionnaire(user: widget.user, levelUpdated: levelUpdated,)),
+      MaterialPageRoute(builder: (context) => FitnessQuestionnaire(user: widget.user, levelUpdated: initExercises,)),
     );
   }
 
