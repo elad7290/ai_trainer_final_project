@@ -42,6 +42,7 @@ class _MyProfileState extends State<MyProfile> {
             ));
     final navigator = Navigator.of(context);
     await editUser(emailController.text, passwordController.text, nameController.text, birthDateController.text, weightController.text, heightController.text,imageController.image, widget.user);
+    await waitTwoSeconds();
     navigator.pop();
     setState(() {
       clearData();
@@ -55,6 +56,10 @@ class _MyProfileState extends State<MyProfile> {
     birthDateController.clear();
     weightController.clear();
     heightController.clear();
+  }
+  Future<void> waitTwoSeconds() async {
+    await Future.delayed(const Duration(milliseconds: 2000));
+    // Code to be executed after the 2-second delay
   }
 
 

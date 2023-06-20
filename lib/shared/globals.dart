@@ -45,6 +45,7 @@ class AppColors {
   static const lightBlack = Colors.black87;
   static const white = Colors.white;
   static const errorColor = Colors.red;
+  static const successColor = Colors.green;
 
   static const white10 = Colors.white10;
   static const redAccent = Colors.redAccent;
