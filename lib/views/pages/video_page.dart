@@ -3,10 +3,13 @@ import 'package:ai_trainer/views/pages/camera_page.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 
-class VideoPage extends StatefulWidget {
-  Exercise exercise;
+import '../../models/user_model.dart';
 
-  VideoPage({Key? key, required this.exercise}) : super(key: key);
+class VideoPage extends StatefulWidget {
+  final Exercise exercise;
+  final MyUser user;
+
+  const VideoPage({Key? key, required this.exercise, required this.user}) : super(key: key);
 
   @override
   State<VideoPage> createState() => _VideoPageState();
@@ -40,7 +43,7 @@ class _VideoPageState extends State<VideoPage> {
       Navigator.pop(context);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CameraScreen(exercise: widget.exercise.name)),
+        MaterialPageRoute(builder: (context) => CameraScreen(exercise: widget.exercise, user: widget.user,)),
       );
     }
 

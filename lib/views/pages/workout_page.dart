@@ -36,7 +36,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   void navigateToVideoPage(Exercise exercise) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => VideoPage(exercise: exercise)),
+      MaterialPageRoute(builder: (context) => VideoPage(exercise: exercise, user: widget.user,)),
     );
   }
 

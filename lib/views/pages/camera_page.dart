@@ -1,17 +1,22 @@
+import 'package:ai_trainer/models/exercise_model.dart';
+import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../controllers/plan_controller.dart';
+import '../../models/plan_model.dart';
+import '../../shared/globals.dart';
 import '../widgets/excercise_count.dart';
 
 //import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 //import '../../shared/globals.dart';
 
 class CameraScreen extends StatefulWidget {
-  final String exercise;
-
-  const CameraScreen({Key? key, required this.exercise}) : super(key: key);
+  final Exercise exercise;
+  final MyUser user;
+  const CameraScreen({Key? key, required this.exercise, required this.user}) : super(key: key);
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -20,25 +25,32 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
   late List<CameraDescription> cameras;
-  late CameraController camera_controller;
-  bool isCameraInitialized = false;
   int direction = 1;
   int repetitions = 0;
   int sets = 0;
   String currentExercise = "";
-  //bool isLoading = false;
+  Plan? plan;
+  bool isPlanInitialized = false;
 
   @override
   void initState() {
+    initPlan();
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    initCamera();
+  }
+
+  void initPlan() async {
+    plan = await getPlan(widget.user);
+    setState(() {
+      if (plan != null) {
+        isPlanInitialized = true;
+      }
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    camera_controller.dispose();
     super.dispose();
   }
 
@@ -49,49 +61,17 @@ class _CameraScreenState extends State<CameraScreen>
   //   }
   // }
 
-  void initCamera() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Permission.camera.request();
-    cameras = await availableCameras();
-    camera_controller = CameraController(
-      cameras[direction],
-      ResolutionPreset.low,
-      enableAudio: false,
-    );
-    await camera_controller.initialize().then((value) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        isCameraInitialized = true;
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
-
-  void flip() {
-    setState(() {
-      direction = direction == 0 ? 1 : 0;
-      initCamera();
-    });
-  }
-
   void processResult(String result, String exe) {
-    // if (isLoading) {
-    //   return;
-    // }
     var decodedResult = jsonDecode(result);
     decodedResult.forEach((exercise, score) {
       setState(() {
         currentExercise = exercise;
         if (currentExercise == 'Nothing') {
-          //isLoading = false;
           return;
         }
         if (score > 0.99) {
-          if(sets<=3){
-            if (repetitions >= 30) {
+          if(sets<=plan!.sets){
+            if (repetitions >= widget.exercise.repetitions) {
               sets++;
               repetitions = 0;
             }
@@ -102,7 +82,6 @@ class _CameraScreenState extends State<CameraScreen>
           else{
             //TODO: done this page
           }
-          //isLoading = false;
           return;
         }
       });
@@ -111,12 +90,19 @@ class _CameraScreenState extends State<CameraScreen>
 
   @override
   Widget build(BuildContext context) {
-    String exe = widget.exercise.toLowerCase().replaceAll(RegExp(r'\s+'), '');
+    String exe = widget.exercise.name.toLowerCase().replaceAll(RegExp(r'\s+'), '');
     String temp = "lib/assets/$exe.html";
     return Scaffold(
-      appBar: AppBar(title: Text(widget.exercise)),
-      body: isCameraInitialized
-          ? Stack(
+      appBar: AppBar(
+        title: Text(
+          widget.exercise.name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: AppColors.orange),
+        ),
+        centerTitle: true,
+      ),
+      body: isPlanInitialized ?
+      Stack(
               children: [
                 Column(
                   children: <Widget>[
@@ -140,20 +126,19 @@ class _CameraScreenState extends State<CameraScreen>
                         //TODO: take sets and rep from DB
                         ExcerciseCount("Repetitions:   " +
                             repetitions.toString() +
-                            " / 30"),
+                            " / " + widget.exercise.repetitions.toString()),
                         SizedBox(
                           height: 10,
                         ),
-                        ExcerciseCount("Sets:   " + sets.toString() + " / 3"),
+                        ExcerciseCount("Sets:   " + sets.toString() + " / " + plan!.sets.toString()),
                       ],
                     ),
                   ),
                 )
               ],
             )
-          : const SizedBox(
-              height: 13,
-            ),
+          :
+          SizedBox(height: 15,)
     );
   }
 }
