@@ -2,7 +2,6 @@ import 'package:ai_trainer/models/exercise_model.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter/scheduler.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -146,21 +145,46 @@ class _CameraScreenState extends State<CameraScreen>
                   ),
                 ),
                 if (isFinished)
-                  Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'How nice you completed the exercise successfully',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: finishedExercise,
-                          child: Text('You are done'),
-                        ),
-                      ],
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: AppColors.black54,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'You completed the exercise successfully!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          ElevatedButton(
+                            onPressed: finishedExercise,
+                            child: Text(
+                              'Done',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
               ],
