@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../controllers/exercise_controller.dart';
 import '../../shared/globals.dart';
 import '../widgets/circle_percent.dart';
+import 'dart:math';
 
 
 class HomePage extends StatefulWidget {
@@ -17,9 +18,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   double percent = 0;
+  late double bmi;
 
   @override
   void initState() {
+    bmi = widget.user!.weight / pow((widget.user!.height) / 100, 2);
     initProgress();
     super.initState();
   }
@@ -47,6 +50,9 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 15.0,
+                ),
                 Text(
                   "Welcome, ${widget.user!.name}!",
                   style: const TextStyle(
@@ -64,6 +70,44 @@ class _HomePageState extends State<HomePage> {
                       color: AppColors.white
                   ),
                 ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                  width: 200,
+                  height: 110,
+                  margin: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.white54,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Your BMI:",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: AppColors.orangeAccent
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        bmi.toStringAsFixed(2),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(
                   height: 15.0,
                 ),
