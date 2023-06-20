@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../shared/globals.dart';
 import 'fitness_questionnaire.dart';
 
-
 class ChangeLevelPage extends StatefulWidget {
   const ChangeLevelPage({Key? key, required this.user}) : super(key: key);
   final MyUser user;
@@ -44,7 +43,7 @@ class _ChangeLevelPageState extends State<ChangeLevelPage> {
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: isLevelChanged ?
-         Column(
+         const Column(
           children: [
             Text(
               "Your level has been changed successfully!",
@@ -76,7 +75,7 @@ class _ChangeLevelPageState extends State<ChangeLevelPage> {
               width: 250,
               child: ElevatedButton(
                 onPressed: navigateToQuestionnaire,
-                child:  Row(
+                child: const Row(
                     children: [
                       Text('Fill The Questionnaire', style: TextStyle(fontSize: 16,)),
                       Icon(Icons.arrow_right),

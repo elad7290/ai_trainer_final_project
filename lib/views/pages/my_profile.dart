@@ -146,12 +146,12 @@ class _MyProfileState extends State<MyProfile> {
                 //   ),
                 // ),
                 ImageWidget(controller: imageController, profile_image: widget.user.profile_image),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 EditText(
                   label: 'Name',
-                  placeHoler: widget.user.name,
+                  placeHolder: widget.user.name,
                   isPassword: false,
                   controller: nameController,
                   validator: Validators.validateName,
@@ -159,7 +159,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 EditText(
                   label: 'Email',
-                  placeHoler: widget.user.email,
+                  placeHolder: widget.user.email,
                   isPassword: false,
                   validator: Validators.validateEmail,
                   controller: emailController,
@@ -167,7 +167,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 EditText(
                   label: 'Password',
-                  placeHoler: '*******',
+                  placeHolder: '*******',
                   isPassword: true,
                   controller: passwordController,
                   validator: Validators.validatePassword,
@@ -175,7 +175,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 EditText(
                   label: 'Birth Date',
-                  placeHoler:
+                  placeHolder:
                       DateFormat('dd-MM-yyyy').format(widget.user.birthDate),
                   isPassword: false,
                   controller: birthDateController,
@@ -184,7 +184,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 EditText(
                   label: 'Weight',
-                  placeHoler: widget.user.weight.toString(),
+                  placeHolder: widget.user.weight.toString(),
                   isPassword: false,
                   controller: weightController,
                   validator: Validators.validateWeight,
@@ -192,13 +192,13 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 EditText(
                   label: 'Hight',
-                  placeHoler: widget.user.height.toString(),
+                  placeHolder: widget.user.height.toString(),
                   isPassword: false,
                   controller: heightController,
                   validator: Validators.validateHeight,
                   textInputType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -206,7 +206,15 @@ class _MyProfileState extends State<MyProfile> {
                   children: [
                     ElevatedButton(
                       onPressed: saveChanges,
-                      child: Text(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text(
                         'SAVE',
                         style: TextStyle(
                           fontSize: 15,
@@ -214,18 +222,10 @@ class _MyProfileState extends State<MyProfile> {
                           color: AppColors.white,
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 50,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

@@ -1,6 +1,5 @@
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
-
 import '../../shared/globals.dart';
 
 class CirclePercentWidget extends StatefulWidget {
@@ -45,10 +44,10 @@ class _CirclePercentWidgetState extends State<CirclePercentWidget> {
             lineWidth: 12.0,
             animation: true,
             percent: widget.percent,
-            center: new Text(
+            center: Text(
               getPercentText(),
               style:
-              new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
             circularStrokeCap: CircularStrokeCap.round,
             progressColor: getProgressColor(),

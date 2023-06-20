@@ -82,8 +82,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
               width: 250,
               child: ElevatedButton(
                 onPressed: navigateToQuestionnaire,
-                child: Row(
-                    children: const [
+                child: const Row(
+                    children: [
                       Text('Fill The Questionnaire', style: TextStyle(fontSize: 16,)),
                       Icon(Icons.arrow_right),
                     ]
@@ -105,7 +105,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               child: ListTile(
                 title: Text(
                   exercise.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 22.0,
                   ),
                   textAlign: TextAlign.center,

@@ -57,7 +57,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             sideTitles: SideTitles(
               showTitles: true,
               interval: 1,
-              getTitlesWidget: LeftTitelWidget,
+              getTitlesWidget: LeftTitleWidget,
               reservedSize: 42,
             ),
           ),
@@ -97,7 +97,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     );
   }
 
-  Widget LeftTitelWidget(double value, TitleMeta meta) {
+  Widget LeftTitleWidget(double value, TitleMeta meta) {
     const style = TextStyle(
         fontWeight: FontWeight.bold, fontSize: 10, color: AppColors.black);
     String text;

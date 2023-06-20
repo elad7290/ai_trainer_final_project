@@ -22,13 +22,13 @@ class SideMenuTile extends StatelessWidget {
     return Stack(
       children: [
         AnimatedPositioned(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.fastOutSlowIn,
           height: 56,
           width: isActive? 288: 0,
           left: 0,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.orange,
               borderRadius: BorderRadius.all(Radius.circular(10)),
 
@@ -44,7 +44,7 @@ class SideMenuTile extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(color: AppColors.lightWhite),
+            style: const TextStyle(color: AppColors.lightWhite),
           ),
         ),
       ],

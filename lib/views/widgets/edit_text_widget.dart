@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../shared/globals.dart';
 
 class EditText extends StatefulWidget {
-  const EditText({super.key, required this.label, required this.placeHoler, required this.isPassword, required this.controller, required this.validator, required this.textInputType});
+  const EditText({super.key, required this.label, required this.placeHolder, required this.isPassword, required this.controller, required this.validator, required this.textInputType});
   final String label;
-  final String placeHoler;
+  final String placeHolder;
   final bool isPassword;
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -22,7 +21,7 @@ class _EditTextState extends State<EditText> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         bottom: 30,
       ),
       child: TextFormField(
@@ -42,11 +41,11 @@ class _EditTextState extends State<EditText> {
                 },
                 icon: isObscurePassword? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
             ): null,
-            contentPadding: EdgeInsets.only(bottom: 5),
+            contentPadding: const EdgeInsets.only(bottom: 5),
             labelText: widget.label,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: widget.placeHoler,
-            hintStyle: TextStyle(
+            hintText: widget.placeHolder,
+            hintStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: AppColors.grey,

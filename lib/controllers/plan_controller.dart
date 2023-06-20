@@ -1,5 +1,4 @@
 import 'package:ai_trainer/models/user_model.dart';
-
 import '../db_access/plan_db.dart';
 import '../models/plan_model.dart';
 

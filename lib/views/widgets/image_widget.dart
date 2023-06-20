@@ -70,7 +70,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                     Border.all(width: 4, color: AppColors.white),
                     color: AppColors.orangeAccent),
                 child: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   color: AppColors.black,
                   onPressed: pickImage,
                 ),

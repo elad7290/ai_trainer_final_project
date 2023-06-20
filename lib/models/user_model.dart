@@ -11,9 +11,6 @@ class MyUser {
   List<ProgressPoint> progress_points;
   String? profile_image;
 
-  //final map<int,double>
-  //final Imag pic
-
   MyUser(
       {required this.name,
       required this.email,

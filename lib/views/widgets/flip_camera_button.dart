@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../shared/globals.dart';
 
 Widget FlipCameraButton(VoidCallback flip){
@@ -12,7 +10,7 @@ Widget FlipCameraButton(VoidCallback flip){
         margin: const EdgeInsets.only(left: 20, bottom: 20),
         width: 50,
         height: 50,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.yellow,
             boxShadow: [
@@ -23,7 +21,7 @@ Widget FlipCameraButton(VoidCallback flip){
               )
             ]
         ),
-        child: Center(
+        child: const Center(
           child: Icon(Icons.flip_camera_ios_outlined, color: Colors.black54,),
         ),
       ),

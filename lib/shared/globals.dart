@@ -4,7 +4,6 @@ import 'package:ai_trainer/views/pages/info_page.dart';
 import 'package:ai_trainer/views/pages/my_profile.dart';
 import 'package:ai_trainer/views/pages/workout_page.dart';
 import 'package:flutter/material.dart';
-
 import '../views/pages/change_level.dart';
 
 List<Map<String,dynamic>> menu = [

@@ -105,7 +105,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
                 child: Transform.scale(
                   scale: scaleAnimation.value,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    borderRadius: const BorderRadius.all(Radius.circular(24)),
                     child: current_page,
                   ),
                 ),

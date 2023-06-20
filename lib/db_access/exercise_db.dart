@@ -8,17 +8,6 @@ import '../controllers/user_controller.dart';
 class ExerciseDB {
   static var db = FirebaseFirestore.instance;
 
-  // static Future<Exercise?> getExerciseByRef(DocumentReference<Map<String, dynamic>> exRef) async {
-  //   var snapshot = await exRef.get();
-  //   if (snapshot.exists) {
-  //     final data = snapshot.data() as Map<String, dynamic>;
-  //     Exercise ex = Exercise.fromJson(data);
-  //     return ex;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   static Future<Exercise?> getExerciseById(String id) async{
     var exRef = FirebaseFirestore.instance.collection('exercises').doc(id);
     var snapshot = await exRef.get();
@@ -95,6 +84,5 @@ class ExerciseDB {
     });
     
   }
-
 
 }

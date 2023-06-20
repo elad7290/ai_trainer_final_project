@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../../controllers/exercise_controller.dart';
 import '../../controllers/plan_controller.dart';
 import '../../models/plan_model.dart';
 import '../../shared/globals.dart';
 import '../widgets/excercise_count.dart';
-//import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
-//import '../../shared/globals.dart';
-
 
 class CameraScreen extends StatefulWidget {
   final Exercise exercise;
@@ -56,13 +52,6 @@ class _CameraScreenState extends State<CameraScreen>
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.resumed) {
-  //     initCamera();
-  //   }
-  // }
 
   void processResult(String result, String exe) {
     var decodedResult = jsonDecode(result);
@@ -136,11 +125,11 @@ class _CameraScreenState extends State<CameraScreen>
                     alignment: Alignment.topRight,
                     child: Column(
                       children: [
-                        ExcerciseCount("Repetitions:   $repetitions / ${widget.exercise.repetitions}"),
+                        ExerciseCount("Repetitions:   $repetitions / ${widget.exercise.repetitions}"),
                         const SizedBox(
                           height: 10,
                         ),
-                        ExcerciseCount("Sets:   $sets / ${plan!.sets}"),
+                        ExerciseCount("Sets:   $sets / ${plan!.sets}"),
                       ],
                     ),
                   ),
@@ -154,13 +143,13 @@ class _CameraScreenState extends State<CameraScreen>
                         color: AppColors.black54,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      margin: EdgeInsets.all(8.0),
-                      padding: EdgeInsets.all(16.0),
+                      margin: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'You completed the exercise successfully!',
+                            'You completed the exercise Successfully!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20.0,
@@ -170,18 +159,18 @@ class _CameraScreenState extends State<CameraScreen>
                           const SizedBox(height: 16.0),
                           ElevatedButton(
                             onPressed: finishedExercise,
-                            child: Text(
-                              'Done',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )
+                            ),
+                            child: const Text(
+                              'Done',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -191,7 +180,7 @@ class _CameraScreenState extends State<CameraScreen>
               ],
             )
           :
-          SizedBox(height: 15,),
+          const SizedBox(height: 15,),
     );
   }
 }

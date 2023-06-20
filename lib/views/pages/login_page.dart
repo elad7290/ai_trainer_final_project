@@ -9,7 +9,6 @@ import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
 import '../widgets/wave_widget.dart';
 
-
 class LoginPage extends StatefulWidget {
 
   final VoidCallback onClickedSignUp;
@@ -99,11 +98,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 100.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 100.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'Login',
                     style: TextStyle(

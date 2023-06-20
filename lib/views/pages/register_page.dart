@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       // on success - navigate to home page
       navigator.pushReplacement(
-          MaterialPageRoute(builder: (context) => EntryPoint()));
+          MaterialPageRoute(builder: (context) => const EntryPoint()));
     }
   }
 

@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   width: 200,
                   height: 110,
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: AppColors.white54,
                     borderRadius: BorderRadius.circular(10.0),
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         bmi.toStringAsFixed(2),
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 22.0,
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,
@@ -113,9 +113,9 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 3,
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: AppColors.white54,
                     borderRadius: BorderRadius.circular(10.0),
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       const Text(
-                        "Your Progress From the beginning:",
+                        "Your Progress From the Beginning:",
                         style: TextStyle(
                             fontSize: 18,
                             color: AppColors.orangeAccent
@@ -142,9 +142,9 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
                   height: MediaQuery.of(context).size.height / 2.7,
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: AppColors.white54,
                     borderRadius: BorderRadius.circular(10.0),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../shared/globals.dart';
 
-Widget ExcerciseCount(String text) {
+Widget ExerciseCount(String text) {
   return Text(
     text,
-    style: TextStyle(
+    style: const TextStyle(
         fontSize: 20,
         color: AppColors.black,
         fontWeight: FontWeight.bold,

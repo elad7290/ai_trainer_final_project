@@ -20,19 +20,19 @@ class InfoCard extends StatelessWidget {
       leading: CircleAvatar(
         backgroundImage: image != null ? NetworkImage(image!) : null,
         backgroundColor: AppColors.orange,
-        child: image == null ? Icon(
+        child: image == null ? const Icon(
           Icons.person,
           color: AppColors.lightWhite ,
         ) : null,
       ),
       title: Text(
         name,
-        style: TextStyle(
+        style: const TextStyle(
             color: AppColors.lightWhite
         ),
       ),
       subtitle: Text(email,
-        style: TextStyle(color: AppColors.lightWhite),
+        style: const TextStyle(color: AppColors.lightWhite),
       ),
     );
   }

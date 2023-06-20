@@ -188,13 +188,13 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
                     "Based on your answers, your fitness level is $_fitnessLevel!",
                     style: const TextStyle(fontSize: 24.0),
                   ),
-                  SizedBox(height: 16.0,),
+                  const SizedBox(height: 16.0,),
                   ElevatedButton(
                     onPressed: out,
-                    child: Text('Done', style: TextStyle(fontSize: 22),),
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(Size(250.0, 50.0),),
+                      fixedSize: MaterialStateProperty.all(const Size(250.0, 50.0),),
                     ),
+                    child: const Text('Done', style: TextStyle(fontSize: 22),),
                   ),
                 ],
               ),

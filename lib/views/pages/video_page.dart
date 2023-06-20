@@ -2,7 +2,6 @@ import 'package:ai_trainer/models/exercise_model.dart';
 import 'package:ai_trainer/views/pages/camera_page.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/user_model.dart';
 
 class VideoPage extends StatefulWidget {
@@ -22,7 +21,7 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-    BetterPlayerConfiguration betterPlayerConfiguration = BetterPlayerConfiguration(aspectRatio: 16/9, fit: BoxFit.contain,autoPlay: true);
+    BetterPlayerConfiguration betterPlayerConfiguration = const BetterPlayerConfiguration(aspectRatio: 16/9, fit: BoxFit.contain,autoPlay: true);
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(BetterPlayerDataSourceType.network, widget.exercise.videoURL);
     betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
     betterPlayerController.setupDataSource(dataSource);
@@ -83,7 +82,7 @@ class _VideoPageState extends State<VideoPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  minimumSize: Size(double.infinity, 0),
+                  minimumSize: const Size(double.infinity, 0),
                 ),
                 child: const Text(
                   'Start',

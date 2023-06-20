@@ -37,6 +37,7 @@ class _SideMenuState extends State<SideMenu> {
       final navigator = Navigator.of(context);
       navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
     }
+
     return Scaffold(
       body: Container(
         width: 288,
@@ -51,8 +52,8 @@ class _SideMenuState extends State<SideMenu> {
                     email: widget.user.email,
                     image: widget.user.profile_image,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 24),
+                const Padding(
+                  padding: EdgeInsets.only(left: 24),
                   child: Divider(
                     color: AppColors.lightWhite,
                     height: 1,
