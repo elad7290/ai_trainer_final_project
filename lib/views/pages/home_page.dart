@@ -9,7 +9,7 @@ import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
-  final MyUser? user;
+  final MyUser user;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    bmi = widget.user!.weight / pow((widget.user!.height) / 100, 2);
+    bmi = widget.user.weight / pow((widget.user.height) / 100, 2);
     initProgress();
     super.initState();
   }
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   height: 15.0,
                 ),
                 Text(
-                  "Welcome, ${widget.user!.name}!",
+                  "Welcome, ${widget.user.name}!",
                   style: const TextStyle(
                       fontSize: 30,
                       color: AppColors.white
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Expanded(child: LineChartWidget(points: widget.user!.progress_points)),
+                      Expanded(child: LineChartWidget(points: widget.user.progress_points)),
                     ],
                   ),
                 ),

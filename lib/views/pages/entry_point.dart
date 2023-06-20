@@ -65,7 +65,7 @@ class _EntryPointState extends State<EntryPoint> with SingleTickerProviderStateM
     setState(() {
       if(user!= null){
         isUserInitialized = true;
-        current_page = HomePage(user: user,);
+        current_page = HomePage(user: user!,);
       }
     });
   }
