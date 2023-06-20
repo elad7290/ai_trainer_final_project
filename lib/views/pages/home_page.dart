@@ -6,7 +6,6 @@ import '../../shared/globals.dart';
 import '../widgets/circle_percent.dart';
 import 'dart:math';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
   final MyUser user;
