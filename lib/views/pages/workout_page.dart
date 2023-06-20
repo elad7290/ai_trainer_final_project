@@ -41,7 +41,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   }
 
-  //TODO: check if works initExercises instead of levelUpdated
   void navigateToQuestionnaire() {
     Navigator.push(
       context,

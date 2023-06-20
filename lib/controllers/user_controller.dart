@@ -105,8 +105,7 @@ Future editUser(String? email, String? password, String? name,
     await UserDB.editAuthUser(email, password);
     await UserDB.editMyUser(json);
     updateUser(user, json);
-    Utils.showSuccessSnackBar("Your personal details have been successfully updated");
-    //TODO: add indicator "completed!"
+    Utils.showSuccessSnackBar("Your personal details have been successfully updated.");
   } on FirebaseAuthException catch (e) {
     if (e.code == "email-already-in-use") {
       Utils.showSnackBar("This email is already in use.");
