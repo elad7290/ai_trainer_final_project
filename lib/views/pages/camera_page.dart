@@ -9,7 +9,6 @@ import '../../controllers/plan_controller.dart';
 import '../../models/plan_model.dart';
 import '../../shared/globals.dart';
 import '../widgets/excercise_count.dart';
-
 //import 'package:ai_trainer/views/widgets/flip_camera_button.dart';
 //import '../../shared/globals.dart';
 
