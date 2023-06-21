@@ -43,8 +43,8 @@ class _ChangeLevelPageState extends State<ChangeLevelPage> {
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: isLevelChanged ?
-         const Column(
-          children: [
+         Column(
+          children: const [
             Text(
               "Your level has been changed successfully!",
               textAlign: TextAlign.center,
@@ -75,8 +75,8 @@ class _ChangeLevelPageState extends State<ChangeLevelPage> {
               width: 250,
               child: ElevatedButton(
                 onPressed: navigateToQuestionnaire,
-                child: const Row(
-                    children: [
+                child: Row(
+                    children: const [
                       Text('Fill The Questionnaire', style: TextStyle(fontSize: 16,)),
                       Icon(Icons.arrow_right),
                     ]

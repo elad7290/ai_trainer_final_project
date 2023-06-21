@@ -2,6 +2,7 @@ import 'package:ai_trainer/models/exercise_model.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
 import '../../controllers/exercise_controller.dart';
@@ -33,9 +34,31 @@ class _CameraScreenState extends State<CameraScreen>
 
   @override
   void initState() {
+    initCamera();
     initPlan();
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  void initCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Permission.camera.request();
+    // cameras = await availableCameras();
+    // camera_controller = CameraController(
+    //   cameras[direction],
+    //   ResolutionPreset.low,
+    //   enableAudio: false,
+    // );
+    // await camera_controller.initialize().then((value) {
+    //   if (!mounted) {
+    //     return;
+    //   }
+    //   setState(() {
+    //     isCameraInitialized = true;
+    //   });
+    // }).catchError((e) {
+    //   print(e);
+    // });
   }
 
   void initPlan() async {

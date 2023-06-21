@@ -98,11 +98,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            const Padding(
-              padding: EdgeInsets.only(top: 100.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 100.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Text(
                     'Login',
                     style: TextStyle(
