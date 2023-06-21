@@ -1,7 +1,6 @@
 import 'package:ai_trainer/models/exercise_model.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
@@ -23,8 +22,6 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
-  late List<CameraDescription> cameras;
-  int direction = 1;
   int repetitions = 0;
   int sets = 0;
   String currentExercise = "";

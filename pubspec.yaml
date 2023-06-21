@@ -41,13 +41,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.2.4
   email_validator: ^2.1.17
-  camera: ^0.10.5
+  #camera: ^0.10.5
   intl: ^0.18.1
   validators: ^3.0.0
   cloud_firestore: ^4.7.1
   better_player: ^0.0.83
   fl_chart: ^0.62.0
-  workmanager: ^0.5.1
+  #workmanager: ^0.5.1
   image_picker: ^0.8.7+5
   firebase_storage: ^11.2.2
   percent_indicator: ^4.2.3
