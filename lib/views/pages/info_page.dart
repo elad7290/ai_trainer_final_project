@@ -43,19 +43,21 @@ class _InfoState extends State<Info> {
         centerTitle: true,
       ),
       body: isPlanInitialized ?
-      Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20,),
-            Text(
-              plan!.information,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20,),
+              Text(
+                plan!.information,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 24),
+              ),
+            ],
+          ),
         ),
       )
           :
