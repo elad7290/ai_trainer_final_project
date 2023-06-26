@@ -20,7 +20,7 @@ class Validators{
       return "Enter numbers only";
     }
     if(w<0){
-      return "Enter a valid weight";
+      return "Enter a valid height";
     }
     return null;
   }
