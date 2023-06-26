@@ -81,8 +81,8 @@ class _CameraScreenState extends State<CameraScreen>
         return;
       }
       if (score > 0.99) {
-        if(sets <= plan!.sets){
-          if (repetitions >= widget.exercise.repetitions) {
+        if(sets < plan!.sets){
+          if (repetitions > widget.exercise.repetitions) {
             setState(() {
               sets++;
               repetitions = 0;
