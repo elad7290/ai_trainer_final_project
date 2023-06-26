@@ -42,6 +42,7 @@ class _InfoState extends State<Info> {
         ),
         centerTitle: true,
       ),
+
       body: isPlanInitialized ?
       SingleChildScrollView(
         child: Padding(

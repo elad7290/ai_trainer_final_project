@@ -56,9 +56,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.2
-  rxdart: ^0.27.7
-  flutter_automation: ^2.0.0
+  #mockito: ^5.4.2
+  #rxdart: ^0.27.7
+  #flutter_automation: ^2.0.0
 
 
 
