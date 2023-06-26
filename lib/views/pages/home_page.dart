@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 2.7,
+                  height: MediaQuery.of(context).size.height / 2.5,
                   margin: const EdgeInsets.all(8.0),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(16.0),
