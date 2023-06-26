@@ -78,6 +78,12 @@ flutter:
     - lib/assets/index.html
     - lib/assets/crunches.html
     - lib/assets/pushups.html
+    - lib/assets/squats.html
+    - lib/assets/bicepcurls.html
+    - lib/assets/latheralraises.html
+    - lib/assets/dips.html
+    - lib/assets/benchdips.html
+    - lib/assets/pullups.html
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
