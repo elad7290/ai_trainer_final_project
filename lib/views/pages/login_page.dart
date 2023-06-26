@@ -97,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: AppColors.black,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Row(
