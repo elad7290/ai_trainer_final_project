@@ -23,7 +23,7 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
   int repetitions = 0;
-  int sets = 0;
+  int sets = 1;
   String currentExercise = "";
   Plan? plan;
   bool isPlanInitialized = false;
@@ -81,8 +81,8 @@ class _CameraScreenState extends State<CameraScreen>
         return;
       }
       if (score > 0.99) {
-        if(sets < plan!.sets){
-          if (repetitions > widget.exercise.repetitions) {
+        if(sets <= plan!.sets){
+          if (repetitions >= (widget.exercise.repetitions - 1)) {
             setState(() {
               sets++;
               repetitions = 0;
