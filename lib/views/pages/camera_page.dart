@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:convert';
 import 'package:teachable/teachable.dart';
+import 'package:wakelock/wakelock.dart';
 import '../../controllers/exercise_controller.dart';
 import '../../controllers/plan_controller.dart';
 import '../../models/plan_model.dart';
@@ -31,6 +32,7 @@ class _CameraScreenState extends State<CameraScreen>
 
   @override
   void initState() {
+    Wakelock.enable();
     initCamera();
     initPlan();
     super.initState();
@@ -70,6 +72,7 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    Wakelock.disable();
     super.dispose();
   }
 

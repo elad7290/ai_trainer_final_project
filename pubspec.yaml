@@ -50,6 +50,7 @@ dependencies:
   firebase_storage: ^11.2.2
   percent_indicator: ^4.2.3
   permission_handler: ^10.3.0
+  wakelock: ^0.6.2
 
 
 
