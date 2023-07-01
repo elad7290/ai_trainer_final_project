@@ -69,18 +69,6 @@ void logout() {
   UserDB.logout();
 }
 
-Future<MyUser?> getUserByRef(dynamic userRef) async {
-  try {
-    MyUser? user = await UserDB.getUserByRef(userRef);
-    if (user != null) {
-      return user;
-    }
-  } catch (e) {
-    print("error in getUserByRef");
-  }
-  return null;
-}
-
 Future changeUserLevel(MyUser user, int level) async {
   try {
     await UserDB.changeLevel(level);

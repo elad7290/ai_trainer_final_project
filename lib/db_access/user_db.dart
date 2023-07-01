@@ -63,17 +63,6 @@ class UserDB {
     auth.signOut();
   }
 
-  static Future<MyUser?> getUserByRef(DocumentReference<Map<String, dynamic>> userRef) async {
-    var snapshot = await userRef.get();
-    if (snapshot.exists) {
-      final data = snapshot.data() as Map<String, dynamic>;
-      MyUser user = MyUser.fromJson(data);
-      return user;
-    } else {
-      return null;
-    }
-  }
-
   static Future changeLevel(int level) async{
     String uid = getCurrentAuthUser().uid;
     var userRef = db.collection('users').doc(uid);

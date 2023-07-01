@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         ),
       );
     } else {
+      // login or register
       return MaterialApp(
         scaffoldMessengerKey: Utils.messengerKey,
         debugShowCheckedModeBanner: false,

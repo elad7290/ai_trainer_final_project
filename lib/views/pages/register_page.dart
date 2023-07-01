@@ -27,13 +27,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  //
   final nameController = TextEditingController();
   final birthDateController = TextEditingController();
   final weightController = TextEditingController();
   final heightController = TextEditingController();
   final imageController = ImageController();
-
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -41,14 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-    //
     nameController.dispose();
     birthDateController.dispose();
     weightController.dispose();
     heightController.dispose();
-
-
-
     super.dispose();
   }
 

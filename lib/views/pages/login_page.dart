@@ -1,10 +1,10 @@
 import 'package:ai_trainer/views/pages/entry_point.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/user_controller.dart';
 import '../../shared/globals.dart';
+import '../../shared/validators.dart';
 import '../widgets/sign_in_button_widget.dart';
 import '../widgets/textfield_widget.dart';
 import '../widgets/wave_widget.dart';
@@ -33,24 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  String? validEmail(String? email) {
-    if (email != null && !EmailValidator.validate(email.trim())){
-      return "Enter a valid email";
-    }
-    else{
-      return null;
-    }
-  }
-
-  String? validPassword(String? pass) {
-    if (pass != null && pass.length<6){
-      return "Enter min 6 characters";
-    }
-    else{
-      return null;
-    }
   }
 
   Future _login() async {
@@ -128,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                           prefixIconData: Icons.mail_outline,
                           password: false,
                           controller: emailController,
-                          validator: validEmail,
+                          validator: Validators.validateEmail,
                           textInputType: TextInputType.emailAddress,
                         ),
                         const SizedBox(
@@ -140,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                           prefixIconData: Icons.lock_outline,
                           password: true,
                           controller: passwordController,
-                          validator: validPassword,
+                          validator: Validators.validatePassword,
                         ),
                         const SizedBox(
                           height: 10.0,

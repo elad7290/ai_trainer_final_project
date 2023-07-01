@@ -26,7 +26,7 @@ class Validators{
   }
 
   static String? validateEmail(String? email) {
-    if (email != null && !EmailValidator.validate(email)) {
+    if (email != null && !EmailValidator.validate(email.trim())) {
       return "Enter a valid email";
     } else {
       return null;

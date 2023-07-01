@@ -23,21 +23,14 @@ class _SideMenuState extends State<SideMenu> {
 
   Map<String,dynamic> selectedMenu= menu.first;
 
-
-  @override
-  void initState() {
-    super.initState();
+  Future _logout() async{
+    logout();
+    final navigator = Navigator.of(context);
+    navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
   }
 
   @override
   Widget build(BuildContext context) {
-
-    Future _logout() async{
-      logout();
-      final navigator = Navigator.of(context);
-      navigator.pushReplacement(MaterialPageRoute(builder: (context) => const AuthPage()));
-    }
-
     return Scaffold(
       body: Container(
         width: 288,
