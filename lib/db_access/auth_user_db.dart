@@ -25,13 +25,6 @@ class AuthUserDB {
     return auth.currentUser!;
   }
 
-  // static Future<User?> getAuthUser(String email, String password) async {
-  //   UserCredential userCredential = await auth
-  //       .signInWithEmailAndPassword(email: email, password: password);
-  //   User? user = userCredential.user;
-  //   return user;
-  // }
-
   static void logout() {
     auth.signOut();
   }
