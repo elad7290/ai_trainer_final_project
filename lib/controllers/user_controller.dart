@@ -3,14 +3,15 @@ import 'package:ai_trainer/controllers/exercise_controller.dart';
 import 'package:ai_trainer/controllers/image_controller.dart';
 import 'package:ai_trainer/models/user_model.dart';
 import 'package:intl/intl.dart';
-import '../db_access/user_db.dart';
+import '../db_access/auth_user_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../db_access/my_user_db.dart';
 import '../shared/utils.dart';
 
 Future<User?> login(String email, String password) async {
   try {
     User? user =
-        await UserDB.login(email: email.trim(), password: password.trim());
+        await AuthUserDB.login(email: email.trim(), password: password.trim());
     if (user != null) {
       return user;
     }
@@ -28,7 +29,7 @@ Future<String?> register(String email, String password, String name,
     String birthDate, String weight, String height,File? image) async {
   try {
     User? authUser =
-        await UserDB.register(email: email.trim(), password: password.trim());
+        await AuthUserDB.register(email: email.trim(), password: password.trim());
     if (authUser != null) {
       MyUser myUser = MyUser(
           name: name,
@@ -40,9 +41,9 @@ Future<String?> register(String email, String password, String name,
           progress_points: [],
           profile_image: await ImageController.uploadImageToStorage(image));
       try {
-        await UserDB.createDoc(myUser, authUser);
+        await MyUserDB.create(myUser, authUser);
       } catch (e) {
-        UserDB.deleteAuthUser(authUser);
+        AuthUserDB.delete(authUser);
         return e.toString();
       }
     }
@@ -53,12 +54,12 @@ Future<String?> register(String email, String password, String name,
 }
 
 User getUserAuth() {
-  return UserDB.getCurrentAuthUser();
+  return AuthUserDB.getCurrentUser();
 }
 
 Future<MyUser?> getUserInfo() async {
   try {
-    return await UserDB.getInfo();
+    return await MyUserDB.getInfo();
   } catch (e) {
     print(e.toString());
     return null;
@@ -66,12 +67,12 @@ Future<MyUser?> getUserInfo() async {
 }
 
 void logout() {
-  UserDB.logout();
+  AuthUserDB.logout();
 }
 
 Future changeUserLevel(MyUser user, int level) async {
   try {
-    await UserDB.changeLevel(level);
+    await MyUserDB.changeLevel(level);
     user.level = level;
     await deleteExercises();
     await initialExercises(user);
@@ -90,8 +91,8 @@ Future editUser(String? email, String? password, String? name,
   if(height!=null && height!='') json['height'] = double.parse(height);
   if(image!=null) json['profile_image'] = await ImageController.uploadImageToStorage(image);
   try{
-    await UserDB.editAuthUser(email, password);
-    await UserDB.editMyUser(json);
+    await AuthUserDB.editUser(email, password);
+    await MyUserDB.editUser(json);
     updateUser(user, json);
     Utils.showSuccessSnackBar("Your personal details have been successfully updated.");
   } on FirebaseAuthException catch (e) {

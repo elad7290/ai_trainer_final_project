@@ -99,10 +99,9 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
     } else {
       _fitnessLevel = "Advanced";
     }
-    saveUserLevel();
   }
 
-  void saveUserLevel() async{
+  Future saveUserLevel() async{
     int level = 0;
     switch(_fitnessLevel){
       case "Beginner":
@@ -119,8 +118,10 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
     widget.levelUpdated();
   }
 
-  void out() {
-    Navigator.pop(context);
+  void out() async {
+    final navigator = Navigator.of(context);
+    await saveUserLevel();
+    navigator.pop();
   }
 
   @override
