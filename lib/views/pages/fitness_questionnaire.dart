@@ -120,7 +120,18 @@ class FitnessQuestionnaireState extends State<FitnessQuestionnaire> {
 
   void out() async {
     final navigator = Navigator.of(context);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.orange,
+            strokeWidth: 3,
+          ),
+        )
+    );
     await saveUserLevel();
+    navigator.pop(); // pop circle
     navigator.pop();
   }
 
